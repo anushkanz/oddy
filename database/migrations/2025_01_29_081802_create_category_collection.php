@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         // Create the 'categories' collection
-        Schema::create('locations', function (Blueprint $collection) {
+        Schema::create('categories', function (Blueprint $collection) {
             // Unique ID (automatically created by MongoDB)
             $collection->index('_id');
             // Location details
