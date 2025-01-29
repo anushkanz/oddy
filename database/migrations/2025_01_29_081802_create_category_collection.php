@@ -18,6 +18,7 @@ return new class extends Migration
             // Location details
             $collection->string('name');
             $collection->comment('description');
+            $collection->string('slug');
     
             // Timestamps
             $collection->timestamps();

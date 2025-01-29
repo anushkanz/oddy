@@ -12,7 +12,8 @@ class Category extends Model
     // Fields that can be mass-assigned
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'slug'
     ];
 
     // Timestamps
