@@ -17,7 +17,7 @@ return new class extends Migration
             $collection->index('_id');
             // Location details
             $collection->string('name');
-            $collection->string('address');
+            $collection->comment('address');
             $collection->string('city');
             $collection->string('country');
             $collection->double('latitude');

@@ -17,7 +17,7 @@ return new class extends Migration
             $collection->index('_id');
             // Location details
             $collection->string('name');
-            $collection->string('description');
+            $collection->comment('description');
     
             // Timestamps
             $collection->timestamps();

@@ -21,7 +21,7 @@ return new class extends Migration
 
             // Instructor details
             $collection->string('title');
-            $collection->string('description');
+            $collection->comment('description');
 
             // Reference to the Category collection (if classes are also category)
             $collection->foreignId('category_id')->constrained('category')->onDelete('cascade');

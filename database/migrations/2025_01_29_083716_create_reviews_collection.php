@@ -13,19 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        // Create the 'instructors' collection
-        Schema::create('instructors', function (Blueprint $collection) {
+        // Create the 'reviews' collection
+        Schema::create('reviews', function (Blueprint $collection) {
             // Unique ID (automatically created by MongoDB)
             $collection->index('_id');
 
-            // Reference to the Users collection (if instructors are also users)
+            // Reference to the Users collection (if reviews are also users)
             $collection->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
+            // Reference to the Classes collection (if reviews are also users)
+            $collection->foreignId('class_id')->constrained('classes')->onDelete('cascade');
+
             // Instructor details
-            $collection->string('name');
-            $collection->comment('bio')->nullable();
-            $collection->array('skills')->nullable(); // Array of skills (e.g., ["yoga", "painting"])
-            $collection->string('profile_picture')->nullable(); // URL to profile picture
+            $collection->integer('rating');
+            $collection->comment('comment');
 
             // Timestamps
             $collection->timestamps();
@@ -39,7 +40,7 @@ return new class extends Migration
      */
     public function down()
     {
-        // Drop the 'instructors' collection
-        Schema::drop('instructors');
+        // Drop the 'reviews' collection
+        Schema::drop('reviews');
     }
 };
