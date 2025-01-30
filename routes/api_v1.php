@@ -1,5 +1,4 @@
 <?php
-    use App\Http\Controllers\Api\V1\CustomAuthController;
-    use App\Http\Controllers\Api\V1\CustomController;
+    use App\Http\Controllers\Api\V1\UsersController;
 
     Route::apiResource('users', UsersController::class);
