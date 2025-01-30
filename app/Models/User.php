@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Models;
+use MongoDB\Laravel\Auth\User as Authenticatable;
 
-use MongoDB\Laravel\Eloquent\Model;
-
-class User extends Model
+class User extends Authenticatable
 {
     protected $collection = 'users'; // MongoDB collection name
     protected $primaryKey = '_id'; // MongoDB primary key

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Hash;
 use Session;
 use App\Models\User;
 use App\Models\UserVerify;
 use App\Models\Transporter;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use Mail; 
@@ -31,12 +32,12 @@ class CustomAuthController extends Controller
     public function customLogin(Request $request)
     {
        $validator =  $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
     
         $credentials = $request->only('email', 'password');
-        
+
         if (Auth::attempt($credentials)) {
           return redirect()->intended('dashboard')->withSuccess('Signed in');
         }
