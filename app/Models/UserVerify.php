@@ -8,7 +8,6 @@ class UserVerify extends Model
 {
     
     public $table = "users_verify";
-    use HasFactory, Notifiable;
 
     /**
      * Write code on Method
