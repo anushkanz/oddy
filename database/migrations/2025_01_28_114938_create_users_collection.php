@@ -23,6 +23,7 @@ class CreateUsersCollection extends Migration
             $collection->string('email')->unique();
             $collection->string('password');
             $collection->string('phone')->nullable();
+            $collection->integer('status');
             $collection->string('role')->default('customer'); // 'customer' or 'admin'
 
             // Timestamps
