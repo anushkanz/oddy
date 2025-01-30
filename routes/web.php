@@ -13,3 +13,8 @@ Route::group(['middleware' => 'guest'], function () {
     // Route::get('/verify/{token}', [CustomAuthController::class, 'verifyAccount'])->name('user.verify'); 
 
 });
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('dashboard', [CustomAuthController::class, 'dashboard']); 
+    Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
+});

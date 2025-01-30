@@ -8,7 +8,7 @@ use Hash;
 use Session;
 use App\Models\User;
 use App\Models\UserVerify;
-use App\Models\Transporter;
+use App\Models\Instructor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use Mail; 
@@ -43,5 +43,40 @@ class CustomAuthController extends Controller
         }
         $validator['emailPassword'] = 'Email address or password is incorrect.';
         return redirect("/")->withErrors($validator);
+    }
+
+    /**
+     * Logout function
+     */
+
+    public function signOut() {
+        Session::flush();
+        Auth::logout();
+  
+        return Redirect('/');
+    }
+
+    /**
+     * Dashboard function
+     */
+
+    public function dashboard()
+    {
+        if(Auth::check()){
+            $user = Auth::user();
+            //Based on user type redirect to different dashboard
+            if($user->role == 'admin'){
+                return redirect()->intended('administrator/dashboard')->withSuccess('Signed in');
+            }
+            if($user->role == ''){
+                //return view('transporter.dashboard');
+                return redirect()->intended('instructor/dashboard');
+            }
+            if($user->typrolee == 'student'){
+                return redirect()->intended('student/dashboard');
+                //return view('customer.dashboard', compact('user'));  
+            }
+        }
+        return redirect("login")->withSuccess('You are not allowed to access');
     }
 }
