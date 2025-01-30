@@ -32,10 +32,7 @@ return new class extends Migration
             $collection->integer('duration');
             $collection->integer('price');
             $collection->integer('max_capacity');
-            $collection->timestamp('start_date');
-            $collection->timestamp('end_date');
             $collection->string('level');
-
             $collection->array('photo_gallery'); // Array of gallery (e.g., ["url", "caption"])
 
             // Timestamps

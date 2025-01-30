@@ -48,5 +48,6 @@ class Classes extends Model
 
     protected $casts = [
         'start_date' => 'datetime:Y-m-d',
+        'end_date' => 'datetime:Y-m-d',
     ];
 }
