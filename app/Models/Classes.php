@@ -6,7 +6,7 @@ use MongoDB\Laravel\Eloquent\Model;
 
 class Classes extends Model
 {
-    protected $collection = 'categories'; // MongoDB collection name
+    protected $collection = 'classes'; // MongoDB collection name
     protected $primaryKey = '_id'; // MongoDB primary key
 
     // Fields that can be mass-assigned
@@ -19,8 +19,6 @@ class Classes extends Model
         'duration',
         'price',
         'max_capacity',
-        'start_date',
-        'end_date',
         'level',
         'photo_gallery'
     ];
@@ -47,7 +45,6 @@ class Classes extends Model
     }
 
     protected $casts = [
-        'start_date' => 'datetime:Y-m-d',
-        'end_date' => 'datetime:Y-m-d',
+
     ];
 }
