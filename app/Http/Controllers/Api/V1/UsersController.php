@@ -10,7 +10,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use Mail; 
-use DB;
 
 class UsersController extends Controller
 {
