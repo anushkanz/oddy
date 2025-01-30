@@ -72,7 +72,7 @@ class CustomAuthController extends Controller
                 //return view('transporter.dashboard');
                 return redirect()->intended('instructor/dashboard');
             }
-            if($user->typrolee == 'student'){
+            if($user->role == 'student'){
                 return redirect()->intended('student/dashboard');
                 //return view('customer.dashboard', compact('user'));  
             }
