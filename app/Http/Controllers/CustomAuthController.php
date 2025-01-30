@@ -68,7 +68,7 @@ class CustomAuthController extends Controller
             if($user->role == 'admin'){
                 return redirect()->intended('administrator/dashboard')->withSuccess('Signed in');
             }
-            if($user->role == ''){
+            if($user->role == 'instructor'){
                 //return view('transporter.dashboard');
                 return redirect()->intended('instructor/dashboard');
             }
