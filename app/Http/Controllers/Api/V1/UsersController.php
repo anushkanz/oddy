@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\Instructor;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use Mail; 
@@ -36,7 +37,17 @@ class UsersController extends Controller
             //Send Welcome email
             $verifyUser = UserVerify::where('user_id', $user_created->id)->first();
             //$user->notify(new UserWelcomeMailNotification($user));
-                
+                      
+            //If role == tutor then create tutor profile
+            if($request->role == 'tutor'){
+                $tutor_created = Instructor::create([
+                    'user_id' => $user_created->_id,
+                    'name'=> $request->name,
+                    'bio' => $request->bio,
+                    'skills'=> $request->skills,
+                    'profile_picture'=> $request->profile_picture
+                ]); 
+            }    
             $return = array('user'=>$user_created);
             
             return response()->json([
