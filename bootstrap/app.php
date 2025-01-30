@@ -9,6 +9,16 @@ return Application::configure(basePath: dirname(__DIR__))
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
+        //api: __DIR__ . '/../routes/api.php',
+        then: function () {
+            Route::middleware('api')
+                ->prefix('api/v1')
+                ->group(base_path('routes/api_v1.php'));
+ 
+            // Route::middleware('api')
+            //     ->prefix('api/v2')
+            //     ->group(base_path('routes/api/api_v2.php'));
+        }
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
