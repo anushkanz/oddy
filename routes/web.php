@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('administrator/dashboard', [AdministratorController::class, 'dashboard'])->name('administrator.dashboard');
 
-    Route::get('administrator/courses', [AdministratorController::class, 'courses'])->name('administrator.course'); //Return all Courses
+    Route::get('administrator/courses', [AdministratorController::class, 'courses'])->name('administrator.courses'); //Return all Courses
     Route::get('administrator/course/{id}', [AdministratorController::class, 'course'])->name('administrator.course'); //Return specific Course
     Route::post('administrator/course', [AdministratorController::class, 'updateCourse'])->name('administrator.course.update');
 
@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('instructor/dashboard', [InstructorController::class, 'dashboard'])->name('instructor.dashboard');
 
-    Route::get('instructor/courses', [InstructorController::class, 'courses'])->name('instructor.course'); //Return all Courses by user
+    Route::get('instructor/courses', [InstructorController::class, 'courses'])->name('instructor.courses'); //Return all Courses by user
     Route::get('instructor/course/{id}', [InstructorController::class, 'course'])->name('instructor.course'); //Return specific Course
     Route::post('instructor/course', [InstructorController::class, 'updateCourse'])->name('instructor.course.update');
 
