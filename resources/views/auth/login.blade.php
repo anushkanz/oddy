@@ -55,11 +55,7 @@
                 Login
               </button>
             </div>
-            <div class="control">
-              <a href="/forget_password" class="button">
-                Forget password
-              </a>
-            </div>
+            
           </div>
 
         </form>
