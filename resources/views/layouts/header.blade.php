@@ -21,15 +21,15 @@
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-     <link rel="stylesheet" href="{{URL::asset('public/css/main.css')}}" />
+     <link rel="stylesheet" href="{{URL::asset('css/main.css')}}" />
     <!--link rel="stylesheet" href="{{URL::asset('public/css/lightbox.css')}}" /> -->
     
     <!-- <script type="text/javascript" src="{{URL::asset('public/js/common.js')}}"></script>
     
     <script type="text/javascript" src="{{URL::asset('public/js/lightbox.js')}}"></script> -->
 
-    <script type="text/javascript" src="{{URL::asset('public/js/main.min.js')}}"></script>
-    <script type="text/javascript" src="{{URL::asset('public/js/chart.sample.min.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('js/main.min.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('js/chart.sample.min.js')}}"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>App Name - @yield('title')</title>
 </head>
