@@ -86,4 +86,8 @@ class CustomAuthController extends Controller
         }
         return redirect("login")->withSuccess('You are not allowed to access');
     }
+
+    public function forgetPassword(){
+
+    }
 }
