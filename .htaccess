@@ -1,0 +1,7 @@
+php_value allow_url_fopen On
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !^public
+RewriteRule ^(.*)$ public/$1 [L]
+<IfModule mod_headers.c>
+  Header always set Access-Control-Allow-Origin "https://obscure-basin-44236-a20770f447a0.herokuapp.com/"
+</IfModule>
