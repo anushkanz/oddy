@@ -84,7 +84,7 @@ class CustomAuthController extends Controller
                 //return view('customer.dashboard', compact('user'));  
             }
         }
-        return redirect("login")->withSuccess('You are not allowed to access');
+        return redirect("/")->withSuccess('You are not allowed to access');
     }
 
     public function forgetPassword(){
