@@ -16,7 +16,7 @@
             <div class="field spaced">
             <label class="label">Login</label>
             <div class="control icons-left">
-              <input class="input" type="text"  id="email" placeholder="user@example.com" autocomplete="username"  required autofocus>
+              <input class="input" type="email" name="email"  id="email" placeholder="user@example.com" autocomplete="username"  required autofocus>
               <span class="icon is-small left"><i class="mdi mdi-account"></i></span>
             </div>
             <p class="help">
