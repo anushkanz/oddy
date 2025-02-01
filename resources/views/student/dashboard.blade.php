@@ -1,4 +1,4 @@
-@extends('layouts.master_customer')
+@extends('layouts.master_student')
 
 @section('title', 'Home Page')
 
