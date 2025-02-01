@@ -47,6 +47,21 @@ class CustomAuthController extends Controller
 
         if (Auth::attempt($credentials)) {
           return redirect()->intended('dashboard')->withSuccess('Signed in');
+          if(Auth::check()){
+            $user = Auth::user();
+            //Based on user type redirect to different dashboard
+            if($user->role == 'admin'){
+                return redirect()->intended('administrator/dashboard')->withSuccess('Signed in');
+            }
+            if($user->role == 'tutor'){
+                //return view('transporter.dashboard');
+                return redirect()->intended('instructor/dashboard');
+            }
+            if($user->role == 'customer'){
+                return redirect()->intended('student/dashboard');
+                //return view('customer.dashboard', compact('user'));  
+            }
+        }
         }
         $validator['emailPassword'] = 'Email address or password is incorrect.';
         return redirect("/")->withErrors($validator);
