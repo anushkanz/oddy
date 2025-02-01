@@ -33,7 +33,7 @@
         <span class="icon"><i class="fa-regular fa-circle-question"></i></span>
         <span>GitHub</span>
       </a>
-      <a href="{{signout}}" title="Log out" class="navbar-item desktop-icon-only">
+      <a href="{{ route('signout') }}" title="Log out" class="navbar-item desktop-icon-only">
         <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
         <span>Log out</span>
       </a>
@@ -83,7 +83,7 @@
         </a>
       </li>
       <li>
-        <a href="{{signout}}" class="has-icon">
+        <a href="{{ route('signout') }}" class="has-icon">
           <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
           <span class="menu-item-label">Sign Out</span>
         </a>
