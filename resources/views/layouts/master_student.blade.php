@@ -24,32 +24,13 @@
           <div class="is-user-name"><span>John Doe</span></div>
           <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
         </a>
-        <div class="navbar-dropdown">
-          <a href="profile.html" class="navbar-item active">
-            <span class="icon"><i class="mdi mdi-account"></i></span>
-            <span>My Profile</span>
-          </a>
-          <a class="navbar-item">
-            <span class="icon"><i class="mdi mdi-settings"></i></span>
-            <span>Settings</span>
-          </a>
-          <a class="navbar-item">
-            <span class="icon"><i class="mdi mdi-email"></i></span>
-            <span>Messages</span>
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            <span class="icon"><i class="fa-solid fa-right-from-bracket"></i></span>
-            <span>Log Out</span>
-          </a>
-        </div>
       </div>
-      <a href="https://justboil.me/tailwind-admin-templates/free-dashboard/" class="navbar-item has-divider desktop-icon-only">
-        <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
+      <a href="#" class="navbar-item has-divider desktop-icon-only">
+        <span class="icon"><i class="fa-regular fa-address-card"></i></span>
         <span>About</span>
       </a>
-      <a href="https://github.com/justboil/admin-one-tailwind" class="navbar-item has-divider desktop-icon-only">
-        <span class="icon"><i class="mdi mdi-github-circle"></i></span>
+      <a href="#" class="navbar-item has-divider desktop-icon-only">
+        <span class="icon"><i class="fa-regular fa-circle-question"></i></span>
         <span>GitHub</span>
       </a>
       <a title="Log out" class="navbar-item desktop-icon-only">
