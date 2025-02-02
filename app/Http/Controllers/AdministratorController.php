@@ -29,12 +29,8 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $user = Auth::user();
-        if($user->type == 'admin'){
           return view('administrator.dashboard',compact('user'));
-        } 
-        //return redirect("/")->withSuccess('Trust me this is not belongs to you'); 
       }
-      return redirect("/")->withSuccess('Trust me this is not belongs to you'); 
     }
 
     /**
