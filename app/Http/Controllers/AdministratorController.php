@@ -38,15 +38,13 @@ class AdministratorController extends Controller
      */
     public function categories()
     {
-        if(Auth::check()){
-          $user = Auth::user();
-          if($user->type == 'admin'){
+      if(Auth::check()){
+        $user = Auth::user();
+        if($user->type == 'admin'){
           $categories = Category::all();
           return view('administrator.categories', compact('categories')); 
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
       }
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -60,9 +58,7 @@ class AdministratorController extends Controller
           $category = Category::where('id', $id)->first();
           return view('administrator.category', compact('category'));
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
       }
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
@@ -91,9 +87,7 @@ class AdministratorController extends Controller
             return redirect()->route('administrator.categories')->with('success','Category created successfully');
           }
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
       }
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');  
     }
 
     /**
@@ -107,9 +101,7 @@ class AdministratorController extends Controller
           $courses = Classes::all();
           return view('administrator.courses', compact('courses')); 
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
       }
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -123,9 +115,7 @@ class AdministratorController extends Controller
           $course = Classes::find($id);
           return view('administrator.course', compact('course'));
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
       }
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
@@ -172,9 +162,7 @@ class AdministratorController extends Controller
             $users =  User::all();
             return view('administrator.members',compact('users'));
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
       } 
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -188,9 +176,7 @@ class AdministratorController extends Controller
           $user = User::find($id);
           return view('administrator.member', compact('user'));
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
-      }
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');   
+      } 
     }
 
     /**
@@ -212,9 +198,7 @@ class AdministratorController extends Controller
             $bookings =  Booking::all();
             return view('administrator.bookings',compact('bookings'));
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
       } 
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -227,10 +211,8 @@ class AdministratorController extends Controller
         if($user->type == 'admin'){
           $booking = Booking::find($id);
           return view('administrator.booking', compact('booking'));
-        }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
+        } 
       }
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
     
     /**
@@ -244,9 +226,7 @@ class AdministratorController extends Controller
               $reviews =  Review::all();
               return view('administrator.reviews',compact('reviews'));
           }
-          return redirect("/")->withSuccess('Trust me this is not belongs to you');
       } 
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -259,10 +239,8 @@ class AdministratorController extends Controller
         if($user->type == 'admin'){
           $review = Review::find($id);
           return view('administrator.review', compact('review'));
-        }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
+        } 
       }
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
@@ -301,9 +279,7 @@ class AdministratorController extends Controller
                   return redirect()->route('administrator.reviews')->with('success','Review created successfully');
               }
           }
-          return redirect("/")->withSuccess('Trust me this is not belongs to you');
       }
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');  
     }
 
     /**
@@ -316,9 +292,7 @@ class AdministratorController extends Controller
           if($user->type == 'admin'){
               return view('administrator.account',compact('user'));
           }
-          return redirect("/")->withSuccess('Trust me this is not belongs to you');
       } 
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -380,8 +354,6 @@ class AdministratorController extends Controller
                 }
             }
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
       }
-      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     } 
 }

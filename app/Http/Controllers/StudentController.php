@@ -45,9 +45,7 @@ class StudentController extends Controller
                 $bookings =  Booking::where('user_id', $user->_id)->get();
                 return view('student.bookings',compact('bookings'));
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         } 
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -61,9 +59,7 @@ class StudentController extends Controller
               $booking = Booking::find($id);
               return view('student.booking', compact('booking'));
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');  
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
@@ -85,9 +81,7 @@ class StudentController extends Controller
                 $reviews =  Review::where('reviewer_id', $user->_id)->get();
                 return view('student.reviews',compact('reviews'));
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         } 
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -101,9 +95,7 @@ class StudentController extends Controller
               $review = Review::find($id);
               return view('student.review', compact('review'));
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');  
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
@@ -145,9 +137,7 @@ class StudentController extends Controller
                     return redirect()->route('student.reviews')->with('success','Review created successfully');
                 }
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
     }
 
     /**
@@ -160,9 +150,7 @@ class StudentController extends Controller
             if($user->type == 'student'){
                 return view('student.account',compact('user'));
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         } 
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -224,8 +212,6 @@ class StudentController extends Controller
                     }
                 }
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
     }
 }

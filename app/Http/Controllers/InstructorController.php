@@ -43,13 +43,8 @@ class InstructorController extends Controller
             if($user->type == 'tutor'){
                 $courses = Classes::where('instructor_id',$user->_id)->get();
                 return view('instructor.courses', compact('courses')); 
-            }else{
-                return redirect("/")->withSuccess('Trust me this is not belongs to you'); 
             }
-        }else{
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         }
-        
     }
 
     /**
@@ -65,9 +60,7 @@ class InstructorController extends Controller
                             ->get();
               return view('instructor.course', compact('course'));
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');  
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
@@ -95,9 +88,7 @@ class InstructorController extends Controller
                 }
                 return view('instructor.bookings', compact('bookings')); 
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');  
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -117,9 +108,7 @@ class InstructorController extends Controller
                 }
                 return redirect("instructor.bookings")->withSuccess('Trust me this is not belongs to you');
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');  
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
@@ -134,9 +123,7 @@ class InstructorController extends Controller
                 $receiver =  Review::where('receiver_id', $user->_id)->get();
                 return view('instructor.reviews',compact('reviews','receiver'));
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         } 
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -150,9 +137,7 @@ class InstructorController extends Controller
               $review = Review::find($id);
               return view('instructor.review', compact('review'));
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');  
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
@@ -173,9 +158,7 @@ class InstructorController extends Controller
             if($user->type == 'tutor'){
                 return view('instructor.account',compact('user'));
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         } 
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -237,8 +220,6 @@ class InstructorController extends Controller
                     }
                 }
             }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
     } 
 }
