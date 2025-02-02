@@ -32,7 +32,7 @@ class AdministratorController extends Controller
         if($user->type == 'admin'){
           return view('administrator.dashboard',compact('user'));
         } 
-        return redirect("/")->withSuccess('Trust me this is not belongs to you'); 
+        //return redirect("/")->withSuccess('Trust me this is not belongs to you'); 
       }
       return redirect("/")->withSuccess('Trust me this is not belongs to you'); 
     }
@@ -204,7 +204,7 @@ class AdministratorController extends Controller
     {
 
     }
-    
+
     /**
      * Bookings function
      */
