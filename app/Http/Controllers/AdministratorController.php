@@ -27,7 +27,8 @@ class AdministratorController extends Controller
      */
     public function dashboard()
     {
-      return view('administrator.dashboard');
+      $user = Auth::user();
+      return view('administrator.dashboard',compact('user'));
     }
 
     /**

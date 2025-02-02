@@ -27,7 +27,8 @@ class InstructorController extends Controller
      */
     public function dashboard()
     {
-        return view('instructor.dashboard');
+        $user = Auth::user();
+        return view('instructor.dashboard',compact('user'));
     }
 
     /**
