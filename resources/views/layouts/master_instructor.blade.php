@@ -74,7 +74,7 @@
         </a>
       </li>
       <li class="--set-active-tables-html">
-        <a href="{{ route('instructor.account') }}">
+        <a href="{{ route('instructor.account') }}/{{Auth::user()->id}}">
           <span class="icon"><i class="fa-regular fa-user"></i></span>
           <span class="menu-item-label">Account</span>
         </a>
