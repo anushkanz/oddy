@@ -20,7 +20,7 @@
       <div class="navbar-item dropdown has-divider has-user-avatar">
         <a class="navbar-link">
           <div class="user-avatar">
-            <img src="" alt="John Doe" class="rounded-full">
+          <i class="fa-regular fa-user"></i>
           </div>
           <div class="is-user-name"><span>{{$user->name}}</span></div>
           <span class="icon"><i class="fa-solid fa-chevron-down"></i></span>
