@@ -63,7 +63,7 @@
         </a>
       </li>
       <li class="--set-active-tables-html">
-        <a href="#">
+        <a href="{{ route('instructor.bookings') }}">
           <span class="icon"><i class="fa-solid fa-tower-observation"></i></span>
           <span class="menu-item-label">Bookings</span>
         </a>
