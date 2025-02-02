@@ -1,4 +1,5 @@
 @include('layouts.header')
+
 <nav id="navbar-main" class="navbar is-fixed-top">
   <div class="navbar-brand">
     <a class="navbar-item mobile-aside-button">
@@ -74,7 +75,7 @@
         </a>
       </li>
       <li class="--set-active-tables-html">
-        <a href="{{ route('instructor.account') }}/{{Auth::user()->id}}">
+        <a href="{{ route('instructor.account') }}">
           <span class="icon"><i class="fa-regular fa-user"></i></span>
           <span class="menu-item-label">Account</span>
         </a>

@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('administrator/payment/{id}', [AdministratorController::class, 'payment'])->name('administrator.payment');
     Route::post('administrator/payment', [AdministratorController::class, 'updatePayments'])->name('administrator.payment.update');
 
-    Route::get('administrator/account/{id}', [AdministratorController::class, 'account'])->name('administrator.account'); 
+    Route::get('administrator/account/', [AdministratorController::class, 'account'])->name('administrator.account'); 
     Route::post('administrator/account', [AdministratorController::class, 'updateAccount'])->name('administrator.account.update');
 
     /**
@@ -72,7 +72,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('instructor/review/{id}', [InstructorController::class, 'review'])->name('instructor.review');
     Route::post('instructor/review', [InstructorController::class, 'updateReviews'])->name('instructor.review.update');
     
-    Route::get('instructor/account/{id}', [InstructorController::class, 'account'])->name('instructor.account'); 
+    Route::get('instructor/account/', [InstructorController::class, 'account'])->name('instructor.account'); 
     Route::post('instructor/account', [InstructorController::class, 'updateAccount'])->name('instructor.account.update');
 
     /**
@@ -89,5 +89,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('student/review/{id}', [StudentController::class, 'review'])->name('student.review');
     Route::post('student/review', [StudentController::class, 'updateReviews'])->name('student.review.update');
 
-    Route::get('student/account/{id}', [StudentController::class, 'account'])->name('student.account'); 
+    Route::get('student/account/', [StudentController::class, 'account'])->name('student.account'); 
     Route::post('student/account', [StudentController::class, 'updateAccount'])->name('student.account.update');
