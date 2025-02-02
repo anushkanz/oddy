@@ -32,10 +32,13 @@ class StudentController extends Controller
             $user = Auth::user();
             if($user->type == 'student'){
                 return view('student.dashboard',compact('user'));
+            }else{
+                return redirect("/")->withSuccess('Trust me this is not belongs to you');
             }
+        }else{
             return redirect("/")->withSuccess('Trust me this is not belongs to you');
-        } 
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
+        }
+        
     }
 
     /**

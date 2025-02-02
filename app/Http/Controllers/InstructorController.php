@@ -29,12 +29,8 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'tutor'){
                 return view('instructor.dashboard',compact('user'));
-            }
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         } 
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -45,12 +41,15 @@ class InstructorController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             if($user->type == 'tutor'){
-            $courses = Classes::where('instructor_id',$user->_id)->get();
-            return view('instructor.courses', compact('courses')); 
-          }
-          return redirect("/")->withSuccess('Trust me this is not belongs to you');  
+                $courses = Classes::where('instructor_id',$user->_id)->get();
+                return view('instructor.courses', compact('courses')); 
+            }else{
+                return redirect("/")->withSuccess('Trust me this is not belongs to you'); 
+            }
+        }else{
+            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         }
-        return redirect("/")->withSuccess('Trust me this is not belongs to you');
+        
     }
 
     /**
