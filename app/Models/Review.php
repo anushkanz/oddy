@@ -11,7 +11,8 @@ class Review extends Model
 
     // Fields that can be mass-assigned
     protected $fillable = [
-        'user_id',
+        'receiver_id',
+        'reviewer_id',
         'class_id',
         'rating',
         'comment',
@@ -21,9 +22,14 @@ class Review extends Model
     public $timestamps = true;
 
     // Define the relationship with the User model
-    public function user()
+    public function receiver()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'receiver_id');
+    }
+
+    public function reviewer()
+    {
+        return $this->belongsTo(User::class, 'reviewer_id');
     }
 
     // Define the relationship with the Classes model

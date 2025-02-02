@@ -19,8 +19,11 @@ return new class extends Migration
             $collection->index('_id');
 
             // Reference to the Users collection (if reviews are also users)
-            $collection->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $collection->foreignId('receiver_id')->constrained('users')->onDelete('cascade');
 
+            // Reference to the Users collection (if reviews are also users)
+            $collection->foreignId('reviewer_id')->constrained('users')->onDelete('cascade');
+            
             // Reference to the Classes collection (if reviews are also users)
             $collection->foreignId('class_id')->constrained('classes')->onDelete('cascade');
 

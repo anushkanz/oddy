@@ -22,13 +22,19 @@ use Illuminate\Support\Str;
 
 class AdministratorController extends Controller
 {
-       /**
+    /**
      * Dashboard function
      */
     public function dashboard()
     {
-      $user = Auth::user();
-      return view('administrator.dashboard',compact('user'));
+      if(Auth::check()){
+        $user = Auth::user();
+        if($user->type == 'admin'){
+          return view('administrator.dashboard',compact('user'));
+        } 
+        return redirect("/")->withSuccess('Trust me this is not belongs to you'); 
+      }
+      return redirect("/")->withSuccess('Trust me this is not belongs to you'); 
     }
 
     /**
@@ -36,7 +42,15 @@ class AdministratorController extends Controller
      */
     public function categories()
     {
-
+        if(Auth::check()){
+          $user = Auth::user();
+          if($user->type == 'admin'){
+          $categories = Category::all();
+          return view('administrator.categories', compact('categories')); 
+        }
+        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
+      }
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -44,15 +58,46 @@ class AdministratorController extends Controller
      */
     public function category(string $id)
     {
-
+      if(Auth::check()){
+        $user = Auth::user();
+        if($user->type == 'admin'){
+          $category = Category::where('id', $id)->first();
+          return view('administrator.category', compact('category'));
+        }
+        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
+      }
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
-     * Update category function
+     * Create / Update category function
      */
     public function updateCategory(Request $request)
     {
-
+      if(Auth::check()){
+        $user = Auth::user();
+        if($user->type == 'admin'){
+          $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'slug'=>'required'
+          ]);
+  
+          if($request->task == 'update'){
+            $category = Category::find($request->id);
+            if($category)
+            {
+              $category->update($request->all());
+              return redirect()->route('administrator.categories')->with('success','Category updated successfully');
+            }
+          }else{
+            Category::create($request->all());
+            return redirect()->route('administrator.categories')->with('success','Category created successfully');
+          }
+        }
+        return redirect("/")->withSuccess('Trust me this is not belongs to you');
+      }
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');  
     }
 
     /**
@@ -60,7 +105,15 @@ class AdministratorController extends Controller
      */
     public function courses()
     {
-
+      if(Auth::check()){
+          $user = Auth::user();
+          if($user->type == 'admin'){
+          $courses = Classes::all();
+          return view('administrator.courses', compact('courses')); 
+        }
+        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
+      }
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -68,7 +121,15 @@ class AdministratorController extends Controller
      */
     public function course(string $id)
     {
-
+      if(Auth::check()){
+        $user = Auth::user();
+        if($user->type == 'admin'){
+          $course = Classes::find($id);
+          return view('administrator.course', compact('course'));
+        }
+        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
+      }
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
@@ -109,7 +170,15 @@ class AdministratorController extends Controller
      */
     public function members()
     {
-
+      if(Auth::check()){
+        $user = Auth::user();
+        if($user->type == 'admin'){
+            $users =  User::all();
+            return view('administrator.members',compact('users'));
+        }
+        return redirect("/")->withSuccess('Trust me this is not belongs to you');
+      } 
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -117,7 +186,15 @@ class AdministratorController extends Controller
      */
     public function member(string $id)
     {
-
+      if(Auth::check()){
+        $user = Auth::user();
+        if($user->type == 'admin'){
+          $user = User::find($id);
+          return view('administrator.member', compact('user'));
+        }
+        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
+      }
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
@@ -127,12 +204,21 @@ class AdministratorController extends Controller
     {
 
     }
+    
     /**
      * Bookings function
      */
     public function bookings()
     {
-
+      if(Auth::check()){
+        $user = Auth::user();
+        if($user->type == 'admin'){
+            $bookings =  Booking::all();
+            return view('administrator.bookings',compact('bookings'));
+        }
+        return redirect("/")->withSuccess('Trust me this is not belongs to you');
+      } 
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -140,7 +226,15 @@ class AdministratorController extends Controller
      */
     public function booking(string $id)
     {
-
+      if(Auth::check()){
+        $user = Auth::user();
+        if($user->type == 'admin'){
+          $booking = Booking::find($id);
+          return view('administrator.booking', compact('booking'));
+        }
+        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
+      }
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
     
     /**
@@ -148,7 +242,15 @@ class AdministratorController extends Controller
      */
     public function reviews()
     {
-
+      if(Auth::check()){
+          $user = Auth::user();
+          if($user->type == 'admin'){
+              $reviews =  Review::all();
+              return view('administrator.reviews',compact('reviews'));
+          }
+          return redirect("/")->withSuccess('Trust me this is not belongs to you');
+      } 
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -156,7 +258,15 @@ class AdministratorController extends Controller
      */
     public function review(string $id)
     {
-
+      if(Auth::check()){
+        $user = Auth::user();
+        if($user->type == 'admin'){
+          $review = Review::find($id);
+          return view('administrator.review', compact('review'));
+        }
+        return redirect("/")->withSuccess('Trust me this is not belongs to you');  
+      }
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');   
     }
 
     /**
@@ -164,7 +274,40 @@ class AdministratorController extends Controller
      */
     public function updateReviews(Request $request)
     {
-
+      if(Auth::check()){
+          $user = Auth::user();
+          if($user->type == 'admin'){
+              $request->validate([
+                  'class_id'=>'required',
+                  'rating'=>'required',
+                  'comment'=>'required'
+              ]);
+              if($request->task == 'update'){
+                  $review = Review::find($request->id);
+                  if($review)
+                  {
+                      $review->receiver_id = $request->receiver_id;
+                      $review->reviewer_id = $request->reviewer_id;
+                      $review->class_id = $request->class_id;
+                      $review->rating = $request->rating;
+                      $review->comment = $request->comment;
+                      $review->save();
+                      return redirect()->route('administrator.reviews')->with('success','Review updated successfully');
+                  }
+              }else{
+                  Review::create([
+                      'receiver_id' => $request->receiver_id,
+                      'reviewer_id' => $request->reviewer_id,
+                      'class_id' => $request->class_id,
+                      'rating' => $request->rating,
+                      'comment' => $request->comment
+                  ]);
+                  return redirect()->route('administrator.reviews')->with('success','Review created successfully');
+              }
+          }
+          return redirect("/")->withSuccess('Trust me this is not belongs to you');
+      }
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');  
     }
 
     /**
@@ -172,7 +315,14 @@ class AdministratorController extends Controller
      */
     public function account()
     {
-
+      if(Auth::check()){
+          $user = Auth::user();
+          if($user->type == 'admin'){
+              return view('administrator.account',compact('user'));
+          }
+          return redirect("/")->withSuccess('Trust me this is not belongs to you');
+      } 
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     }
 
     /**
@@ -180,6 +330,62 @@ class AdministratorController extends Controller
      */
     public function updateAccount(Request $request)
     {
-
+      if(Auth::check()){
+        $user = Auth::user();
+        if($user->type == 'admin'){
+            if($request->task == 'details'){
+                $request->validate([
+                    'name' => 'required',
+                    'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
+                    'phone'=>'required'
+                ]);
+                if ($validator->fails()) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('administrator.account')->with('error','Unable to validate your data');
+                }
+                $currentUser = User::find($request->id);
+                if($currentUser)
+                {
+                    $currentUser->name = $request->name;
+                    $currentUser->email = $request->email;
+                    $currentUser->phone = $request->phone;
+                    $currentUser->save();
+                    return redirect()->route('administrator.account')->with('success','Account updated successfully');
+                }
+            }elseif($request->task == 'password'){
+                $inputs = [
+                    'old_password'          => $request->old_password,
+                    'password'              => $request->password,
+                    'password_confirmation' => $request->password_confirmation,
+                ];
+                $rules = [
+                    'old_password'    => 'required',
+                    'password_confirmation' => 'required',
+                    'password' => [
+                        'required',
+                        'confirmed',
+                        'string',
+                        'min:10',             // must be at least 10 characters in length
+                        'regex:/[a-z]/',      // must contain at least one lowercase letter
+                        'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                        'regex:/[0-9]/',      // must contain at least one digit
+                        'regex:/[@$!%*#?&]/', // must contain a special character
+                    ],
+                ];
+                $validator = Validator::make( $inputs, $rules );
+                if ( $validator->fails() ) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('administrator.account')->with('error','Unable to validate your data');
+                }else{
+                    $currentUser = User::find($request->id);
+                    $currentUser->password = \Hash::make($password);
+                    $currentUser->update(); //or $currentUser->save();
+                    return redirect()->route('administrator.account')->with('success','Account updated successfully');
+                }
+            }
+        }
+        return redirect("/")->withSuccess('Trust me this is not belongs to you');
+      }
+      return redirect("/")->withSuccess('Trust me this is not belongs to you');
     } 
 }
