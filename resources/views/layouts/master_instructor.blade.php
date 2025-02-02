@@ -22,7 +22,7 @@
           <div class="user-avatar">
             <img src="" alt="John Doe" class="rounded-full">
           </div>
-          <div class="is-user-name"><span>John Doe</span></div>
+          <div class="is-user-name"><span>{{$user->name}}</span></div>
           <span class="icon"><i class="fa-solid fa-chevron-down"></i></span>
         </a>
       </div>
