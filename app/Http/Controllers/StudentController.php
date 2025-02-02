@@ -30,15 +30,8 @@ class StudentController extends Controller
 
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'student'){
                 return view('student.dashboard',compact('user'));
-            }else{
-                return redirect("/")->withSuccess('Trust me this is not belongs to you');
-            }
-        }else{
-            return redirect("/")->withSuccess('Trust me this is not belongs to you');
         }
-        
     }
 
     /**
