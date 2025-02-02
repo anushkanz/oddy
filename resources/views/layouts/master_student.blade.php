@@ -50,25 +50,25 @@
     <p class="menu-label">General</p>
     <ul class="menu-list">
       <li class="--set-active-index-html">
-        <a href="index.html">
+        <a href="{{ route('student.dashboard') }}">
           <span class="icon"><i class="fa-solid fa-display"></i></span>
           <span class="menu-item-label">Dashboard</span>
         </a>
       </li>
       <li class="--set-active-tables-html">
-        <a href="#">
+        <a href="{{ route('student.bookings') }}">
           <span class="icon"><i class="fa-solid fa-tower-observation"></i></span>
           <span class="menu-item-label">Bookings</span>
         </a>
       </li>
       <li class="--set-active-tables-html">
-        <a href="#">
+        <a href="{{ route('student.reviews') }}">
           <span class="icon"><i class="fa-regular fa-comment"></i></span>
           <span class="menu-item-label">Reviews</span>
         </a>
       </li>
       <li class="--set-active-tables-html">
-        <a href="#">
+        <a href="{{ route('student.account') }}">
           <span class="icon"><i class="fa-regular fa-user"></i></span>
           <span class="menu-item-label">Account</span>
         </a>
