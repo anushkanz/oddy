@@ -20,14 +20,14 @@ use Illuminate\Support\Facades\URL;
 use Mail; 
 use Illuminate\Support\Str;
 
-class CustomAuthController extends Controller
+class AdministratorController extends Controller
 {
        /**
      * Dashboard function
      */
     public function dashboard()
     {
-
+      return view('administrator.dashboard');
     }
 
     /**
