@@ -64,7 +64,7 @@
       </li>
       <li class="--set-active-tables-html">
         <a href="{{ route('administrator.members') }}">
-          <span class="icon"><i class="fa-solid fa-tower-observation"></i></span>
+          <span class="icon"><i class="fa-regular fa-user"></i></span>
           <span class="menu-item-label">Members</span>
         </a>
       </li>
@@ -76,7 +76,7 @@
       </li>
       <li class="--set-active-tables-html">
         <a href="{{ route('administrator.bookings') }}">
-          <span class="icon"><i class="fa-solid fa-tower-observation"></i></span>
+          <span class="icon"><i class="fa-solid fa-utensils"></i></span>
           <span class="menu-item-label">Bookings</span>
         </a>
       </li>
@@ -88,8 +88,8 @@
       </li>
       <li class="--set-active-tables-html">
         <a href="{{ route('administrator.payments') }}">
-          <span class="icon"><i class="fa-regular fa-comment"></i></span>
-          <span class="menu-item-label">Reviews</span>
+          <span class="icon"><i class="fa-regular fa-credit-card"></i></span>
+          <span class="menu-item-label">Payments</span>
         </a>
       </li>
       <li class="--set-active-tables-html">
