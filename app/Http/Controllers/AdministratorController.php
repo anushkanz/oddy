@@ -29,7 +29,7 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $user = Auth::user();
-          return view('administrator.dashboard',compact('user'));
+        return view('administrator.dashboard',compact('user'));
       }
     }
 
@@ -199,7 +199,8 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
           $reviews =  Review::all();
-          return view('administrator.reviews',compact('reviews'));
+          $user = Auth::user();
+          return view('administrator.reviews',compact('reviews','user'));
       } 
     }
 
@@ -209,10 +210,9 @@ class AdministratorController extends Controller
     public function review(string $id)
     {
       if(Auth::check()){
-        $user = Auth::user();
-    
+          $user = Auth::user();
           $review = Review::find($id);
-          return view('administrator.review', compact('review'));
+          return view('administrator.review', compact('review','user'));
         
       }
     }
