@@ -39,11 +39,9 @@ class AdministratorController extends Controller
     public function categories()
     {
       if(Auth::check()){
-        $user = Auth::user();
-        if($user->type == 'admin'){
-          $categories = Category::all();
-          return view('administrator.categories', compact('categories')); 
-        }
+        $categories = Category::all();
+        return view('administrator.categories', compact('categories')); 
+      
       }
     }
 
@@ -53,11 +51,8 @@ class AdministratorController extends Controller
     public function category(string $id)
     {
       if(Auth::check()){
-        $user = Auth::user();
-        if($user->type == 'admin'){
-          $category = Category::where('id', $id)->first();
-          return view('administrator.category', compact('category'));
-        }
+        $category = Category::where('id', $id)->first();
+        return view('administrator.category', compact('category'));
       }
     }
 
@@ -96,11 +91,8 @@ class AdministratorController extends Controller
     public function courses()
     {
       if(Auth::check()){
-          $user = Auth::user();
-          if($user->type == 'admin'){
-          $courses = Classes::all();
-          return view('administrator.courses', compact('courses')); 
-        }
+        $courses = Classes::all();
+        return view('administrator.courses', compact('courses')); 
       }
     }
 
@@ -110,11 +102,8 @@ class AdministratorController extends Controller
     public function course(string $id)
     {
       if(Auth::check()){
-        $user = Auth::user();
-        if($user->type == 'admin'){
-          $course = Classes::find($id);
-          return view('administrator.course', compact('course'));
-        }
+        $course = Classes::find($id);
+        return view('administrator.course', compact('course'));
       }
     }
 
@@ -157,11 +146,8 @@ class AdministratorController extends Controller
     public function members()
     {
       if(Auth::check()){
-        $user = Auth::user();
-        if($user->type == 'admin'){
-            $users =  User::all();
-            return view('administrator.members',compact('users'));
-        }
+        $users =  User::all();
+        return view('administrator.members',compact('users'));
       } 
     }
 
@@ -171,11 +157,8 @@ class AdministratorController extends Controller
     public function member(string $id)
     {
       if(Auth::check()){
-        $user = Auth::user();
-        if($user->type == 'admin'){
-          $user = User::find($id);
-          return view('administrator.member', compact('user'));
-        }
+        $user = User::find($id);
+        return view('administrator.member', compact('user'));
       } 
     }
 
@@ -193,11 +176,8 @@ class AdministratorController extends Controller
     public function bookings()
     {
       if(Auth::check()){
-        $user = Auth::user();
-        if($user->type == 'admin'){
-            $bookings =  Booking::all();
-            return view('administrator.bookings',compact('bookings'));
-        }
+          $bookings =  Booking::all();
+          return view('administrator.bookings',compact('bookings'));
       } 
     }
 
@@ -207,11 +187,8 @@ class AdministratorController extends Controller
     public function booking(string $id)
     {
       if(Auth::check()){
-        $user = Auth::user();
-        if($user->type == 'admin'){
-          $booking = Booking::find($id);
-          return view('administrator.booking', compact('booking'));
-        } 
+        $booking = Booking::find($id);
+        return view('administrator.booking', compact('booking'));
       }
     }
     
@@ -221,11 +198,8 @@ class AdministratorController extends Controller
     public function reviews()
     {
       if(Auth::check()){
-          $user = Auth::user();
-          if($user->type == 'admin'){
-              $reviews =  Review::all();
-              return view('administrator.reviews',compact('reviews'));
-          }
+          $reviews =  Review::all();
+          return view('administrator.reviews',compact('reviews'));
       } 
     }
 
