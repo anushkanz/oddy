@@ -236,10 +236,10 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $user = Auth::user();
-        if($user->type == 'admin'){
+    
           $review = Review::find($id);
           return view('administrator.review', compact('review'));
-        } 
+        
       }
     }
 
@@ -289,9 +289,7 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
           $user = Auth::user();
-          if($user->type == 'admin'){
-              return view('administrator.account',compact('user'));
-          }
+          return view('administrator.account',compact('user'));
       } 
     }
 
