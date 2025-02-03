@@ -1,17 +1,21 @@
-@extends('layouts.master_administrator')
+@extends('layouts.master_instructor')
 
 @section('title', 'Home Page')
 
 @section('content')
-<section class="is-hero-bar">
-  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-    <h1 class="title">
-      Reviews
-    </h1>
-    <button class="button light">Button</button>
-  </div>
-</section>
+
 <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
+
+   <div class="notification blue">
+      <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+        <div>
+          <span class="icon"><i class="mdi mdi-buffer"></i></span>
+          <b>Responsive table</b>
+        </div>
+        <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+      </div>
+    </div>
+
     <div class="card has-table">
       <header class="card-header">
         <p class="card-header-title">
