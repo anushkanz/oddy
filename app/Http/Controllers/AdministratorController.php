@@ -40,7 +40,8 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $categories = Category::all();
-        return view('administrator.categories', compact('categories')); 
+        $user = Auth::user();
+        return view('administrator.categories', compact('categories','user')); 
       
       }
     }
