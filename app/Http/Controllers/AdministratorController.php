@@ -53,7 +53,8 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $category = Category::where('id', $id)->first();
-        return view('administrator.category', compact('category'));
+        $user = Auth::user();
+        return view('administrator.category', compact('category','user'));
       }
     }
 
@@ -93,7 +94,7 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $courses = Classes::all();
-        $user = User::find($id);
+        $user = User::find();
         return view('administrator.courses', compact('courses','user')); 
       }
     }
@@ -105,7 +106,8 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $course = Classes::find($id);
-        return view('administrator.course', compact('course'));
+        $user = Auth::user();
+        return view('administrator.course', compact('course','user'));
       }
     }
 
@@ -124,7 +126,7 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $payments =  Payment::all();
-        $user = User::find($id);
+        $user = Auth::user();
         return view('administrator.payments',compact('payments','user'));
       } 
     }
@@ -153,7 +155,7 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $users =  User::all();
-        $user = User::find($id);
+        $user = Auth::user();
         return view('administrator.members',compact('users','user'));
       } 
     }
@@ -164,8 +166,9 @@ class AdministratorController extends Controller
     public function member(string $id)
     {
       if(Auth::check()){
-        $user = User::find($id);
-        return view('administrator.member', compact('user'));
+        $user_edit = User::find($id);
+        $user = Auth::user();
+        return view('administrator.member', compact('user_edit','user'));
       } 
     }
 
@@ -196,7 +199,8 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $booking = Booking::find($id);
-        return view('administrator.booking', compact('booking'));
+        $user = Auth::user();
+        return view('administrator.booking', compact('booking','user'));
       }
     }
     
