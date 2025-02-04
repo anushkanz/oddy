@@ -178,7 +178,8 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
           $bookings =  Booking::all();
-          return view('administrator.bookings',compact('bookings'));
+          $user = Auth::user();
+          return view('administrator.bookings',compact('bookings','user'));
       } 
     }
 
