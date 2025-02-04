@@ -94,7 +94,7 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $courses = Classes::all();
-        $user = User::find();
+        $user = Auth::user();
         return view('administrator.courses', compact('courses','user')); 
       }
     }
