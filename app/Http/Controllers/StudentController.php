@@ -30,7 +30,7 @@ class StudentController extends Controller
 
         if(Auth::check()){
             $user = Auth::user();
-                return view('student.dashboard',compact('user'));
+            return view('student.dashboard',compact('user'));
         }
     }
 
@@ -41,10 +41,10 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'student'){
-                $bookings =  Booking::where('user_id', $user->_id)->get();
-                return view('student.bookings',compact('bookings'));
-            }
+    
+            $bookings =  Booking::where('user_id', $user->_id)->get();
+            return view('student.bookings',compact('bookings','user'));
+            
         } 
     }
 
@@ -55,10 +55,9 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'student'){
-              $booking = Booking::find($id);
-              return view('student.booking', compact('booking'));
-            }
+            $booking = Booking::find($id);
+            return view('student.booking', compact('booking','user'));
+            
         }
     }
 
@@ -77,10 +76,9 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'student'){
-                $reviews =  Review::where('reviewer_id', $user->_id)->get();
-                return view('student.reviews',compact('reviews'));
-            }
+            $reviews =  Review::where('reviewer_id', $user->_id)->get();
+            return view('student.reviews',compact('reviews','user'));
+        
         } 
     }
 
@@ -91,10 +89,9 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'student'){
-              $review = Review::find($id);
-              return view('student.review', compact('review'));
-            }
+            $review = Review::find($id);
+            return view('student.review', compact('review','user'));
+            
         }
     }
 
@@ -105,7 +102,6 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'student'){
                 $request->validate([
                     'class_id'=>'required',
                     'rating'=>'required',
@@ -136,7 +132,7 @@ class StudentController extends Controller
                     ]);
                     return redirect()->route('student.reviews')->with('success','Review created successfully');
                 }
-            }
+            
         }
     }
 
@@ -147,9 +143,7 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'student'){
-                return view('student.account',compact('user'));
-            }
+            return view('student.account',compact('user'));
         } 
     }
 
@@ -160,7 +154,6 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'student'){
                 if($request->task == 'details'){
                     $request->validate([
                         'name' => 'required',
@@ -211,7 +204,7 @@ class StudentController extends Controller
                         return redirect()->route('student.account')->with('success','Account updated successfully');
                     }
                 }
-            }
+            
         }
     }
 }
