@@ -29,7 +29,7 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-                return view('instructor.dashboard',compact('user'));
+            return view('instructor.dashboard',compact('user'));
         } 
     }
 
@@ -40,10 +40,9 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'tutor'){
-                $courses = Classes::where('instructor_id',$user->_id)->get();
-                return view('instructor.courses', compact('courses')); 
-            }
+            $courses = Classes::where('instructor_id',$user->_id)->get();
+            return view('instructor.courses', compact('courses','user')); 
+        
         }
     }
 
@@ -54,12 +53,11 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'tutor'){
-                $course = Classes::where('instructor_id',$user->_id)
-                            ->where('_id',$id)
-                            ->get();
-              return view('instructor.course', compact('course'));
-            }
+            $course = Classes::where('instructor_id',$user->_id)
+                        ->where('_id',$id)
+                        ->get();
+            return view('instructor.course', compact('course','user'));
+
         }
     }
 
@@ -78,16 +76,14 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'tutor'){
-                $bookings = array();
-                $courses = Classes::where('instructor_id',$user->_id)->get();
-                if($courses != null){
-                    foreach($courses as $course){
-                        $bookings[$course->_id] = Booking::where('_id',$course->_id)->get();
-                    }
+            $bookings = array();
+            $courses = Classes::where('instructor_id',$user->_id)->get();
+            if($courses != null){
+                foreach($courses as $course){
+                    $bookings[$course->_id] = Booking::where('_id',$course->_id)->get();
                 }
-                return view('instructor.bookings', compact('bookings')); 
             }
+            return view('instructor.bookings', compact('bookings','user')); 
         }
     }
 
@@ -98,16 +94,14 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'tutor'){
-                $booking = Booking::find($id);
-                if($booking != null){
-                    $course = Classes::find($booking->class_id);
-                    if($course != null){
-                        return view('instructor.booking', compact('booking'));
-                    }
+            $booking = Booking::find($id);
+            if($booking != null){
+                $course = Classes::find($booking->class_id);
+                if($course != null){
+                    return view('instructor.booking', compact('booking','user'));
                 }
-                return redirect("instructor.bookings")->withSuccess('Trust me this is not belongs to you');
             }
+            return redirect("instructor.bookings")->withSuccess('Trust me this is not belongs to you');
         }
     }
 
@@ -118,11 +112,9 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'tutor'){
-                $reviewer =  Review::where('reviewer_id', $user->_id)->get();
-                $receiver =  Review::where('receiver_id', $user->_id)->get();
-                return view('instructor.reviews',compact('reviews','receiver'));
-            }
+            $reviewer =  Review::where('reviewer_id', $user->_id)->get();
+            $receiver =  Review::where('receiver_id', $user->_id)->get();
+            return view('instructor.reviews',compact('reviews','receiver','user'));
         } 
     }
 
@@ -133,10 +125,9 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'tutor'){
-              $review = Review::find($id);
-              return view('instructor.review', compact('review'));
-            }
+            $review = Review::find($id);
+            return view('instructor.review', compact('review','user'));
+            
         }
     }
 
@@ -155,9 +146,7 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'tutor'){
-                return view('instructor.account',compact('user'));
-            }
+            return view('instructor.account',compact('user'));  
         } 
     }
 
@@ -168,56 +157,54 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->type == 'tutor'){
-                if($request->task == 'details'){
-                    $request->validate([
-                        'name' => 'required',
-                        'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
-                        'phone'=>'required'
-                    ]);
-                    if ($validator->fails()) {
-                        $error = $validator->errors()->all();
-                        return redirect()->route('instructor.account')->with('error','Unable to validate your data');
-                    }
+            if($request->task == 'details'){
+                $request->validate([
+                    'name' => 'required',
+                    'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
+                    'phone'=>'required'
+                ]);
+                if ($validator->fails()) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('instructor.account')->with('error','Unable to validate your data');
+                }
+                $currentUser = User::find($request->id);
+                if($currentUser)
+                {
+                    $currentUser->name = $request->name;
+                    $currentUser->email = $request->email;
+                    $currentUser->phone = $request->phone;
+                    $currentUser->save();
+                    return redirect()->route('instructor.account')->with('success','Account updated successfully');
+                }
+            }elseif($request->task == 'password'){
+                $inputs = [
+                    'old_password'          => $request->old_password,
+                    'password'              => $request->password,
+                    'password_confirmation' => $request->password_confirmation,
+                ];
+                $rules = [
+                    'old_password'    => 'required',
+                    'password_confirmation' => 'required',
+                    'password' => [
+                        'required',
+                        'confirmed',
+                        'string',
+                        'min:10',             // must be at least 10 characters in length
+                        'regex:/[a-z]/',      // must contain at least one lowercase letter
+                        'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                        'regex:/[0-9]/',      // must contain at least one digit
+                        'regex:/[@$!%*#?&]/', // must contain a special character
+                    ],
+                ];
+                $validator = Validator::make( $inputs, $rules );
+                if ( $validator->fails() ) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('instructor.account')->with('error','Unable to validate your data');
+                }else{
                     $currentUser = User::find($request->id);
-                    if($currentUser)
-                    {
-                        $currentUser->name = $request->name;
-                        $currentUser->email = $request->email;
-                        $currentUser->phone = $request->phone;
-                        $currentUser->save();
-                        return redirect()->route('instructor.account')->with('success','Account updated successfully');
-                    }
-                }elseif($request->task == 'password'){
-                    $inputs = [
-                        'old_password'          => $request->old_password,
-                        'password'              => $request->password,
-                        'password_confirmation' => $request->password_confirmation,
-                    ];
-                    $rules = [
-                        'old_password'    => 'required',
-                        'password_confirmation' => 'required',
-                        'password' => [
-                            'required',
-                            'confirmed',
-                            'string',
-                            'min:10',             // must be at least 10 characters in length
-                            'regex:/[a-z]/',      // must contain at least one lowercase letter
-                            'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                            'regex:/[0-9]/',      // must contain at least one digit
-                            'regex:/[@$!%*#?&]/', // must contain a special character
-                        ],
-                    ];
-                    $validator = Validator::make( $inputs, $rules );
-                    if ( $validator->fails() ) {
-                        $error = $validator->errors()->all();
-                        return redirect()->route('instructor.account')->with('error','Unable to validate your data');
-                    }else{
-                        $currentUser = User::find($request->id);
-                        $currentUser->password = \Hash::make($password);
-                        $currentUser->update(); //or $currentUser->save();
-                        return redirect()->route('instructor.account')->with('success','Account updated successfully');
-                    }
+                    $currentUser->password = \Hash::make($password);
+                    $currentUser->update(); //or $currentUser->save();
+                    return redirect()->route('instructor.account')->with('success','Account updated successfully');
                 }
             }
         }
