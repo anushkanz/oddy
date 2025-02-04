@@ -122,7 +122,11 @@ class AdministratorController extends Controller
      */
     public function payments()
     {
-
+      if(Auth::check()){
+        $payments =  Payment::all();
+        $user = User::find($id);
+        return view('administrator.payments',compact('payments','user'));
+      } 
     }
 
     /**
