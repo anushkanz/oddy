@@ -114,7 +114,7 @@ class InstructorController extends Controller
             $user = Auth::user();
             $reviewer =  Review::where('reviewer_id', $user->_id)->get();
             $receiver =  Review::where('receiver_id', $user->_id)->get();
-            return view('instructor.reviews',compact('reviews','receiver','user'));
+            return view('instructor.reviews',compact('reviewer','receiver','user'));
         } 
     }
 
