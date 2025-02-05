@@ -17,19 +17,19 @@
           <div class="field">
             <label class="label">Category</label>
             <div class="control">
-              <input type="text" value="{{ isset($category->name) ? $category->name : '' }}" name="category" class="input" required>
+              <input type="text" name="name" class="input" required>
             </div>
             </div>
           <div class="field">
             <label class="label">Slug</label>
             <div class="control">
-              <input type="text" name="slug" value="{{ isset($category->slug) ? $category->slug : '' }}" class="input" required>
+              <input type="text" name="slug" class="input" required>
             </div>
           </div>
           <div class="field">
             <label class="label">Description</label>
             <div class="control">
-              <textarea type="text" name="description" class="input" required>{{ isset($description->slug) ? $description->slug : '' }}</textarea>
+              <textarea type="text" name="description" class="input" required></textarea>
             </div>
           </div>
           <hr>

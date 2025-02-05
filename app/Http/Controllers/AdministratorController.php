@@ -41,11 +41,8 @@ class AdministratorController extends Controller
       if(Auth::check()){
         $categories = Category::all();
         $user = Auth::user();
-        $category = array();
-        if($id != null){
-          $category = Category::where('id', $id)->first();
-        }
-        return view('administrator.categories', compact('categories','user','category'));   
+        return view('administrator.categories', compact('categories','user')); 
+      
       }
     }
 
