@@ -78,9 +78,9 @@
               <td data-label="Description" class="--description">{{$category->description}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                  <a href="{{ route('administrator.category', [$category->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
                     <span class="icon"><i class="fa-regular fa-eye"></i></span>
-                  </button>
+                  </a>
                 </div>
               </td>
             </tr>
@@ -101,21 +101,6 @@
               pageLength: 10
           } );
           
-          
-          $('.--jb-modal').on('click', function (e) {
-                e.preventDefault();
-                var data = $(this);
-                console.log(data);
-                swal.fire({
-                    title: "Você tem certeza?",
-                    text: "Você está prestes a DELETAR um registro!", type: "warning",
-                    showCancelButton: true,
-                    cancelButtonText: "Cancelar",
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Sim, deletar",
-                    closeOnConfirm: false
-                });
-          });
       });
 
 </script>
