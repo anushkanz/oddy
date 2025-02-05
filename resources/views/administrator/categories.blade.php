@@ -13,7 +13,7 @@
         </p>
       </header>
       <div class="card-content">
-        <form>
+        <form method='post' action="{{ route('administrator.category.update') }}">
           <div class="field">
             <label class="label">Category</label>
             <div class="control">

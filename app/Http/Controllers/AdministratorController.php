@@ -65,24 +65,22 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $user = Auth::user();
-        if($user->type == 'admin'){
-          $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'slug'=>'required'
-          ]);
-  
-          if($request->task == 'update'){
-            $category = Category::find($request->id);
-            if($category)
-            {
-              $category->update($request->all());
-              return redirect()->route('administrator.categories')->with('success','Category updated successfully');
-            }
-          }else{
-            Category::create($request->all());
-            return redirect()->route('administrator.categories')->with('success','Category created successfully');
+        $request->validate([
+          'name' => 'required',
+          'description' => 'required',
+          'slug'=>'required'
+        ]);
+
+        if($request->task == 'update'){
+          $category = Category::find($request->id);
+          if($category)
+          {
+            $category->update($request->all());
+            return redirect()->route('administrator.categories')->with('success','Category updated successfully');
           }
+        }else{
+          Category::create($request->all());
+          return redirect()->route('administrator.categories')->with('success','Category created successfully');
         }
       }
     }
