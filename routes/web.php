@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('administrator/member', [AdministratorController::class, 'updateMember'])->name('administrator.member.update');
 
     Route::get('administrator/categories', [AdministratorController::class, 'categories'])->name('administrator.categories');
-    Route::get('administrator/categories/{id}', [AdministratorController::class, 'category'])->name('administrator.category');
+    Route::get('administrator/category/{id}', [AdministratorController::class, 'category'])->name('administrator.category');
     Route::post('administrator/category', [AdministratorController::class, 'updateCategory'])->name('administrator.category.update');
 
     Route::get('administrator/bookings', [AdministratorController::class, 'bookings'])->name('administrator.bookings');
@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('administrator/payment/{id}', [AdministratorController::class, 'payment'])->name('administrator.payment');
     Route::post('administrator/payment', [AdministratorController::class, 'updatePayments'])->name('administrator.payment.update');
 
-    Route::get('administrator/account/', [AdministratorController::class, 'account'])->name('administrator.account'); 
+    Route::get('administrator/account/{id}', [AdministratorController::class, 'account'])->name('administrator.account'); 
     Route::post('administrator/account', [AdministratorController::class, 'updateAccount'])->name('administrator.account.update');
 
     /**
