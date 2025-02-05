@@ -79,7 +79,7 @@
               <td data-label="Description" class="--description">{{$category->description}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{ route('administrator.category') }}/{{$category->_id}}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                  <a href="{{ route('administrator.category',[$category->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
                     <span class="icon"><i class="fa-regular fa-eye"></i></span>
                   </a>
                 </div>
