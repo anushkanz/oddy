@@ -94,13 +94,26 @@
     </div>
     <script type="text/javascript">
 
-$(function() {
-  $('#categories').DataTable( {
-        paging: true,
-        responsive: true,
-        pageLength: 10
-    } );
-});
+      $(function() {
+          $('#categories').DataTable( {
+              paging: true,
+              responsive: true,
+              pageLength: 10
+          } );
+          
+          
+          $('.--jb-modal').on('click', function () {
+                swal({
+                    title: "Você tem certeza?",
+                    text: "Você está prestes a DELETAR um registro!", type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Cancelar",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Sim, deletar",
+                    closeOnConfirm: false
+                });
+          });
+      });
 
 </script>
 @endsection
