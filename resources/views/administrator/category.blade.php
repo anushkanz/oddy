@@ -14,6 +14,8 @@
       </header>
       <div class="card-content">
         <form method='post' action="{{ route('administrator.category.update') }}">
+        <input type='hidden' name='id' value="{{$category->_id}}"> 
+        <input type='hidden' name='task' value="update"> 
           <div class="field">
             <label class="label">Category</label>
             <div class="control">
