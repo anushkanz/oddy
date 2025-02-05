@@ -75,10 +75,18 @@ class AdministratorController extends Controller
           $category = Category::find($request->id);
           if($category)
           {
-            $category->update($request->all());
+            $category->name = $request->name;
+            $category->slug = $request->slug;
+            $category->description = $request->description;
+            $category->save();
             return redirect()->route('administrator.categories')->with('success','Category updated successfully');
           }
         }else{
+          Category::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'slug' => $request->slug,
+          ]);
           Category::create($request->all());
           return redirect()->route('administrator.categories')->with('success','Category created successfully');
         }
