@@ -75,7 +75,7 @@
               <td class="image-cell"></td>
               <td data-label="Name">{{$category->name}}</td>
               <td data-label="Slug">{{$category->slug}}</td>
-              <td data-label="Description">{{{{$category->description}}}}</td>
+              <td data-label="Description">{{$category->description}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
