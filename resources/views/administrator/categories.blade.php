@@ -17,19 +17,19 @@
           <div class="field">
             <label class="label">Category</label>
             <div class="control">
-              <input type="text" name="category" class="input" required>
+              <input type="text" value="{{ isset($category->name) ? $category->name : '' }}" name="category" class="input" required>
             </div>
             </div>
           <div class="field">
             <label class="label">Slug</label>
             <div class="control">
-              <input type="text" name="slug" class="input" required>
+              <input type="text" name="slug" value="{{ isset($category->slug) ? $category->slug : '' }}" class="input" required>
             </div>
           </div>
           <div class="field">
             <label class="label">Description</label>
             <div class="control">
-              <textarea type="text" name="description" class="input" required></textarea>
+              <textarea type="text" name="description" class="input" required>{{ isset($description->slug) ? $description->slug : '' }}</textarea>
             </div>
           </div>
           <hr>
@@ -78,7 +78,7 @@
               <td data-label="Description" class="--description">{{$category->description}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{ route('administrator.categories', [$category->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                  <a href="{{ route('administrator.categories']) }}/{{$category->_id}}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
                     <span class="icon"><i class="fa-regular fa-eye"></i></span>
                   </a>
                 </div>

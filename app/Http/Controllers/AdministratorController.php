@@ -36,13 +36,16 @@ class AdministratorController extends Controller
     /**
      * Categories function
      */
-    public function categories()
+    public function categories(string $id = null)
     {
       if(Auth::check()){
         $categories = Category::all();
         $user = Auth::user();
-        return view('administrator.categories', compact('categories','user')); 
-      
+        $category = array();
+        if($id != null){
+          $category = Category::where('id', $id)->first();
+        }
+        return view('administrator.categories', compact('categories','user','category'));   
       }
     }
 
