@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('administrator/member', [AdministratorController::class, 'updateMember'])->name('administrator.member.update');
 
     Route::get('administrator/categories', [AdministratorController::class, 'categories'])->name('administrator.categories');
-    Route::get('administrator/category/{id}', [AdministratorController::class, 'category'])->name('administrator.category');
+    Route::get('administrator/categories/{id}', [AdministratorController::class, 'category'])->name('administrator.category');
     Route::post('administrator/category', [AdministratorController::class, 'updateCategory'])->name('administrator.category.update');
 
     Route::get('administrator/bookings', [AdministratorController::class, 'bookings'])->name('administrator.bookings');
