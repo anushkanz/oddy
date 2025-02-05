@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('administrator/payment/{id}', [AdministratorController::class, 'payment'])->name('administrator.payment');
     Route::post('administrator/payment', [AdministratorController::class, 'updatePayments'])->name('administrator.payment.update');
 
-    Route::get('administrator/account/{id}', [AdministratorController::class, 'account'])->name('administrator.account'); 
+    Route::get('administrator/account/', [AdministratorController::class, 'account'])->name('administrator.account'); 
     Route::post('administrator/account', [AdministratorController::class, 'updateAccount'])->name('administrator.account.update');
 
     /**
