@@ -103,7 +103,7 @@
           
           
           $('.--jb-modal').on('click', function () {
-                swal({
+                swal.fire({
                     title: "Você tem certeza?",
                     text: "Você está prestes a DELETAR um registro!", type: "warning",
                     showCancelButton: true,
