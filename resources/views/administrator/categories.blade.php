@@ -73,9 +73,9 @@
           @endphp
             <tr>
               <td class="image-cell"></td>
-              <td data-label="Name">{{$category->name}}</td>
-              <td data-label="Slug">{{$category->slug}}</td>
-              <td data-label="Description">{{$category->description}}</td>
+              <td data-label="Name" class="--name">{{$category->name}}</td>
+              <td data-label="Slug" class="--slug">{{$category->slug}}</td>
+              <td data-label="Description" class="--description">{{$category->description}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <button class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
@@ -102,7 +102,10 @@
           } );
           
           
-          $('.--jb-modal').on('click', function () {
+          $('.--jb-modal').on('click', function (e) {
+                e.preventDefault();
+                var data = $(this);
+                console.log(data);
                 swal.fire({
                     title: "Você tem certeza?",
                     text: "Você está prestes a DELETAR um registro!", type: "warning",
