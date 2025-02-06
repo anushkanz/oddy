@@ -20,7 +20,6 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [CustomAuthController::class, 'dashboard']); 
     Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
-});
 
     /**
      * Administrator
@@ -91,3 +90,5 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('student/account/', [StudentController::class, 'account'])->name('student.account'); 
     Route::post('student/account', [StudentController::class, 'updateAccount'])->name('student.account.update');
+
+});
