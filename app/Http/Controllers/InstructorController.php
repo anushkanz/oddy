@@ -123,6 +123,14 @@ class InstructorController extends Controller
      */
     public function review(string $id)
     {
+        
+    }
+
+    /**
+     * Update Reviews function
+     */
+    public function updateReviews(Request $request)
+    {
         if(Auth::check()){
             $user = Auth::user();
                 $validator = Validator::make($request->all(), [
@@ -138,7 +146,7 @@ class InstructorController extends Controller
                 );
                 if ($validator->fails()) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('instructor.account')->with('error','Unable to validate your data');
+                    return redirect()->route('instructor.reviews')->with('error','Unable to validate your data');
                 }
       
                 if($request->task == 'update'){
@@ -167,28 +175,6 @@ class InstructorController extends Controller
                 }
             
         }
-    }
-
-    /**
-     * Update Reviews function
-     */
-    public function updateReviews(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-                    'class_id' => 'required',
-                    'rating'  => 'required',
-                    'comment'=>'required'
-                  ],
-                  [
-                    'class_id.required' => 'Your class is Required', 
-                    'rating.required' => 'Your rating is Required', 
-                    'comment.required'=> 'Your comment is Required', 
-                  ]
-                );
-                if ($validator->fails()) {
-                    $error = $validator->errors()->all();
-                    return redirect()->route('student.account')->with('error','Unable to validate your data');
-                }
     }
 
     /**
