@@ -15,7 +15,8 @@
       <div class="card-content">
         <form method='post' action="{{ route('administrator.category.update') }}">
           <input type='hidden' name='task' value="create"> 
-          <input type='hidden'name="csrf-token" value="{{ csrf_token() }}">
+          {{ csrf_token() }}
+
           <div class="field">
             <label class="label">Category</label>
             <div class="control">
