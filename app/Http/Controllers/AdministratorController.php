@@ -181,7 +181,7 @@ class AdministratorController extends Controller
     /**
      * Update Members function
      */
-    public function updateMembers(Request $request)
+    public function updateMember(Request $request)
     {
       if(Auth::check()){
         $user = Auth::user();
