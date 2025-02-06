@@ -16,6 +16,7 @@
         <form method='post' action="{{ route('administrator.category.update') }}">
         <input type='hidden' name='id' value="{{$category->_id}}"> 
         <input type='hidden' name='task' value="update"> 
+        @csrf
         {{ csrf_token() }}
 
           <div class="field">
