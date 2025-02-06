@@ -17,6 +17,7 @@ class Classes extends Model
         'category_id',
         'location_id',
         'duration',
+        'duration_type',
         'price',
         'max_capacity',
         'level',

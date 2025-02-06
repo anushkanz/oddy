@@ -30,6 +30,7 @@ return new class extends Migration
             $collection->foreignId('location_id')->constrained('location')->onDelete('cascade');
 
             $collection->integer('duration');
+            $collection->string('duration_type');
             $collection->integer('price');
             $collection->integer('max_capacity');
             $collection->string('level');
