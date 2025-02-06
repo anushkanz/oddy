@@ -2,10 +2,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
 use Illuminate\Validation\ValidationException;
-use Hash;
-use Session;
+use Illuminate\Support\Str;
 use App\Models\Booking;
 use App\Models\Category;
 use App\Models\ClassDate;
@@ -19,7 +17,9 @@ use App\Models\UserVerify;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use Mail; 
-use Illuminate\Support\Str;
+use Validator;
+use Hash;
+use Session;
 
 class AdministratorController extends Controller
 {
@@ -203,6 +203,8 @@ class AdministratorController extends Controller
             'email.required' => 'Your Email is Required', 
             'phone.required'=> 'Your phone number is Required', 
           ]);
+          dd($validator);
+          
           if ($validator->fails()) {
             $error = $validator->errors()->all();  
             return redirect($url)->with('error-details', $error);
