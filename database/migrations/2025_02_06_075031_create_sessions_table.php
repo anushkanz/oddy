@@ -11,13 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('_id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
+
+        Schema::create('sessions', function (Blueprint $collection) {
+            // Unique ID (automatically created by MongoDB)
+            $collection->index('_id');
+
+            // Reference to the class_dates collection (if class_dates are also users)
+            $collection->foreignId('user_id')->constrained('users')->onDelete('cascade');
+
+            $collection->string('ip_address', 45)->nullable();
+            $collection->text('user_agent')->nullable();
+            $collection->longText('payload');
+            $collection->integer('last_activity')->index();
+           
+            // Timestamps
+            $collection->timestamps();
         });
     }
 
