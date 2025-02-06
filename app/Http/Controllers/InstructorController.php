@@ -41,7 +41,8 @@ class InstructorController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             $courses = Classes::where('instructor_id',$user->_id)->get();
-            return view('instructor.courses', compact('courses','user')); 
+            $categories = Category::all();   
+            return view('instructor.courses', compact('courses','user','categories')); 
         
         }
     }
