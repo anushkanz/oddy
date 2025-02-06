@@ -233,7 +233,7 @@
               </div>
               <button type="button" class="button blue" id="addFieldBtn">Add Date & Time</button>
             </div>
-            <p class="help">Required. Course address</p>
+            <p class="help">Required. Course date and time</p>
           </div>
      
           <div class="field">
@@ -324,8 +324,8 @@
           $("#addFieldBtn").click(function () {
                 let fieldHtml = `
                     <div class="field-container">
-                        <input type="date" name="dates[]"  class="input"  required>
-                        <input type="time" name="times[]"  class="input"  required>
+                        <input type="date" name="dates[]"  class="input" style="width: 30%;" required>
+                        <input type="time" name="times[]"  class="input" style="width: 30%;" required>
                         <button type="button" class="remove-btn button red">Remove</button>
                     </div>
                 `;
