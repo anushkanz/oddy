@@ -70,5 +70,3 @@
 </script>
 
 @endsection
-
-@endsection
