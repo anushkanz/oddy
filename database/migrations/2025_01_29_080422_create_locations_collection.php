@@ -15,6 +15,10 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $collection) {
             // Unique ID (automatically created by MongoDB)
             $collection->index('_id');
+
+            // Reference to the Users collection (if instructors are also users)
+            $collection->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            
             // Location details
             $collection->string('name');
             $collection->comment('address');

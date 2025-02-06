@@ -11,6 +11,7 @@ class Location extends Model
 
     // Fields that can be mass-assigned
     protected $fillable = [
+        'user_id',
         'name',
         'address',
         'city',
@@ -19,6 +20,11 @@ class Location extends Model
         'longitude'
     ];
 
+    // Define the relationship with the User model
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     // Timestamps
     public $timestamps = true;
 }

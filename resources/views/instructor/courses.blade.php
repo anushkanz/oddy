@@ -71,14 +71,9 @@
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account"></i></span>
-            Profile
           </p>
         </header>
         <div class="card-content">
-          <div class="image w-48 h-48 mx-auto">
-            <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
-          </div>
           <hr>
           <div class="field">
             <label class="label">Name</label>
