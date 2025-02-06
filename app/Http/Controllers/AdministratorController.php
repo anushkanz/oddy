@@ -183,7 +183,29 @@ class AdministratorController extends Controller
      */
     public function updateMembers(Request $request)
     {
-
+      if(Auth::check()){
+        $user = Auth::user();
+        if($request->task == 'details'){
+          $request->validate([
+              'name' => 'required',
+              'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
+              'phone'=>'required'
+          ]);
+          if ($validator->fails()) {
+              $error = $validator->errors()->all();
+              return redirect()->route('administrator.members')->with('error','Unable to validate your data');
+          }
+          $currentUser = User::find($request->_id);
+          if($currentUser)
+          {
+              $currentUser->name = $request->name;
+              $currentUser->email = $request->email;
+              $currentUser->phone = $request->phone;
+              $currentUser->save();
+              return redirect()->route('administrator.members')->with('success','Account updated successfully');
+          }
+        }
+      }
     }
 
     /**
