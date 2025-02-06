@@ -44,7 +44,7 @@
 <aside class="aside is-placed-left is-expanded">
   <div class="aside-tools">
     <div>
-      Admin <b class="font-black">One</b>
+      Admin <b class="font-black">Tutor</b>
     </div>
   </div>
   <div class="menu is-menu-main">
