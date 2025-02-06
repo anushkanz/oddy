@@ -63,7 +63,7 @@
         </a>
       </header>
       <div class="card-content">
-        <table id="reviewer">
+        <table id="receiver">
           <thead>
           <tr>
             <th></th>
@@ -102,7 +102,7 @@
     <script type="text/javascript">
 
       $(function() {
-          $('#reviewer').DataTable( {
+          $('#reviewer,#receiver').DataTable( {
               paging: true,
               responsive: true,
               pageLength: 10
