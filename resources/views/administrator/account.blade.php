@@ -41,6 +41,7 @@
             <hr>
             <form method='post' action="{{ route('administrator.account.update') }}">
             <input type='hidden' name='task' value="details"> 
+            <input type='hidden' name='id' value="{{$user->_id}}"> 
               @csrf
               <div class="field">
                 <label class="label">Name</label>
@@ -131,6 +132,7 @@
       <div class="card-content">
       <form method='post' action="{{ route('administrator.account.update') }}">
         <input type='hidden' name='task' value="password"> 
+        <input type='hidden' name='id' value="{{$user->_id}}"> 
         @csrf
           <div class="field">
             <label class="label">Current password</label>
