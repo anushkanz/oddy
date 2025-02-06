@@ -102,11 +102,21 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-                $request->validate([
-                    'class_id'=>'required',
-                    'rating'=>'required',
+                $validator = Validator::make($request->all(), [
+                    'class_id' => 'required',
+                    'rating'  => 'required',
                     'comment'=>'required'
-                ]);
+                  ],
+                  [
+                    'class_id.required' => 'Your class is Required', 
+                    'rating.required' => 'Your rating is Required', 
+                    'comment.required'=> 'Your comment is Required', 
+                  ]
+                );
+                if ($validator->fails()) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('student.account')->with('error','Unable to validate your data');
+                }
       
                 if($request->task == 'update'){
                     $review = Review::find($request->id);
@@ -152,59 +162,64 @@ class StudentController extends Controller
      */
     public function updateAccount(Request $request)
     {
-        if(Auth::check()){
-            $user = Auth::user();
-                if($request->task == 'details'){
-                    $request->validate([
-                        'name' => 'required',
-                        'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
-                        'phone'=>'required'
-                    ]);
-                    if ($validator->fails()) {
-                        $error = $validator->errors()->all();
-                        return redirect()->route('student.account')->with('error','Unable to validate your data');
-                    }
-                    $currentUser = User::find($request->id);
-                    if($currentUser)
-                    {
-                        $currentUser->name = $request->name;
-                        $currentUser->email = $request->email;
-                        $currentUser->phone = $request->phone;
-                        $currentUser->save();
-                        return redirect()->route('student.account')->with('success','Account updated successfully');
-                    }
-                }elseif($request->task == 'password'){
-                    $inputs = [
-                        'old_password'          => $request->old_password,
-                        'password'              => $request->password,
-                        'password_confirmation' => $request->password_confirmation,
-                    ];
-                    $rules = [
-                        'old_password'    => 'required',
-                        'password_confirmation' => 'required',
-                        'password' => [
-                            'required',
-                            'confirmed',
-                            'string',
-                            'min:10',             // must be at least 10 characters in length
-                            'regex:/[a-z]/',      // must contain at least one lowercase letter
-                            'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                            'regex:/[0-9]/',      // must contain at least one digit
-                            'regex:/[@$!%*#?&]/', // must contain a special character
-                        ],
-                    ];
-                    $validator = Validator::make( $inputs, $rules );
-                    if ( $validator->fails() ) {
-                        $error = $validator->errors()->all();
-                        return redirect()->route('student.account')->with('error','Unable to validate your data');
-                    }else{
-                        $currentUser = User::find($request->id);
-                        $currentUser->password = \Hash::make($password);
-                        $currentUser->update(); //or $currentUser->save();
-                        return redirect()->route('student.account')->with('success','Account updated successfully');
-                    }
+      if(Auth::check()){
+        $user = Auth::user();
+            if($request->task == 'details'){
+                  $validator = Validator::make($request->all(), [
+                    'name' => 'required',
+                    'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
+                    'phone'=>'required'
+                  ],
+                  [
+                    'name.required' => 'Your First Name is Required', 
+                    'email.required' => 'Your Email is Required', 
+                    'phone.required'=> 'Your phone number is Required', 
+                  ]
+                );
+                if ($validator->fails()) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('student.account')->with('error','Unable to validate your data');
                 }
-            
+                $currentUser = User::find($request->id);
+                if($currentUser)
+                {
+                    $currentUser->name = $request->name;
+                    $currentUser->email = $request->email;
+                    $currentUser->phone = $request->phone;
+                    $currentUser->save();
+                    return redirect()->route('student.account')->with('success','Account updated successfully');
+                }
+            }elseif($request->task == 'password'){
+                $inputs = [
+                    'old_password'          => $request->password_current,
+                    'password'              => $request->password,
+                    'password_confirmation' => $request->password_confirmation,
+                ];
+                $rules = [
+                    'password_current'    => 'required',
+                    'password_confirmation' => 'required',
+                    'password' => [
+                        'required',
+                        'confirmed',
+                        'string',
+                        'min:10',             // must be at least 10 characters in length
+                        'regex:/[a-z]/',      // must contain at least one lowercase letter
+                        'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                        'regex:/[0-9]/',      // must contain at least one digit
+                        'regex:/[@$!%*#?&]/', // must contain a special character
+                    ],
+                ];
+                $validator = Validator::make( $inputs, $rules );
+                if ( $validator->fails() ) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('student.account')->with('error','Unable to validate your data');
+                }else{
+                    $currentUser = User::find($request->id);
+                    $currentUser->password = \Hash::make($password);
+                    $currentUser->update(); //or $currentUser->save();
+                    return redirect()->route('student.account')->with('success','Account updated successfully');
+                }
+            }
         }
-    }
+    } 
 }

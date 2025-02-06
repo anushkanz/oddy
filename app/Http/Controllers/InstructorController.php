@@ -125,8 +125,46 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            $review = Review::find($id);
-            return view('instructor.review', compact('review','user'));
+                $validator = Validator::make($request->all(), [
+                    'class_id' => 'required',
+                    'rating'  => 'required',
+                    'comment'=>'required'
+                  ],
+                  [
+                    'class_id.required' => 'Your class is Required', 
+                    'rating.required' => 'Your rating is Required', 
+                    'comment.required'=> 'Your comment is Required', 
+                  ]
+                );
+                if ($validator->fails()) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('instructor.account')->with('error','Unable to validate your data');
+                }
+      
+                if($request->task == 'update'){
+                    $review = Review::find($request->id);
+                    //Get receiver_id id from course
+                    $course = Classes::find($request->class_id);
+                    if($review)
+                    {
+                        $review->receiver_id = $course->_id;
+                        $review->reviewer_id = $user->_id;
+                        $review->class_id = $request->class_id;
+                        $review->rating = $request->rating;
+                        $review->comment = $request->comment;
+                        $review->save();
+                        return redirect()->route('instructor.reviews')->with('success','Review updated successfully');
+                    }
+                }else{
+                    Review::create([
+                        'receiver_id' => $course->_id,
+                        'reviewer_id' => $user->_id,
+                        'class_id' => $request->class_id,
+                        'rating' => $request->rating,
+                        'comment' => $request->comment
+                    ]);
+                    return redirect()->route('instructor.reviews')->with('success','Review created successfully');
+                }
             
         }
     }
@@ -136,7 +174,21 @@ class InstructorController extends Controller
      */
     public function updateReviews(Request $request)
     {
-        
+        $validator = Validator::make($request->all(), [
+                    'class_id' => 'required',
+                    'rating'  => 'required',
+                    'comment'=>'required'
+                  ],
+                  [
+                    'class_id.required' => 'Your class is Required', 
+                    'rating.required' => 'Your rating is Required', 
+                    'comment.required'=> 'Your comment is Required', 
+                  ]
+                );
+                if ($validator->fails()) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('student.account')->with('error','Unable to validate your data');
+                }
     }
 
     /**
@@ -155,14 +207,20 @@ class InstructorController extends Controller
      */
     public function updateAccount(Request $request)
     {
-        if(Auth::check()){
-            $user = Auth::user();
+      if(Auth::check()){
+        $user = Auth::user();
             if($request->task == 'details'){
-                $request->validate([
+                  $validator = Validator::make($request->all(), [
                     'name' => 'required',
                     'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
                     'phone'=>'required'
-                ]);
+                  ],
+                  [
+                    'name.required' => 'Your First Name is Required', 
+                    'email.required' => 'Your Email is Required', 
+                    'phone.required'=> 'Your phone number is Required', 
+                  ]
+                );
                 if ($validator->fails()) {
                     $error = $validator->errors()->all();
                     return redirect()->route('instructor.account')->with('error','Unable to validate your data');
@@ -178,12 +236,12 @@ class InstructorController extends Controller
                 }
             }elseif($request->task == 'password'){
                 $inputs = [
-                    'old_password'          => $request->old_password,
+                    'old_password'          => $request->password_current,
                     'password'              => $request->password,
                     'password_confirmation' => $request->password_confirmation,
                 ];
                 $rules = [
-                    'old_password'    => 'required',
+                    'password_current'    => 'required',
                     'password_confirmation' => 'required',
                     'password' => [
                         'required',
