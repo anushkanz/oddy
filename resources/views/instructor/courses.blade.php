@@ -13,7 +13,7 @@
         <header class="card-header">
           <p class="card-header-title">
             <span class="icon"><i class="mdi mdi-account-circle"></i></span>
-            Edit Profile
+            Course Details
           </p>
         </header>
           <div class="card-content">
@@ -71,6 +71,8 @@
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
+            <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+            Location Details
           </p>
         </header>
         <div class="card-content">
