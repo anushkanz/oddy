@@ -188,14 +188,14 @@ class AdministratorController extends Controller
         if($request->task == 'details'){
           $validator = $request->validate([
               'name' => 'required',
-              'email'  => 'required|string|email|max:255|unique:users,email,' . $request->_id,
+              'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
               'phone'=>'required'
           ]);
           if ($validator->fails()) {
               $error = $validator->errors()->all();
               return redirect()->route('administrator.members')->with('error','Unable to validate your data');
           }
-          $currentUser = User::find($request->_id);
+          $currentUser = User::find($request->id);
           if($currentUser)
           {
               $currentUser->name = $request->name;
