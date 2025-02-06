@@ -324,9 +324,9 @@
           $("#addFieldBtn").click(function () {
                 let fieldHtml = `
                     <div class="field-container">
-                        <input type="date" name="dates[]" required>
-                        <input type="time" name="times[]" required>
-                        <button type="button" class="remove-btn">Remove</button>
+                        <input type="date" name="dates[]"  class="input"  required>
+                        <input type="time" name="times[]"  class="input"  required>
+                        <button type="button" class="remove-btn button red">Remove</button>
                     </div>
                 `;
                 $("#fieldsContainer").append(fieldHtml);
@@ -335,7 +335,7 @@
             $(document).on("click", ".remove-btn", function () {
                 $(this).parent().remove();
             });
-            
+
       });
 
 </script>
