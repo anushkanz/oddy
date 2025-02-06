@@ -76,7 +76,6 @@
           </p>
         </header>
         <div class="card-content">
-          <hr>
           <div class="field">
             <label class="label">Location Name</label>
             <div class="control">
