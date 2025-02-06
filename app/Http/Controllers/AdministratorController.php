@@ -160,9 +160,9 @@ class AdministratorController extends Controller
     public function members()
     {
       if(Auth::check()){
-        $users =  User::all();
+        $members =  User::all();
         $user = Auth::user();
-        return view('administrator.members',compact('users','user'));
+        return view('administrator.members',compact('members','user'));
       } 
     }
 
@@ -172,9 +172,9 @@ class AdministratorController extends Controller
     public function member(string $id)
     {
       if(Auth::check()){
-        $user_edit = User::find($id);
+        $member = User::find($id);
         $user = Auth::user();
-        return view('administrator.member', compact('user_edit','user'));
+        return view('administrator.member', compact('member','user'));
       } 
     }
 
