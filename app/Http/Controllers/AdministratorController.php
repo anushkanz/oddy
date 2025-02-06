@@ -70,6 +70,11 @@ class AdministratorController extends Controller
           'name' => 'required',
           'description' => 'required',
           'slug'=>'required'
+        ],
+        [
+            'name.required' => 'Your name is Required', 
+            'description' => 'Your description is Required', 
+            'slug.required' => 'Your slug is Required'
         ]);
 
         if($request->task == 'update'){
@@ -184,6 +189,7 @@ class AdministratorController extends Controller
      */
     public function updateMember(Request $request)
     {
+      $url = '/administrator/member/'.$request->id;
       if(Auth::check()){
         $user = Auth::user();
         if($request->task == 'details'){
@@ -191,10 +197,15 @@ class AdministratorController extends Controller
               'name' => 'required',
               'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
               'phone'=>'required'
+          ],
+          [
+            'name.required' => 'Your First Name is Required', 
+            'email.required' => 'Your Email is Required', 
+            'phone.required'=> 'Your phone number is Required', 
           ]);
           if ($validator->fails()) {
-              $error = $validator->errors()->all();
-              return redirect()->route('administrator.members')->with('error','Unable to validate your data');
+            $error = $validator->errors()->all();  
+            return redirect($url)->with('error-details', $error);
           }
           $currentUser = User::find($request->id);
           if($currentUser)
@@ -270,6 +281,10 @@ class AdministratorController extends Controller
                   'class_id'=>'required',
                   'rating'=>'required',
                   'comment'=>'required'
+              ],
+              [
+                  'rating.required' => 'Your rating is Required', 
+                  'comment.required' => 'Your comment is Required', 
               ]);
               if($request->task == 'update'){
                   $review = Review::find($request->id);
@@ -320,6 +335,11 @@ class AdministratorController extends Controller
                     'name' => 'required',
                     'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
                     'phone'=>'required'
+                ],
+                [
+                    'name.required' => 'Your First Name is Required', 
+                    'email.required' => 'Your Email is Required', 
+                    'phone.required'=> 'Your phone number is Required', 
                 ]);
                 if ($validator->fails()) {
                     $error = $validator->errors()->all();
