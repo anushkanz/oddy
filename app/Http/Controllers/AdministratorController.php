@@ -188,7 +188,7 @@ class AdministratorController extends Controller
         if($request->task == 'details'){
           $validator = $request->validate([
               'name' => 'required',
-              'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
+              'email'  => 'required|string|email|max:255|unique:users,email,' . $request->_id,
               'phone'=>'required'
           ]);
           if ($validator->fails()) {
