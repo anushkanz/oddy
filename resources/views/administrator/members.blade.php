@@ -34,7 +34,13 @@
               <td class="image-cell"></td>
               <td data-label="Name" class="--name">{{$member->name}}</td>
               <td data-label="Email" class="--email">{{$member->email}}</td>
-              <td data-label="Status" class="--status">{{$member->status}}</td>
+              <td data-label="Status" class="--status">
+              @if($user->status == 1)  
+                Active 
+              @else
+                Inactive
+              @endif
+              </td>
               <td data-label="Role" class="--role">{{$member->role}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
