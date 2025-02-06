@@ -292,7 +292,6 @@ class AdministratorController extends Controller
     {
       if(Auth::check()){
         $user = Auth::user();
-        if($user->type == 'admin'){
             if($request->task == 'details'){
                 $request->validate([
                     'name' => 'required',
@@ -314,12 +313,12 @@ class AdministratorController extends Controller
                 }
             }elseif($request->task == 'password'){
                 $inputs = [
-                    'old_password'          => $request->old_password,
+                    'old_password'          => $request->password_current,
                     'password'              => $request->password,
                     'password_confirmation' => $request->password_confirmation,
                 ];
                 $rules = [
-                    'old_password'    => 'required',
+                    'password_current'    => 'required',
                     'password_confirmation' => 'required',
                     'password' => [
                         'required',
@@ -344,6 +343,5 @@ class AdministratorController extends Controller
                 }
             }
         }
-      }
     } 
 }

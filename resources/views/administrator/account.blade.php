@@ -22,52 +22,68 @@
           </p>
         </header>
         <div class="card-content">
-          <form>
-            <div class="field">
-              <label class="label">Avatar</label>
-              <div class="field-body">
-                <div class="field file">
-                  <label class="upload control">
-                    <a class="button blue">
-                      Upload
-                    </a>
-                    <input type="file">
-                  </label>
-                </div>
-              </div>
-            </div>
-            <hr>
-            <div class="field">
-              <label class="label">Name</label>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <input type="text" autocomplete="on" name="name" value="John Doe" class="input" required>
+            <form>
+              @csrf
+              <div class="field">
+                <label class="label">Avatar</label>
+                <div class="field-body">
+                  <div class="field file">
+                    <label class="upload control">
+                      <a class="button blue">
+                        Upload
+                      </a>
+                      <input type="file">
+                    </label>
                   </div>
-                  <p class="help">Required. Your name</p>
                 </div>
               </div>
-            </div>
-            <div class="field">
-              <label class="label">E-mail</label>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control">
-                    <input type="email" autocomplete="on" name="email" value="user@example.com" class="input" required>
-                  </div>
-                  <p class="help">Required. Your e-mail</p>
-                </div>
-              </div>
-            </div>
+            </form>
             <hr>
-            <div class="field">
-              <div class="control">
-                <button type="submit" class="button green">
-                  Submit
-                </button>
+            <form method='post' action="{{ route('administrator.account.update') }}">
+            <input type='hidden' name='task' value="details"> 
+              @csrf
+              <div class="field">
+                <label class="label">Name</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="text" autocomplete="on" name="name" value="{{ isset($user->name) ? $user->name : '' }}" class="input" required>
+                    </div>
+                    <p class="help">Required. Your name</p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </form>
+              <div class="field">
+                <label class="label">Phone</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="text" autocomplete="on" name="phone" value="{{ isset($user->phone) ? $user->phone : '' }}" class="input" required>
+                    </div>
+                    <p class="help">Required. Your phone</p>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">E-mail</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="email" autocomplete="on" name="email" value="{{ isset($user->email) ? $user->email : '' }}" class="input" required>
+                    </div>
+                    <p class="help">Required. Your e-mail</p>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="field">
+                <div class="control">
+                  <button type="submit" class="button green">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
         </div>
       </div>
       <div class="card">
@@ -85,14 +101,21 @@
           <div class="field">
             <label class="label">Name</label>
             <div class="control">
-              <input type="text" readonly value="John Doe" class="input is-static">
+              <input type="text" readonly value="{{ isset($user->name) ? $user->name : '' }}" class="input is-static">
+            </div>
+          </div>
+          <hr>
+          <div class="field">
+            <label class="label">Phone</label>
+            <div class="control">
+              <input type="text" readonly value="{{ isset($user->phone) ? $user->phone : '' }}" class="input is-static">
             </div>
           </div>
           <hr>
           <div class="field">
             <label class="label">E-mail</label>
             <div class="control">
-              <input type="text" readonly value="user@example.com" class="input is-static">
+              <input type="text" readonly value="{{ isset($user->email) ? $user->email : '' }}" class="input is-static">
             </div>
           </div>
         </div>
@@ -106,7 +129,9 @@
         </p>
       </header>
       <div class="card-content">
-        <form>
+      <form method='post' action="{{ route('administrator.account.update') }}">
+        <input type='hidden' name='task' value="password"> 
+        @csrf
           <div class="field">
             <label class="label">Current password</label>
             <div class="control">
@@ -118,7 +143,7 @@
           <div class="field">
             <label class="label">New password</label>
             <div class="control">
-              <input type="password" autocomplete="new-password" name="password" class="input" required>
+              <input type="password" autocomplete="password" name="password" class="input" required>
             </div>
             <p class="help">Required. New password</p>
           </div>
