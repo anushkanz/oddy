@@ -4,9 +4,11 @@
 
 @section('content')
 
-
-
-<div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
+<form method='post' action="{{ route('instructor.course.update') }}">
+@csrf
+<input type='hidden' name='task' value="create">
+<section class="section main-section">
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
@@ -14,71 +16,57 @@
             Edit Profile
           </p>
         </header>
-        <div class="card-content">
-            <form>
-              @csrf
-              
-            </form>
-            <hr>
-            <form method='post' action="{{ route('instructor.course.update') }}">
-            <input type='hidden' name='task' value="create"> 
-              @csrf
-              <div class="field">
-                <label class="label">Name</label>
-                <div class="field-body">
-                  <div class="field">
-                    <div class="control">
-                      <input type="text" autocomplete="on" name="name" value="" class="input" required>
+          <div class="card-content">
+                <div class="field">
+                  <label class="label">Title</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" autocomplete="on" name="title" value="" class="input" required>
+                      </div>
+                      <p class="help">Required. Course title</p>
                     </div>
-                    <p class="help">Required. Your name</p>
                   </div>
                 </div>
-              </div>
-              <div class="field">
-                <label class="label">Phone</label>
-                <div class="field-body">
-                  <div class="field">
-                    <div class="control">
-                      <input type="text" autocomplete="on" name="phone" value="" class="input" required>
+                <div class="field">
+                  <label class="label">Category</label>
+                  <div class="control">
+                    <div class="select">
+                      <select name="category">
+                        @foreach($categories as $category)
+                          <option value="{{$category->_id}}">{{$category->name}}</option>
+                        @endforeach  
+                      </select>
+                      <p class="help">Required. Course category</p>
                     </div>
-                    <p class="help">Required. Your phone</p>
                   </div>
                 </div>
-              </div>
-              <div class="field">
-                <label class="label">E-mail</label>
-                <div class="field-body">
-                  <div class="field">
-                    <div class="control">
-                      <input type="email" autocomplete="on" name="email" value="" class="input" required>
+                <div class="field">
+                  <label class="label">Description</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <textarea type="text" autocomplete="on" name="description" value="" class="input" required></textarea>
+                      </div>
+                      <p class="help">Required. Course description</p>
                     </div>
-                    <p class="help">Required. Your e-mail</p>
                   </div>
                 </div>
-              </div>
-              <div class="field">
-                <label class="label">Avatar</label>
-                <div class="field-body">
-                  <div class="field file">
-                    <label class="upload control">
-                      <a class="button blue">
-                        Upload
-                      </a>
-                      <input type="file">
-                    </label>
+                
+                <div class="field">
+                  <label class="label">Course Images</label>
+                  <div class="field-body">
+                    <div class="field file">
+                      <label class="upload control">
+                        <a class="button blue">
+                          Upload
+                        </a>
+                        <input type="file" name="file_upload[]">
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <hr>
-              <div class="field">
-                <div class="control">
-                  <button type="submit" class="button green">
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </form>
-        </div>
+          </div>
       </div>
       <div class="card">
         <header class="card-header">
@@ -112,10 +100,19 @@
               <input type="text" readonly value="{{ isset($user->email) ? $user->email : '' }}" class="input is-static">
             </div>
           </div>
+          <hr>
+          <div class="field">
+            <div class="control">
+              <button type="submit" class="button green">
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+</section>
+</form>
 <section class="section main-section">  
 <header class="card-header">
         <p class="card-header-title">

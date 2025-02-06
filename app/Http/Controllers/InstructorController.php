@@ -56,8 +56,8 @@ class InstructorController extends Controller
             $course = Classes::where('instructor_id',$user->_id)
                         ->where('_id',$id)
                         ->get();
-            return view('instructor.course', compact('course','user'));
-
+            $categories = Category::all();        
+            return view('instructor.course', compact('course','user','categories'));
         }
     }
 
