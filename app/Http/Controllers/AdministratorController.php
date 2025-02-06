@@ -186,7 +186,7 @@ class AdministratorController extends Controller
       if(Auth::check()){
         $user = Auth::user();
         if($request->task == 'details'){
-          $request->validate([
+          $validator = $request->validate([
               'name' => 'required',
               'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
               'phone'=>'required'
@@ -265,7 +265,7 @@ class AdministratorController extends Controller
       if(Auth::check()){
           $user = Auth::user();
           if($user->type == 'admin'){
-              $request->validate([
+              $validator = $request->validate([
                   'class_id'=>'required',
                   'rating'=>'required',
                   'comment'=>'required'
@@ -315,7 +315,7 @@ class AdministratorController extends Controller
       if(Auth::check()){
         $user = Auth::user();
             if($request->task == 'details'){
-                $request->validate([
+                $validator = $request->validate([
                     'name' => 'required',
                     'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
                     'phone'=>'required'
