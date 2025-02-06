@@ -77,30 +77,48 @@
         </header>
         <div class="card-content">
           <div class="field">
+            <label class="label">Location Selection</label>
+            <div class="control">
+              <div class="select">
+                <select name="location">
+                  <option value="">Select Location</option>
+                  @foreach($locations as $location)
+                    <option value="{{$location->_id}}">{{$location->name}}</option>
+                  @endforeach  
+                </select>
+                <p class="help">You can select previous location</p>
+              </div>
+            </div>
+          </div>
+          <div class="field">
             <label class="label">Location Name</label>
             <div class="control">
               <input type="text" autocomplete="on" name="location_name" value="" class="input" required>
             </div>
+            <p class="help">Required. Course Location name</p>
           </div>
-          <hr>
+   
           <div class="field">
             <label class="label">Address</label>
             <div class="control">
             <input type="text" autocomplete="on" name="location_address" value="" class="input" required>
             </div>
+            <p class="help">Required. Course address</p>
           </div>
-          <hr>
+     
           <div class="field">
             <label class="label">City</label>
             <div class="control">
             <input type="text" autocomplete="on" name="location_city" value="" class="input" required>
             </div>
+            <p class="help">Required. Course City</p>
           </div>
           <div class="field">
             <label class="label">Country</label>
             <div class="control">
             <input type="text" autocomplete="on" name="location_country" readonly value="NZ" class="input" required>
             </div>
+            <p class="help">Required. Course country</p>
           </div>
           <hr>
           <div class="field">
