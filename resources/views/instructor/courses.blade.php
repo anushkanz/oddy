@@ -52,7 +52,28 @@
                     </div>
                   </div>
                 </div>
-                
+                <div class="field">
+                  <label class="label">Cost per Seat</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" autocomplete="on" name="price" value="" class="input" required>
+                      </div>
+                      <p class="help">Required. Course cost per seat</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Max capacity</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" autocomplete="on" name="max_capacity" value="" class="input" required>
+                      </div>
+                      <p class="help">Required. Course max capacity</p>
+                    </div>
+                  </div>
+                </div>
                 <div class="field">
                   <label class="label">Course Images</label>
                   <div class="field-body">
