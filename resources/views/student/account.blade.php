@@ -1,4 +1,4 @@
-@extends('layouts.master_administrator')
+@extends('layouts.master_student')
 
 @section('title', 'Home Page')
 
