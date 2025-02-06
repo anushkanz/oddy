@@ -4,11 +4,6 @@
 
 @section('content')
 
-@extends('layouts.master_administrator')
-
-@section('title', 'Home Page')
-
-@section('content')
 
 <div class="card has-table">
       <header class="card-header">
