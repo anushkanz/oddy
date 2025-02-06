@@ -76,23 +76,29 @@
         <div class="card-content">
           <hr>
           <div class="field">
-            <label class="label">Name</label>
+            <label class="label">Location Name</label>
             <div class="control">
-              <input type="text" readonly value="{{ isset($user->name) ? $user->name : '' }}" class="input is-static">
+              <input type="text" autocomplete="on" name="location_name" value="" class="input" required>
             </div>
           </div>
           <hr>
           <div class="field">
-            <label class="label">Phone</label>
+            <label class="label">Address</label>
             <div class="control">
-              <input type="text" readonly value="{{ isset($user->phone) ? $user->phone : '' }}" class="input is-static">
+            <input type="text" autocomplete="on" name="location_address" value="" class="input" required>
             </div>
           </div>
           <hr>
           <div class="field">
-            <label class="label">E-mail</label>
+            <label class="label">City</label>
             <div class="control">
-              <input type="text" readonly value="{{ isset($user->email) ? $user->email : '' }}" class="input is-static">
+            <input type="text" autocomplete="on" name="location_city" value="" class="input" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Country</label>
+            <div class="control">
+            <input type="text" autocomplete="on" name="location_country" readonly value="NZ" class="input" required>
             </div>
           </div>
           <hr>
