@@ -241,9 +241,9 @@
           @endphp
             <tr>
               <td class="image-cell"></td>
-              <td data-label="Name" class="--name">{{$course->instructor()->name}}</td>
+              <td data-label="Name" class="--name">{{$course->instructor->name}}</td>
               <td data-label="Title" class="--title">{{$course->title}}</td>
-              <td data-label="Category" class="--category">{{$course->category()->name}}</td>
+              <td data-label="Category" class="--category">{{$course->category->name}}</td>
               <td data-label="Price" class="--role">{{$course->price}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">

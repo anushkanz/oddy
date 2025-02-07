@@ -31,9 +31,9 @@
           @endphp
             <tr>
               <td class="image-cell"></td>
-              <td data-label="Name" class="--name">{{$review->receiver()->name}}</td>
-              <td data-label="Title" class="--title">{{$review->reviewer()->title}}</td>
-              <td data-label="Category" class="--category">{{$review->classes()->title}}</td>
+              <td data-label="Name" class="--name">{{$review->receiver->name}}</td>
+              <td data-label="Title" class="--title">{{$review->reviewer->title}}</td>
+              <td data-label="Category" class="--category">{{$review->classes->title}}</td>
               <td data-label="Status" class="--status">{{$review->rating}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
@@ -79,9 +79,9 @@
           @endphp
             <tr>
               <td class="image-cell"></td>
-              <td data-label="Name" class="--name">{{$review->receiver()->name}}</td>
-              <td data-label="Title" class="--title">{{$review->reviewer()->title}}</td>
-              <td data-label="Category" class="--category">{{$review->classes()->title}}</td>
+              <td data-label="Name" class="--name">{{$review->receiver->name}}</td>
+              <td data-label="Title" class="--title">{{$review->reviewer->title}}</td>
+              <td data-label="Category" class="--category">{{$review->classes->title}}</td>
               <td data-label="Status" class="--status">{{$review->rating}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">

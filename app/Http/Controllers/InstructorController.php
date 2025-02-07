@@ -166,7 +166,7 @@ class InstructorController extends Controller
             $course->instructor_id = $user->id;
             $course->title = $request->title;
             $course->description = $request->description;
-            $course->category_id = $request->category_id;
+            $course->category_id = $request->category;
             $course->location_id = $location_id;
             $course->duration = $request->duration;
             $course->duration_type = $request->duration_type;

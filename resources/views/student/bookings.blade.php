@@ -35,9 +35,9 @@
           @endphp
             <tr>
               <td class="image-cell"></td>
-              <td data-label="Name" class="--name">{{$booking->user()->name}}</td>
-              <td data-label="Title" class="--title">{{$booking->classes()->title}}</td>
-              <td data-label="Category" class="--category">{{$booking->payment()->_id}}</td>
+              <td data-label="Name" class="--name">{{$booking->user->name}}</td>
+              <td data-label="Title" class="--title">{{$booking->classes->title}}</td>
+              <td data-label="Category" class="--category">{{$booking->payment->_id}}</td>
               <td data-label="Status" class="--status">{{$booking->status}}</td>
               <td data-label="date" class="--date">{{$booking->booking_date}}</td>
               <td class="actions-cell">
