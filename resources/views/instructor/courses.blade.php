@@ -13,7 +13,7 @@
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+            <span class="icon"><i class="fa-solid fa-house"></i></span>
             Course Details
           </p>
         </header>
@@ -106,7 +106,7 @@
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+            <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
             Location Details
           </p>
         </header>
@@ -164,7 +164,7 @@
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+            <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
             Date / Time Details
           </p>
         </header>
@@ -216,7 +216,7 @@
 <div class="card has-table">  
 <header class="card-header">
         <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+          <span class="icon"><i class="fa-solid fa-house"></i></span>
           Courses
         </p>
         <a href="#" class="card-header-icon">
