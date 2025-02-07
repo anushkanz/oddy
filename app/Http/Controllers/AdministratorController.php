@@ -100,7 +100,7 @@ class AdministratorController extends Controller
             'description' => $request->description,
             'slug' => $request->slug,
           ]);
-          Category::create($request->all());
+          //Category::create($request->all());
           return redirect()->route('administrator.categories')->with('success','Category created successfully');
         }
       }

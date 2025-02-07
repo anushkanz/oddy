@@ -7,6 +7,7 @@
 <form method='post' action="{{ route('instructor.course.update') }}">
 @csrf
 <input type='hidden' name='task' value="create">
+<input type='hidden' name='user' value="{{$user->_id}}">
 <section class="section main-section">
   <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
       <div class="card">
@@ -114,7 +115,7 @@
             <label class="label">Location Selection</label>
             <div class="control">
               <div class="select">
-                <select name="location">
+                <select name="location_selected">
                   <option value="">Select Location</option>
                   @foreach($locations as $location)
                     <option value="{{$location->_id}}">{{$location->name}}</option>
@@ -274,7 +275,8 @@
                 let fieldHtml = `
                     <div class="field-container">
                         <input type="date" name="dates[]"  class="input" style="width: 30%;" required>
-                        <input type="time" name="times[]"  class="input" style="width: 30%;" required>
+                        <input type="time" name="start_times[]"  class="input" style="width: 30%;" required>
+                        <input type="time" name="end_times[]"  class="input" style="width: 30%;" required>
                         <button type="button" class="remove-btn button red">Remove</button>
                     </div>
                 `;
