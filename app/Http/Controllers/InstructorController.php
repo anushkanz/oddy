@@ -127,9 +127,8 @@ class InstructorController extends Controller
 
             if ($validator->fails()) {
                 $error = $validator->errors()->all();
-                dd($error);
                 //return redirect()->route('instructor.courses')->with('error','Unable to validate your data');
-                //return back()->withErrors($validator)->withInput();
+                return back()->withErrors($validator)->withInput();
             }
 
             /**

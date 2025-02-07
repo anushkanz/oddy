@@ -232,6 +232,8 @@
             <th>Title</th>
             <th>Category</th>
             <th>Price</th>
+            <th>Seats</th>
+            <th>Level</th>
             <th></th>
           </tr>
           </thead>
@@ -245,6 +247,8 @@
               <td data-label="Title" class="--title">{{$course->title}}</td>
               <td data-label="Category" class="--category">{{$course->category->name}}</td>
               <td data-label="Price" class="--role">{{$course->price}}</td>
+              <td data-label="Seats" class="--role">{{$course->max_capacity}}</td>
+              <td data-label="level" class="--role">{{$course->level}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <a href="{{ route('instructor.course',[$course->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
