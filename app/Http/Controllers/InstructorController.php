@@ -39,6 +39,11 @@ class InstructorController extends Controller
     public function courses()
     {
         if(Auth::check()){
+            $results = app("geocoder")
+                ->doNotCache()
+                ->geocode('Los Angeles, CA')
+                ->get();
+            dd($results);
             $user = Auth::user();
             $courses = Classes::where('instructor_id',$user->_id)->get();
             $categories = Category::all();    
