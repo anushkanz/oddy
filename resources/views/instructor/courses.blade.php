@@ -79,7 +79,7 @@
                   <label class="label">Course Level</label>
                   <div class="control">
                     <div class="select">
-                      <select name="category">
+                      <select name="course_level">
                           <option value="beginner">Beginner</option>
                           <option value="intermediate">Intermediate</option>
                           <option value="advance">Advance</option>

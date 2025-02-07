@@ -71,85 +71,113 @@ class InstructorController extends Controller
     public function updateCourse(Request $request)
     {
         if(Auth::check()){
-            // $user = Auth::user();
-            // if($request->location_selected == ''){
-            //     $validator = Validator::make($request->all(), [
-            //         'title' => 'required',
-            //         'description'  => 'required',
-            //         'price'=>'required',
-            //         'max_capacity'=>'required',
-            //         'location_name'=> 'required',
-            //         'location_address'=>'required',
-            //         'location_city'=>'required',
-            //         'duration'=>'required',
-            //         'dates'=>'required',
-            //         'times'=>'required',
-            //       ],
-            //       [
-            //         'title.required' => 'Your title is Required', 
-            //         'description.required' => 'Your description is Required', 
-            //         'price.required'=> 'Your cost per seat is Required', 
-            //         'max_capacity.required'=> 'Your max capacity is Required', 
-            //         'location_name.required'=> 'Your location name is Required', 
-            //         'location_address.required'=> 'Your address is Required', 
-            //         'location_city.required'=> 'Your city is Required', 
-            //         'duration.required'=> 'Your course duration is Required', 
-            //         'dates.required'=> 'Your course dates is Required', 
-            //         'times.required'=> 'Your course times is Required', 
-            //       ]
-            //     );
-            // }else{
-            //     $validator = Validator::make($request->all(), [
-            //         'title' => 'required',
-            //         'description'  => 'required',
-            //         'price'=>'required',
-            //         'max_capacity'=>'required',
-            //         'duration'=>'required',
-            //         'dates'=>'required',
-            //         'times'=>'required',
-            //       ],
-            //       [
-            //         'title.required' => 'Your title is Required', 
-            //         'description.required' => 'Your description is Required', 
-            //         'price.required'=> 'Your cost per seat is Required', 
-            //         'max_capacity.required'=> 'Your max capacity is Required', 
-            //         'duration.required'=> 'Your course duration is Required', 
-            //         'dates.required'=> 'Your course dates is Required', 
-            //         'times.required'=> 'Your course times is Required', 
-            //       ]
-            //     );
-            // }
+            $user = Auth::user();
+            if($request->location_selected == ''){
+                $validator = Validator::make($request->all(), [
+                    'title' => 'required',
+                    'description'  => 'required',
+                    'price'=>'required',
+                    'max_capacity'=>'required',
+                    'location_name'=> 'required',
+                    'location_address'=>'required',
+                    'location_city'=>'required',
+                    'duration'=>'required',
+                    'dates'=>'required',
+                    'times'=>'required',
+                  ],
+                  [
+                    'title.required' => 'Your title is Required', 
+                    'description.required' => 'Your description is Required', 
+                    'price.required'=> 'Your cost per seat is Required', 
+                    'max_capacity.required'=> 'Your max capacity is Required', 
+                    'location_name.required'=> 'Your location name is Required', 
+                    'location_address.required'=> 'Your address is Required', 
+                    'location_city.required'=> 'Your city is Required', 
+                    'duration.required'=> 'Your course duration is Required', 
+                    'dates.required'=> 'Your course dates is Required', 
+                    'times.required'=> 'Your course times is Required', 
+                  ]
+                );
+            }else{
+                $validator = Validator::make($request->all(), [
+                    'title' => 'required',
+                    'description'  => 'required',
+                    'price'=>'required',
+                    'max_capacity'=>'required',
+                    'duration'=>'required',
+                    'dates'=>'required',
+                    'times'=>'required',
+                  ],
+                  [
+                    'title.required' => 'Your title is Required', 
+                    'description.required' => 'Your description is Required', 
+                    'price.required'=> 'Your cost per seat is Required', 
+                    'max_capacity.required'=> 'Your max capacity is Required', 
+                    'duration.required'=> 'Your course duration is Required', 
+                    'dates.required'=> 'Your course dates is Required', 
+                    'times.required'=> 'Your course times is Required', 
+                  ]
+                );
+            }
 
-            // if ($validator->fails()) {
-            //     $error = $validator->errors()->all();
-            //     return redirect()->route('instructor.reviews')->with('error','Unable to validate your data');
-            // }
+            if ($validator->fails()) {
+                $error = $validator->errors()->all();
+                return redirect()->route('instructor.reviews')->with('error','Unable to validate your data');
+            }
 
-            // /**
-            // * Get locataion codinates / create location
-            // */ 
-            // if($request->location_selected == ''){
-            //     $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
-            //     $results = app("geocoder")
-            //         ->doNotCache()
-            //         ->geocode($address)
-            //         ->get();
-            //     $coordinates = $result[0]->getCoordinates();
+            /**
+            * Get locataion codinates / create location
+            */ 
+            if($request->location_selected == ''){
+                $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
+                $results = app("geocoder")
+                    ->doNotCache()
+                    ->geocode($address)
+                    ->get();
+                $coordinates = $result[0]->getCoordinates();
 
-            //     $location = Location::create([
-            //         'user_id' => $user->_id,
-            //         'name' => $request->location_name,
-            //         'address' => $request->location_address,
-            //         'city' => $request->location_city,
-            //         'country' => $request->location_country,
-            //         'latitude' => $coordinates->getLatitude(),
-            //         'longitude' => $coordinates->getLongitude(),
-            //     ]);
-            //     $location_id = $location->_id;
-            // }else{
-            //     $location_id = $request->location_selected;
-            // } 
+                $location = Location::create([
+                    'user_id' => $user->_id,
+                    'name' => $request->location_name,
+                    'address' => $request->location_address,
+                    'city' => $request->location_city,
+                    'country' => $request->location_country,
+                    'latitude' => $coordinates->getLatitude(),
+                    'longitude' => $coordinates->getLongitude(),
+                ]);
+                $location_id = $location->_id;
+            }else{
+                $location_id = $request->location_selected;
+            } 
+            
+            //Set files array
+            $location = 'courses';
+            $files = $this->upload($request->file('file_upload'),$location,'true');
 
+            //Create Course
+            $course = new Course();
+            $course->instructor_id = $user->id;
+            $course->title = $request->title;
+            $course->description = $request->description;
+            $course->category_id = $request->category_id;
+            $course->location_id = $location_id;
+            $course->duration = $request->duration;
+            $course->duration_type = $request->duration_type;
+            $course->price = $request->price;
+            $course->max_capacity = $request->max_capacity;
+            $course->level = $request->course_level;
+            $course->photo_gallery = $files;
+            $course->save();
+
+            //Adding course dates and times
+            foreach($request->dates as $key => $value){
+                $date_times = new ClassDate();
+                $date_times->class_id = $course->_id;
+                $date_times->class_date = $value;
+                $date_times->start_at = $request->start_times[$key];
+                $date_times->end_at = $request->end_times[$key];
+                $date_times->save();
+            }
             dd($request);
             
             
@@ -157,6 +185,55 @@ class InstructorController extends Controller
         }   
             
     }
+
+    public function upload($request,$type = null,$multiple = null){
+        $arr = [];
+        $location = '';
+        
+        if(!empty($type) && ($type == 'users')){
+            $location = 'public/uploads/users';
+        }else{
+            $location = 'public/uploads/courses';
+        }
+        
+        if(!empty($multiple) && ($multiple == 'false')){
+            $string = Str::random(32);
+            $size = filesize($request);
+            $ext = $request->guessExtension();
+            $file_name = $string . '.' .  $ext;
+            
+            if($type == 'users'){
+                $filePath = $request->storeAs($location, $file_name);
+            }else{
+                $filePath = $request->storeAs($location, $file_name);
+            }
+            array_push($arr, [
+                'name' => $file_name,
+                'path' => $filePath,
+            ]);
+             
+        }else{
+            foreach($request as $file){
+                $string = Str::random(32);
+                $size = filesize($file);
+                $ext = $file->guessExtension();
+                $file_name = $string . '.' .  $ext;
+                
+                if($type == 'users'){
+                    $filePath = $file->storeAs($location, $file_name);
+                }else{
+                    $filePath = $file->storeAs($location, $file_name);
+                }
+                array_push($arr, [
+                    'name' => $file_name,
+                    'path' => $filePath,
+                ]);
+            }    
+        }
+
+        return json_encode($arr);
+    }
+    
 
      /**
      * Bookings function
