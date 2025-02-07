@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form method='post' action="{{ route('instructor.course.update') }}">
+<form method='post'  enctype='multipart/form-data'  action="{{ route('instructor.course.update') }}">
 @csrf
 <input type='hidden' name='task' value="create">
 <input type='hidden' name='user' value="{{$user->_id}}">
@@ -96,7 +96,7 @@
                         <a class="button blue">
                           Upload
                         </a>
-                        <input type="file" name="file_upload[]">
+                        <input type="file" name="file_upload[]" multiple>
                       </label>
                     </div>
                   </div>
