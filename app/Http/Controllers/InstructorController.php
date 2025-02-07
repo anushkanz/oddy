@@ -82,8 +82,10 @@ class InstructorController extends Controller
                     'location_address'=>'required',
                     'location_city'=>'required',
                     'duration'=>'required',
-                    'dates'=>'required',
-                    'times'=>'required',
+                    'dates' => ['required', 'array', 'min:1'],  // Ensure at least one date is provided
+                    'dates.*' => ['required', 'date'], // Validate each date as a valid date format
+                    'times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
+                    'times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
                   ],
                   [
                     'title.required' => 'Your title is Required', 
@@ -122,7 +124,8 @@ class InstructorController extends Controller
 
             if ($validator->fails()) {
                 $error = $validator->errors()->all();
-                return redirect()->route('instructor.reviews')->with('error','Unable to validate your data');
+                //return redirect()->route('instructor.courses')->with('error','Unable to validate your data');
+                return back()->withErrors($validator)->withInput();
             }
 
             /**
