@@ -141,7 +141,7 @@ class InstructorController extends Controller
                     ->doNotCache()
                     ->geocode($address)
                     ->get();
-                $coordinates = $result[0]->getCoordinates();
+                $coordinates = $results[0]->getCoordinates();
 
                 $location = Location::create([
                     'user_id' => $user->_id,
