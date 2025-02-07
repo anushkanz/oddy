@@ -162,7 +162,7 @@ class InstructorController extends Controller
             $files = $this->upload($request->file('file_upload'),$location,'true');
 
             //Create Course
-            $course = new Course();
+            $course = new Classes();
             $course->instructor_id = $user->id;
             $course->title = $request->title;
             $course->description = $request->description;
