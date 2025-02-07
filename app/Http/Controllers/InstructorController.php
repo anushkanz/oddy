@@ -84,8 +84,10 @@ class InstructorController extends Controller
                     'duration'=>'required',
                     'dates' => ['required', 'array', 'min:1'],  // Ensure at least one date is provided
                     'dates.*' => ['required', 'date'], // Validate each date as a valid date format
-                    'times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
-                    'times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
+                    'start_times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
+                    'start_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
+                    'end_times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
+                    'end_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
                   ],
                   [
                     'title.required' => 'Your title is Required', 
@@ -97,7 +99,8 @@ class InstructorController extends Controller
                     'location_city.required'=> 'Your city is Required', 
                     'duration.required'=> 'Your course duration is Required', 
                     'dates.required'=> 'Your course dates is Required', 
-                    'times.required'=> 'Your course times is Required', 
+                    'start_times.required'=> 'Your course start times is Required', 
+                    'end_times.required'=> 'Your course end times is Required', 
                   ]
                 );
             }else{
