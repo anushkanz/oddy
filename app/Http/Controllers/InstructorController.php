@@ -426,4 +426,36 @@ class InstructorController extends Controller
             }
         }
     } 
+
+
+    /**
+     * 
+     */
+    public function locations()
+    {
+        if(Auth::check()){
+            $user = Auth::user();
+            $reviewer =  Review::where('reviewer_id', $user->_id)->get();
+            $receiver =  Review::where('receiver_id', $user->_id)->get();
+            return view('instructor.locations',compact('reviewer','receiver','user'));
+        } 
+    }
+
+    /**
+     * Location function 
+     */
+    public function location(Request $request)
+    {
+        if(Auth::check()){
+            $user = Auth::user();
+            $location = Location::where('user_id', $user->_id)
+                        ->where('_id', $request->_id)
+                        ->firstOrFail()->toArray();
+            return response()->json([
+                'status' => true,
+                'message' => 'Location returns.',
+                'data' => $location
+            ], 200);              
+        }
+    }
 }

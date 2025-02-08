@@ -120,6 +120,7 @@
               <div class="select">
                 <select name="location_selected" id="location_selected">
                   <option value="">Select Location</option>
+                  <option value="create_new">Create new Location</option>
                   @foreach($locations as $location)
                     <option value="{{$location->_id}}">{{$location->name}}</option>
                   @endforeach  
@@ -133,8 +134,8 @@
                 <div class="field-body">
                 <div class="field edit-address">
                     <label class="edit-address control">
-                    <a href="" class="button blue" id="edit_address">
-                        Edit address
+                    <a class="button blue" id="edit_address">
+                        Address Actions
                     </a>
                     </label>
                 </div>
@@ -143,7 +144,7 @@
           <div class="field">
             <label class="label">Location Name</label>
             <div class="control">
-              <input type="text" autocomplete="on" name="location_name" value="{{ isset($course->location->name) ? $course->location->name : '' }}" class="input" required readonly>
+              <input type="text" autocomplete="on" id="location_name" name="location_name" value="{{ isset($course->location->name) ? $course->location->name : '' }}" class="input" required readonly>
             </div>
             <p class="help">Required. Course Location name</p>
           </div>
@@ -151,7 +152,7 @@
           <div class="field">
             <label class="label">Address</label>
             <div class="control">
-            <input type="text" autocomplete="on" name="location_address" value="{{ isset($course->location->address) ? $course->location->address : '' }}" class="input" required readonly>
+            <input type="text" autocomplete="on" id="location_address" name="location_address" value="{{ isset($course->location->address) ? $course->location->address : '' }}" class="input" required readonly>
             </div>
             <p class="help">Required. Course address</p>
           </div>
@@ -159,14 +160,14 @@
           <div class="field">
             <label class="label">City</label>
             <div class="control">
-            <input type="text" autocomplete="on" name="location_city" value="{{ isset($course->location->city) ? $course->location->city : '' }}" class="input" required readonly>
+            <input type="text" autocomplete="on" id="location_city"  name="location_city" value="{{ isset($course->location->city) ? $course->location->city : '' }}" class="input" required readonly>
             </div>
             <p class="help">Required. Course City</p>
           </div>
           <div class="field">
             <label class="label">Country</label>
             <div class="control">
-            <input type="text" autocomplete="on" name="location_country" readonly value="NZ" class="input" required>
+            <input type="text" autocomplete="on" id="location_country" name="location_country" readonly value="NZ" class="input" required>
             </div>
             <p class="help">Required. Course country</p>
           </div>
@@ -252,9 +253,30 @@
 
             $("#location_selected").change(function () {
                 let selectedValue = $(this).val();  // Get selected dropdown value
-                let href = "/instructor/course/"+selectedValue;
-                $("#edit_address").val(selectedValue); // Set it to another field
-                $("#edit_address").attr("href", selectedValue)
+                let href = "/instructor/locations/";
+
+                if( selectedValue == 'create_new'){
+                    $("#edit_address").attr("href", href;
+                    $("#edit_address").html('Create New Location');   
+                }else{
+                    $.ajax({
+                        url: "{{ route('instructor/location/ajaxlocation') }}",
+                        type: "GET",
+                        success: function (response) {
+                            // Assuming response is { "name": "John Doe", "email": "john@example.com" }
+                            $("#location_name").val(response.name).prop("readonly", true);
+                            $("#location_address").val(response.address).prop("readonly", true);
+                            $("#location_city").val(response.city).prop("readonly", true);
+                            $("#location_country").val(response.country).prop("readonly", true);
+                        },
+                        error: function () {
+                            alert("Error fetching data");
+                        }
+                    });
+                    let href = "/instructor/course/"+selectedValue;
+                    $("#edit_address").attr("href", href)
+                }
+                
             });
 
       });
