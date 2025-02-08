@@ -1333,3 +1333,7 @@ footer {
 #fieldsUpdateContainer ul li{
     padding-bottom: 10px;
 }
+
+#fieldsUpdateContainer ul li .class_date_edit{
+    color:red;
+}

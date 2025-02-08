@@ -49,7 +49,7 @@
                     <div class="field">
                       <div class="control">
                         <textarea type="text" autocomplete="on" name="description" value="" class="input" required>
-                       {{ isset($course->description) ? $course->description : '' }}
+                       {{ isset($course->description) ? strip_tags($course->description) : '' }}
                         </textarea>
                       </div>
                       <p class="help">Required. Course description</p>

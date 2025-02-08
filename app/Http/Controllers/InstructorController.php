@@ -165,8 +165,8 @@ class InstructorController extends Controller
             //Create Course
             $course = new Classes();
             $course->instructor_id = $user->id;
-            $course->title = $request->title;
-            $course->description = $request->description;
+            $course->title = strip_tags($request->title);
+            $course->description = strip_tags($request->description);
             $course->category_id = $request->category;
             $course->location_id = $location_id;
             $course->duration = $request->duration;
