@@ -262,6 +262,10 @@
                     $.ajax({
                         url: "{{ route('instructor.location.ajax') }}",
                         type: "GET",
+                        data: { 
+                            "location_id": selectedValue,
+                            "_token": "{{ csrf_token() }}",
+                        },
                         success: function (response) {
                             console.log(response);
                             // Assuming response is { "name": "John Doe", "email": "john@example.com" }

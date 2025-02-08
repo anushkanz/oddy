@@ -449,7 +449,7 @@ class InstructorController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             $location = Location::where('user_id', $user->_id)
-                        ->where('_id', $request->_id)
+                        ->where('_id', $request->location_id)
                         ->firstOrFail()->toArray();
             return response()->json([
                 'status' => true,
