@@ -4,6 +4,10 @@
 
 @section('content')
 
+@php
+dd($course)
+@endphp
+
 <form method='post'  enctype='multipart/form-data'  action="{{ route('instructor.course.update') }}">
 @csrf
 <input type='hidden' name='task' value="update">
