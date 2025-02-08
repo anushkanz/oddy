@@ -2,7 +2,7 @@
 
 @section('title', 'Home Page')
 @php
-dd($course->location)
+dd($course->category)
 @endphp
 @section('content')
 
