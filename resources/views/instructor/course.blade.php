@@ -1,18 +1,16 @@
 @extends('layouts.master_instructor')
 
 @section('title', 'Home Page')
-
-@section('content')
-
 @php
-dd($course)
+dd($course->location)
 @endphp
+@section('content')
 
 <form method='post'  enctype='multipart/form-data'  action="{{ route('instructor.course.update') }}">
 @csrf
 <input type='hidden' name='task' value="update">
 <input type='hidden' name='user' value="{{$user->_id}}">
-<input type='hidden' name='id' value="">
+<input type='hidden' name='id' value="{{$course->id}}">
 <section class="section main-section">
   <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
       <div class="card">
