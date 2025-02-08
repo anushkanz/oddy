@@ -215,6 +215,7 @@
                                 <p><i class="fa-regular fa-calendar-days"></i>{{$dates->class_date}}</p>
                                 <p><i class="fa-regular fa-clock"></i>{{$dates->start_at}}</p>
                                 <p><i class="fa-solid fa-clock"></i>{{$dates->end_at}}</p>
+                                <p><a href="#"><i class="fa-solid fa-xmark"></i></a>
                             </li>
                         @endforeach    
                     </ul>
