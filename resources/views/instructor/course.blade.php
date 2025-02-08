@@ -328,7 +328,7 @@
                                 },
                                 success: function (response) {
                                     console.log(response.status);
-                                    if(response.status == 'true'){
+                                    if(response.status){
                                        
                                         Swal.fire("Deleted!", "", "success");
                                         $(this).remove();
