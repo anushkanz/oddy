@@ -329,6 +329,7 @@
                                 success: function (response) {
                                     console.log(response);
                                     if(response.data.data == 'deleted'){
+                                        $(this).remove(); // Remove clicked item
                                         Swal.fire("Deleted!", "", "success");
                                     }
                                 },

@@ -467,7 +467,7 @@ class InstructorController extends Controller
     public function ajaxClassdateDelete(Request $request){
         if(Auth::check()){
             $user = Auth::user();
-            $class_dates = ClassDate::where('class_id', $request->classdate_id)->delete();
+            $class_dates = ClassDate::where('_id', $request->classdate_id)->delete();
 
             return response()->json([
                 'status' => true,
