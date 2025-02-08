@@ -328,10 +328,10 @@
                                 },
                                 success: function (response) {
                                     console.log(response.status);
-                                    if(response.data.status == 'true'){
+                                    if(response.status == 'true'){
                                        
                                         Swal.fire("Deleted!", "", "success");
-                                       
+                                        $(this).remove();
                                     }
                                 },
                                 error: function () {
