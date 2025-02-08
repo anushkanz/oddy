@@ -1318,3 +1318,12 @@ footer {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 }
+
+/**
+* Custom CSS
+**/
+
+#fieldsUpdateContainer ul li p{
+    display: inline;
+    padding-right:20px;
+}
