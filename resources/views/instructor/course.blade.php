@@ -327,8 +327,8 @@
                                     "_token": "{{ csrf_token() }}",
                                 },
                                 success: function (response) {
-                                    console.log(response);
-                                    if(response.data.message == 'deleted'){
+                                    console.log(response.status);
+                                    if(response.data.status == 'true'){
                                        
                                         Swal.fire("Deleted!", "", "success");
                                        
