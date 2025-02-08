@@ -308,7 +308,8 @@
             //Delete class dates
             $(".class_date_edit").click(function (e) {
                 e.preventDefault();
-                let clickedValue = $(this).attr("data-value");
+                let clickedElement = $(this); // Store reference to the clicked element
+                let clickedValue = clickedElement.attr("data-value");
                 console.log(clickedValue);
                 Swal.fire({
                     title: "Do you want to delete this date and time?",
@@ -331,7 +332,7 @@
                                     if(response.status){
                                        
                                         Swal.fire("Deleted!", "", "success");
-                                        $(this).remove();
+                                        clickedElement.remove();
                                     }
                                 },
                                 error: function () {
