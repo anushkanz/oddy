@@ -58,7 +58,7 @@ class InstructorController extends Controller
             $user = Auth::user();
             $course = Classes::where('instructor_id',$user->_id)
                         ->where('_id',$id)
-                        ->get();
+                        ->firstOrFail();
             $categories = Category::all();   
             $locations = Location::where('user_id',$user->_id)->get();    
             return view('instructor.course', compact('course','user','categories','locations'));
