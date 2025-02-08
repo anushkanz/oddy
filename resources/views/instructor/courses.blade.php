@@ -47,7 +47,7 @@
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
-                        <textarea type="text" autocomplete="on" name="description" value="" class="input" required></textarea>
+                        <textarea rows="4" cols="50" type="text" autocomplete="on" name="description" value="" class="input" required></textarea>
                       </div>
                       <p class="help">Required. Course description</p>
                     </div>

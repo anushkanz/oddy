@@ -48,7 +48,7 @@
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
-                        <textarea type="text" autocomplete="on" name="description" value="" class="input" required>
+                        <textarea type="text" rows="4" cols="50" autocomplete="on" name="description" value="" class="input" required>
                        {{ isset($course->description) ? strip_tags($course->description) : '' }}
                         </textarea>
                       </div>
