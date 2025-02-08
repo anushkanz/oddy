@@ -260,7 +260,7 @@
                     $("#edit_address").html('Create New Location');   
                 }else{
                     $.ajax({
-                        url: "{{ route('instructor/location/ajaxlocation') }}",
+                        url: "{{ route('instructor.location.ajax') }}",
                         type: "GET",
                         success: function (response) {
                             // Assuming response is { "name": "John Doe", "email": "john@example.com" }
