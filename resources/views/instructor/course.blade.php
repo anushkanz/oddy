@@ -256,7 +256,7 @@
                 let href = "/instructor/locations/";
 
                 if( selectedValue == 'create_new'){
-                    $("#edit_address").attr("href", href;
+                    $("#edit_address").attr("href", href);
                     $("#edit_address").html('Create New Location');   
                 }else{
                     $.ajax({
@@ -274,7 +274,7 @@
                         }
                     });
                     let href = "/instructor/course/"+selectedValue;
-                    $("#edit_address").attr("href", href)
+                    $("#edit_address").attr("href", href);
                 }
                 
             });
