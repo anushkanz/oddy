@@ -444,7 +444,7 @@ class InstructorController extends Controller
     /**
      * Location function 
      */
-    public function location(Request $request)
+    public function ajaxLocations(Request $request)
     {
         if(Auth::check()){
             $user = Auth::user();
