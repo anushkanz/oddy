@@ -261,7 +261,7 @@
                 }else{
                     $.ajax({
                         url: "{{ route('instructor.location.ajax') }}",
-                        type: "GET",
+                        type: "POST",
                         data: { 
                             "location_id": selectedValue,
                             "_token": "{{ csrf_token() }}",
