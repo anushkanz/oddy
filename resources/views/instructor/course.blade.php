@@ -269,10 +269,10 @@
                         success: function (response) {
                             console.log(response);
                             // Assuming response is { "name": "John Doe", "email": "john@example.com" }
-                            $("#location_name").val(response.name).prop("readonly", true);
-                            $("#location_address").val(response.address).prop("readonly", true);
-                            $("#location_city").val(response.city).prop("readonly", true);
-                            $("#location_country").val(response.country).prop("readonly", true);
+                            $("#location_name").val(response.data.name).prop("readonly", true);
+                            $("#location_address").val(response.data.address).prop("readonly", true);
+                            $("#location_city").val(response.data.city).prop("readonly", true);
+                            $("#location_country").val(response.data.country).prop("readonly", true);
                         },
                         error: function () {
                             alert("Error fetching data");
