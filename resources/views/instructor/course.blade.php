@@ -212,9 +212,9 @@
                     <ul>
                         @foreach($classdates as $dates)
                             <li>
-                                <p><i class="fa-regular fa-calendar-days" class="class_date_edit"></i>{{$dates->class_date}}</p>
-                                <p><i class="fa-regular fa-clock" class="class_date_edit"></i>{{$dates->start_at}}</p>
-                                <p><i class="fa-solid fa-clock" class="class_date_edit"></i>{{$dates->end_at}}</p>
+                                <p><i class="fa-regular fa-calendar-days"></i>{{$dates->class_date}}</p>
+                                <p><i class="fa-regular fa-clock"></i>{{$dates->start_at}}</p>
+                                <p><i class="fa-solid fa-clock"></i>{{$dates->end_at}}</p>
                                 <p><a href="#" data-value="{{$dates->_id}}" class="class_date_edit"><i class="fa-solid fa-circle-xmark"></i></a>
                             </li>
                         @endforeach    
@@ -332,7 +332,7 @@
                                 if(response.status){
                                     
                                     Swal.fire("Deleted!", "", "success");
-                                    clickedElement.remove();
+                                    clickedElement.closest("li").remove(); 
                                 }
                             },
                             error: function () {
