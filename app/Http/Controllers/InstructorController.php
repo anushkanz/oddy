@@ -70,8 +70,9 @@ class InstructorController extends Controller
      */
     public function updateCourse(Request $request)
     {
-        if(Auth::check()){
+        if(Auth::check() && ($request->task == 'create')){
             $user = Auth::user();
+
             if($request->location_selected == ''){
                 $validator = Validator::make($request->all(), [
                     'title' => 'required',
@@ -184,9 +185,9 @@ class InstructorController extends Controller
                 $date_times->end_at = $request->end_times[$key];
                 $date_times->save();
             }
-            dd($request);
-            
-            
+
+            return redirect()->route('instructor.courses')->with('success','New Course created.');
+        }elseif($request->task == 'update'){
 
         }   
             
