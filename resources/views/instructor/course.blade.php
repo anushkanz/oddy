@@ -215,7 +215,7 @@
                                 <p><i class="fa-regular fa-calendar-days"></i>{{$dates->class_date}}</p>
                                 <p><i class="fa-regular fa-clock"></i>{{$dates->start_at}}</p>
                                 <p><i class="fa-solid fa-clock"></i>{{$dates->end_at}}</p>
-                                <p><a href="#" value="{{$dates->_id}}" class="class_date_edit"><i class="fa-solid fa-circle-xmark"></i></a>
+                                <p><a href="#" data-value="{{$dates->_id}}" class="class_date_edit"><i class="fa-solid fa-circle-xmark"></i></a>
                             </li>
                         @endforeach    
                     </ul>
@@ -306,8 +306,9 @@
             });
 
             //Delete class dates
-            $(".class_date_edit").click(function () {
-                let clickedValue = $(this).val();
+            $(".class_date_edit").click(function (e) {
+                e.preventDefault();
+                let clickedValue = $(this).attr("data-value");
                 console.log(clickedValue);
                 Swal.fire({
                     title: "Do you want to delete this date and time?",
