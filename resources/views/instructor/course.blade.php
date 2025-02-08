@@ -8,7 +8,7 @@
 @csrf
 <input type='hidden' name='task' value="update">
 <input type='hidden' name='user' value="{{$user->_id}}">
-<input type='hidden' name='id' value="{{$course->_id}}">
+<input type='hidden' name='id' value="">
 <section class="section main-section">
   <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
       <div class="card">
