@@ -331,7 +331,7 @@
                                     if(response.data.message == 'deleted'){
                                        
                                         Swal.fire("Deleted!", "", "success");
-                                        $(this).remove(); // Remove clicked item
+                                       
                                     }
                                 },
                                 error: function () {
