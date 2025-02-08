@@ -118,7 +118,7 @@
             <label class="label">Location Selection</label>
             <div class="control">
               <div class="select">
-                <select name="location_selected">
+                <select name="location_selected" id="location_selected">
                   <option value="">Select Location</option>
                   @foreach($locations as $location)
                     <option value="{{$location->_id}}">{{$location->name}}</option>
@@ -128,10 +128,22 @@
               </div>
             </div>
           </div>
+            <div class="field">
+                <label class="label">Edit address</label>
+                <div class="field-body">
+                <div class="field edit-address">
+                    <label class="edit-address control">
+                    <a href="" class="button blue" id="edit_address">
+                        Edit address
+                    </a>
+                    </label>
+                </div>
+                </div>
+            </div>
           <div class="field">
             <label class="label">Location Name</label>
             <div class="control">
-              <input type="text" autocomplete="on" name="location_name" value="{{ isset($course->location->name) ? $course->location->name : '' }}" class="input" required>
+              <input type="text" autocomplete="on" name="location_name" value="{{ isset($course->location->name) ? $course->location->name : '' }}" class="input" required readonly>
             </div>
             <p class="help">Required. Course Location name</p>
           </div>
@@ -139,7 +151,7 @@
           <div class="field">
             <label class="label">Address</label>
             <div class="control">
-            <input type="text" autocomplete="on" name="location_address" value="{{ isset($course->location->address) ? $course->location->address : '' }}" class="input" required>
+            <input type="text" autocomplete="on" name="location_address" value="{{ isset($course->location->address) ? $course->location->address : '' }}" class="input" required readonly>
             </div>
             <p class="help">Required. Course address</p>
           </div>
@@ -147,7 +159,7 @@
           <div class="field">
             <label class="label">City</label>
             <div class="control">
-            <input type="text" autocomplete="on" name="location_city" value="{{ isset($course->location->city) ? $course->location->city : '' }}" class="input" required>
+            <input type="text" autocomplete="on" name="location_city" value="{{ isset($course->location->city) ? $course->location->city : '' }}" class="input" required readonly>
             </div>
             <p class="help">Required. Course City</p>
           </div>
@@ -236,6 +248,13 @@
 
             $(document).on("click", ".remove-btn", function () {
                 $(this).parent().remove();
+            });
+
+            $("#location_selected").change(function () {
+                let selectedValue = $(this).val();  // Get selected dropdown value
+                let href = "/instructor/course/"+selectedValue;
+                $("#edit_address").val(selectedValue); // Set it to another field
+                $("#edit_address").attr("href", selectedValue)
             });
 
       });
