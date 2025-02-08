@@ -258,7 +258,7 @@
                 if( selectedValue == 'create_new'){
                     $("#edit_address").attr("href", href);
                     $("#edit_address").html('Create New Location');   
-                }else if( (selectedValue != 'select_Address') && (selectedValue != 'create_new') ){
+                }else if( (selectedValue != 'select_address') && (selectedValue != 'create_new') ){
                     $.ajax({
                         url: "{{ route('instructor.location.ajax') }}",
                         type: "POST",
