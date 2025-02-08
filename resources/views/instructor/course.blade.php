@@ -119,7 +119,7 @@
             <div class="control">
               <div class="select">
                 <select name="location_selected" id="location_selected">
-                  <option value="">Select Location</option>
+                  <option value="select_address">Select Location</option>
                   <option value="create_new">Create new Location</option>
                   @foreach($locations as $location)
                     <option value="{{$location->_id}}">{{$location->name}}</option>
@@ -258,7 +258,7 @@
                 if( selectedValue == 'create_new'){
                     $("#edit_address").attr("href", href);
                     $("#edit_address").html('Create New Location');   
-                }else{
+                }elseif((selectedValue != 'select_Address')) && (selectedValue != 'create_new')){
                     $.ajax({
                         url: "{{ route('instructor.location.ajax') }}",
                         type: "POST",
