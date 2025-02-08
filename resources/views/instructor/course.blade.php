@@ -308,6 +308,7 @@
             //Delete class dates
             $(".class_date_edit").click(function () {
                 let clickedValue = $(this).val();
+                console.log(clickedValue);
                 Swal.fire({
                     title: "Do you want to delete this date and time?",
                     showDenyButton: true,
