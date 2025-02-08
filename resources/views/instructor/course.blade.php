@@ -328,9 +328,10 @@
                                 },
                                 success: function (response) {
                                     console.log(response);
-                                    if(response.data.data == 'deleted'){
-                                        $(this).remove(); // Remove clicked item
+                                    if(response.data.message == 'deleted'){
+                                       
                                         Swal.fire("Deleted!", "", "success");
+                                        $(this).remove(); // Remove clicked item
                                     }
                                 },
                                 error: function () {
