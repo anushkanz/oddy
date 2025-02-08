@@ -1,7 +1,9 @@
 @extends('layouts.master_instructor')
 
 @section('title', 'Home Page')
-
+@php
+dd($course->location)
+@endphp
 @section('content')
 
 <form method='post'  enctype='multipart/form-data'  action="{{ route('instructor.course.update') }}">
