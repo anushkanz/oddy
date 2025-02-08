@@ -1337,3 +1337,7 @@ footer {
 #fieldsUpdateContainer ul li .class_date_edit{
     color:red;
 }
+
+textarea{
+    height: auto;
+}
