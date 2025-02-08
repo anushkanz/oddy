@@ -235,7 +235,9 @@
 
       $(function() {
           
-          $("#addFieldBtn").click(function () {
+            $("#edit_address").prop('disabled', true);
+
+            $("#addFieldBtn").click(function () {
                 let fieldHtml = `
                     <div class="field-container">
                         <input type="date" name="dates[]"  class="input" style="width: 30%;" required>
@@ -258,6 +260,7 @@
                 if( selectedValue == 'create_new'){
                     $("#edit_address").attr("href", href);
                     $("#edit_address").html('Create New Location');   
+                    $("#edit_address").prop('disabled', false);
                 }else if( (selectedValue != 'select_address') && (selectedValue != 'create_new') ){
                     $.ajax({
                         url: "{{ route('instructor.location.ajax') }}",
@@ -281,6 +284,9 @@
                     let href = "/instructor/course/"+selectedValue;
                     $("#edit_address").attr("href", href);
                     $("#edit_address").html('Update Location');  
+                    $("#edit_address").prop('disabled', false);
+                }else{
+                    $("#edit_address").prop('disabled', true);
                 }
                 
             });
