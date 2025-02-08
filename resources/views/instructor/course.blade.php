@@ -263,6 +263,7 @@
                         url: "{{ route('instructor.location.ajax') }}",
                         type: "GET",
                         success: function (response) {
+                            console.log(response);
                             // Assuming response is { "name": "John Doe", "email": "john@example.com" }
                             $("#location_name").val(response.name).prop("readonly", true);
                             $("#location_address").val(response.address).prop("readonly", true);
