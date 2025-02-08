@@ -205,7 +205,7 @@
               </div>
             </div>
           </div>
-          <div class="field">
+        <div class="field">
             <label class="label">Date and Time </label>
             <div class="control">
                 <div id="fieldsUpdateContainer">
@@ -215,7 +215,7 @@
                                 <p><i class="fa-regular fa-calendar-days"></i>{{$dates->class_date}}</p>
                                 <p><i class="fa-regular fa-clock"></i>{{$dates->start_at}}</p>
                                 <p><i class="fa-solid fa-clock"></i>{{$dates->end_at}}</p>
-                                <p><a href="#"><i class="fa-solid fa-xmark"></i></a>
+                                <p><a href="#" value="{{$dates->_id}}" class="class_date_edit"><i class="fa-solid fa-circle-xmark"></i></a>
                             </li>
                         @endforeach    
                     </ul>
@@ -223,10 +223,10 @@
                 <div id="fieldsContainer">
                     <!-- Dynamic fields will be added here -->
                 </div>
-              <button type="button" class="button blue" id="addFieldBtn">Add Date & Time</button>
+                <button type="button" class="button blue" id="addFieldBtn">Add Date & Time</button>
             </div>
             <p class="help">Required. Course date and time</p>
-          </div>
+        </div>
 
           <hr>
           <div class="field">
@@ -246,7 +246,10 @@
     <script type="text/javascript">
 
       $(function() {
+            //Disable button
             $("#edit_address").prop('disabled', true);
+
+            //Adding class dates
             $("#addFieldBtn").click(function () {
                 let fieldHtml = `
                     <div class="field-container">
@@ -259,10 +262,12 @@
                 $("#fieldsContainer").append(fieldHtml);
             });
 
+            //Remove class dates
             $(document).on("click", ".remove-btn", function () {
                 $(this).parent().remove();
             });
 
+            //Location selecting
             $("#location_selected").change(function () {
                 let selectedValue = $(this).val();  // Get selected dropdown value
                 let href = "/instructor/locations/";
@@ -298,9 +303,43 @@
                 }else{
                     $("#edit_address").prop('disabled', true);
                 }
-                
             });
 
+            //Delete class dates
+            $(".class_date_edit").click(function () {
+                let clickedValue = $(this).val();
+                Swal.fire({
+                    title: "Do you want to delete this date and time?",
+                    showDenyButton: true,
+                    showCancelButton: false,
+                    confirmButtonText: "Yes",
+                    denyButtonText: `Cancel`
+                }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "{{ route('instructor.classdatedeleted.ajax') }}",
+                                type: "POST",
+                                data: { 
+                                    "classdate_id": clickedValue,
+                                    "_token": "{{ csrf_token() }}",
+                                },
+                                success: function (response) {
+                                    console.log(response);
+                                    if(response.data.data == 'deleted'){
+                                        Swal.fire("Deleted!", "", "success");
+                                    }
+                                },
+                                error: function () {
+                                    Swal.fire("Error fetching data", "", "info");
+                                }
+                            });
+                            
+                        } else if (result.isDenied) {
+                            Swal.fire("Not deleted", "", "info");
+                        }
+                });
+            });
       });
 
 </script>

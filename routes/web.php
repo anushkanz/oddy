@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('instructor/locations', [InstructorController::class, 'locations'])->name('instructor.locations'); 
     Route::get('instructor/location/{id}', [InstructorController::class, 'locations'])->name('instructor.location');
     Route::post('instructor/location/ajaxlocation', [InstructorController::class, 'ajaxLocations'])->name('instructor.location.ajax');
+    Route::post('instructor/location/ajaxclassdates', [InstructorController::class, 'ajaxClassdateDelete'])->name('instructor.classdatedeleted.ajax');
     Route::post('instructor/location', [InstructorController::class, 'updateLocations'])->name('instructor.course.location');
 
 

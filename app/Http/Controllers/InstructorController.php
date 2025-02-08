@@ -459,4 +459,29 @@ class InstructorController extends Controller
             ], 200);              
         }
     }
+
+
+    /**
+     * Class Date delete function 
+     */
+    public function ajaxClassdateDelete(Request $request){
+        if(Auth::check()){
+            $user = Auth::user();
+            $class_dates = ClassDate::where('class_id', $request->classdate_id)->get();
+            
+            if ($class_dates->deleteOrFail() === true) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'deleted',
+                    'data' => 'deleted'
+                ], 200);  
+            } else {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'deleted',
+                    'data' => 'error'
+                ], 200);  
+            }  
+        }
+    }
 }
