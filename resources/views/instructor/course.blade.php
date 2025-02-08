@@ -212,9 +212,9 @@
                     <ul>
                         @foreach($classdates as $dates)
                             <li>
-                                <p><i class="fa-regular fa-calendar-days"></i>{{$dates->class_date}}</p>
-                                <p><i class="fa-regular fa-clock"></i>{{$dates->start_at}}</p>
-                                <p><i class="fa-solid fa-clock"></i>{{$dates->end_at}}</p>
+                                <p><i class="fa-regular fa-calendar-days" class="class_date_edit"></i>{{$dates->class_date}}</p>
+                                <p><i class="fa-regular fa-clock" class="class_date_edit"></i>{{$dates->start_at}}</p>
+                                <p><i class="fa-solid fa-clock" class="class_date_edit"></i>{{$dates->end_at}}</p>
                                 <p><a href="#" data-value="{{$dates->_id}}" class="class_date_edit"><i class="fa-solid fa-circle-xmark"></i></a>
                             </li>
                         @endforeach    
@@ -311,39 +311,39 @@
                 let clickedElement = $(this); // Store reference to the clicked element
                 let clickedValue = clickedElement.attr("data-value");
                 console.log(clickedValue);
-                Swal.fire({
-                    title: "Do you want to delete this date and time?",
-                    showDenyButton: true,
-                    showCancelButton: false,
-                    confirmButtonText: "Yes",
-                    denyButtonText: `Cancel`
-                }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                url: "{{ route('instructor.classdatedeleted.ajax') }}",
-                                type: "POST",
-                                data: { 
-                                    "classdate_id": clickedValue,
-                                    "_token": "{{ csrf_token() }}",
-                                },
-                                success: function (response) {
-                                    console.log(response.status);
-                                    if(response.status){
+                // Swal.fire({
+                //     title: "Do you want to delete this date and time?",
+                //     showDenyButton: true,
+                //     showCancelButton: false,
+                //     confirmButtonText: "Yes",
+                //     denyButtonText: `Cancel`
+                // }).then((result) => {
+                //         /* Read more about isConfirmed, isDenied below */
+                //         if (result.isConfirmed) {
+                //             $.ajax({
+                //                 url: "{{ route('instructor.classdatedeleted.ajax') }}",
+                //                 type: "POST",
+                //                 data: { 
+                //                     "classdate_id": clickedValue,
+                //                     "_token": "{{ csrf_token() }}",
+                //                 },
+                //                 success: function (response) {
+                //                     console.log(response.status);
+                //                     if(response.status){
                                        
-                                        Swal.fire("Deleted!", "", "success");
-                                        clickedElement.remove();
-                                    }
-                                },
-                                error: function () {
-                                    Swal.fire("Error fetching data", "", "info");
-                                }
-                            });
+                //                         Swal.fire("Deleted!", "", "success");
+                //                         clickedElement.remove();
+                //                     }
+                //                 },
+                //                 error: function () {
+                //                     Swal.fire("Error fetching data", "", "info");
+                //                 }
+                //             });
                             
-                        } else if (result.isDenied) {
-                            Swal.fire("Not deleted", "", "info");
-                        }
-                });
+                //         } else if (result.isDenied) {
+                //             Swal.fire("Not deleted", "", "info");
+                //         }
+                // });
             });
       });
 
