@@ -310,40 +310,40 @@
                 e.preventDefault();
                 let clickedElement = $(this); // Store reference to the clicked element
                 let clickedValue = clickedElement.attr("data-value");
-                console.log(clickedValue);
-                // Swal.fire({
-                //     title: "Do you want to delete this date and time?",
-                //     showDenyButton: true,
-                //     showCancelButton: false,
-                //     confirmButtonText: "Yes",
-                //     denyButtonText: `Cancel`
-                // }).then((result) => {
-                //         /* Read more about isConfirmed, isDenied below */
-                //         if (result.isConfirmed) {
-                //             $.ajax({
-                //                 url: "{{ route('instructor.classdatedeleted.ajax') }}",
-                //                 type: "POST",
-                //                 data: { 
-                //                     "classdate_id": clickedValue,
-                //                     "_token": "{{ csrf_token() }}",
-                //                 },
-                //                 success: function (response) {
-                //                     console.log(response.status);
-                //                     if(response.status){
-                                       
-                //                         Swal.fire("Deleted!", "", "success");
-                //                         clickedElement.remove();
-                //                     }
-                //                 },
-                //                 error: function () {
-                //                     Swal.fire("Error fetching data", "", "info");
-                //                 }
-                //             });
-                            
-                //         } else if (result.isDenied) {
-                //             Swal.fire("Not deleted", "", "info");
-                //         }
-                // });
+                
+                Swal.fire({
+                    title: "Do you want to delete this date and time?",
+                    showDenyButton: true,
+                    showCancelButton: false,
+                    confirmButtonText: "Yes",
+                    denyButtonText: `Cancel`
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ route('instructor.classdatedeleted.ajax') }}",
+                            type: "POST",
+                            data: { 
+                                "classdate_id": clickedValue,
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: function (response) {
+                                console.log(response.status);
+                                if(response.status){
+                                    
+                                    Swal.fire("Deleted!", "", "success");
+                                    clickedElement.remove();
+                                }
+                            },
+                            error: function () {
+                                Swal.fire("Error fetching data", "", "info");
+                            }
+                        });
+                        
+                    } else if (result.isDenied) {
+                        Swal.fire("Not deleted", "", "info");
+                    }
+                });
             });
       });
 
