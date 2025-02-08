@@ -60,8 +60,9 @@ class InstructorController extends Controller
                         ->where('_id',$id)
                         ->firstOrFail();
             $categories = Category::all();   
-            $locations = Location::where('user_id',$user->_id)->get();    
-            return view('instructor.course', compact('course','user','categories','locations'));
+            $locations = Location::where('user_id',$user->_id)->get();  
+            $classdates = ClassDate::where('class_id',$id)->get();   
+            return view('instructor.course', compact('course','user','categories','locations','classdates'));
         }
     }
 

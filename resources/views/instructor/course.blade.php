@@ -208,9 +208,20 @@
           <div class="field">
             <label class="label">Date and Time </label>
             <div class="control">
-              <div id="fieldsContainer">
-                  <!-- Dynamic fields will be added here -->
-              </div>
+                <div id="fieldsUpdateContainer">
+                    <ul>
+                        @foreach($classdates as $dates)
+                            <li>
+                                <p><i class="fa-regular fa-calendar-days"></i>{{$dates->class_date}}</p>
+                                <p><i class="fa-regular fa-clock"></i>{{$dates->start_at}}</p>
+                                <p><i class="fa-solid fa-clock"></i>{{$dates->end_at}}</p>
+                            </li>
+                        @endforeach    
+                    </ul>
+                </div>
+                <div id="fieldsContainer">
+                    <!-- Dynamic fields will be added here -->
+                </div>
               <button type="button" class="button blue" id="addFieldBtn">Add Date & Time</button>
             </div>
             <p class="help">Required. Course date and time</p>
@@ -234,9 +245,7 @@
     <script type="text/javascript">
 
       $(function() {
-          
             $("#edit_address").prop('disabled', true);
-
             $("#addFieldBtn").click(function () {
                 let fieldHtml = `
                     <div class="field-container">
