@@ -1327,3 +1327,9 @@ footer {
     display: inline;
     padding-right:20px;
 }
+#fieldsUpdateContainer ul li p i{
+    padding-right:20px;
+}
+#fieldsUpdateContainer ul li{
+    padding-bottom: 10px;
+}
