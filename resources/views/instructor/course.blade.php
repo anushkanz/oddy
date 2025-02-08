@@ -280,6 +280,7 @@
                     });
                     let href = "/instructor/course/"+selectedValue;
                     $("#edit_address").attr("href", href);
+                    $("#edit_address").html('Update Location');  
                 }
                 
             });
