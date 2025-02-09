@@ -207,6 +207,7 @@
           </div>
         <div class="field">
             <label class="label">Date and Time </label>
+            <p class="help">You can delete previously added date and time</p>
             <div class="control">
                 <div id="fieldsUpdateContainer">
                     <ul>
@@ -320,6 +321,11 @@
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
+                        let listItems = $("#fieldsUpdateContainer ul li").length;
+                        if (listItems <= 1) {
+                            Swal.fire("Cannot delete the last item!", "", "warning");
+                            return;
+                        }
                         $.ajax({
                             url: "{{ route('instructor.classdatedeleted.ajax') }}",
                             type: "POST",
@@ -330,7 +336,6 @@
                             success: function (response) {
                                 console.log(response.status);
                                 if(response.status){
-                                    
                                     Swal.fire("Deleted!", "", "success");
                                     clickedElement.closest("li").remove(); 
                                 }
