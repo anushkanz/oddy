@@ -82,8 +82,8 @@
               <td class="image-cell"></td>
               <td data-label="Name" class="--name">{{$location->name}}</td>
               <td data-label="Address" class="--title">{{$location->address}}</td>
-              <td data-label="City" class="--category">{{$course->city}}</td>
-              <td data-label="Country" class="--role">{{$course->country}}</td>
+              <td data-label="City" class="--category">{{$location->city}}</td>
+              <td data-label="Country" class="--role">{{$location->country}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <a href="{{ route('instructor.location',[$location->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
