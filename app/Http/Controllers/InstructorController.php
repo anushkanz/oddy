@@ -217,6 +217,7 @@ class InstructorController extends Controller
             $course->max_capacity = $request->max_capacity;
             $course->level = $request->course_level;
             $course->save();
+            return redirect()->route('instructor.courses')->with('success','New Course created.');
         }   
             
     }
