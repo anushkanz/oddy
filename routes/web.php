@@ -63,12 +63,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('instructor/courses', [InstructorController::class, 'courses'])->name('instructor.courses'); //Return all Courses by user
     Route::get('instructor/course/{id}', [InstructorController::class, 'course'])->name('instructor.course'); //Return specific Course
     Route::post('instructor/course', [InstructorController::class, 'updateCourse'])->name('instructor.course.update');
-    
+    Route::get('instructor/course/image/{id}', [InstructorController::class, 'courseImage'])->name('instructor.course.image'); 
+    Route::post('instructor/course/image/', [InstructorController::class, 'courseImageUpdate'])->name('instructor.course.image.update'); 
+    Route::post('instructor/course/ajaximage', [InstructorController::class, 'ajaxImage'])->name('instructor.course.image.ajax');
+
     Route::get('instructor/locations', [InstructorController::class, 'locations'])->name('instructor.locations'); 
     Route::get('instructor/location/{id}', [InstructorController::class, 'locations'])->name('instructor.location');
     Route::post('instructor/location/ajaxlocation', [InstructorController::class, 'ajaxLocations'])->name('instructor.location.ajax');
     Route::post('instructor/location/ajaxclassdates', [InstructorController::class, 'ajaxClassdateDelete'])->name('instructor.classdatedeleted.ajax');
     Route::post('instructor/location', [InstructorController::class, 'updateLocations'])->name('instructor.course.location');
+
 
 
     Route::get('instructor/bookings', [InstructorController::class, 'bookings'])->name('instructor.bookings');

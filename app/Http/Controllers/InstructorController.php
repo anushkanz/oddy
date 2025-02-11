@@ -193,21 +193,30 @@ class InstructorController extends Controller
                 'description'  => 'required',
                 'price'=>'required',
                 'max_capacity'=>'required',
-                'location_name'=> 'required',
-                'location_address'=>'required',
-                'location_city'=>'required',
-                'duration'=>'required'
+                'selected_location'=> 'required',
               ],
               [
                 'title.required' => 'Your title is Required', 
                 'description.required' => 'Your description is Required', 
                 'price.required'=> 'Your cost per seat is Required', 
                 'max_capacity.required'=> 'Your max capacity is Required', 
-                'location_name.required'=> 'Your location name is Required', 
-                'location_address.required'=> 'Your address is Required', 
-                'location_city.required'=> 'Your city is Required', 
+                'selected_location.required'=> 'Your location is Required', 
+
               ]
             );
+
+            $course = Classes::where('_id',$request->id)->first();
+            $course->instructor_id = $user->id;
+            $course->title = strip_tags($request->title);
+            $course->description = strip_tags($request->description);
+            $course->category_id = $request->category;
+            $course->location_id = $request->selected_location;
+            $course->duration = $request->duration;
+            $course->duration_type = $request->duration_type;
+            $course->price = $request->price;
+            $course->max_capacity = $request->max_capacity;
+            $course->level = $request->course_level;
+            $course->save();
         }   
             
     }
@@ -495,4 +504,70 @@ class InstructorController extends Controller
             
         }
     }
+
+    /**
+     * Given course id then return images
+     */
+    public function courseImage(string $id){
+        if(Auth::check()){
+            $user = Auth::user();
+            $course_images = Course::where('user_id', $user->_id)
+                        ->where('_id', $id)
+                        ->firstOrFail()->toArray();
+            return view('instructor.image',compact('course_images','user'));           
+        }
+    }
+
+    public function courseImageUpdate(Request $request)
+    {
+        if(Auth::check()){
+            $user = Auth::user();
+            //Set files array
+            $location = 'courses';
+            $files = $this->upload($request->file('file_upload'),$location,'true');
+            $file_decode = json_decode($files,true);
+
+            $course_images = Course::where('user_id', $user->_id)
+                        ->where('_id', $id)
+                        ->firstOrFail()->toArray();
+
+            if(!empty($course_images->photo_gallery)){
+                $course_images_updates = array_merge($file_decode, $course_images->photo_gallery);
+                $course_images->photo_gallery = json_encode($course_images_updates);
+                $course_images->save();
+            }  
+                      
+            return redirect()->route('instructor/course', ['id' => $course_images->_id])->with('message', 'Images saved correctly!!!');      
+        }
+    }
+
+    public function ajaxImage(Request $request){
+        $input = $request->all();
+
+        //Current images
+        $course_images = Course::where('user_id', $user->_id)
+                        ->where('_id', $id)
+                        ->firstOrFail()->toArray();
+
+        //Image from request
+        $getImages = $request->images;   
+        
+        $collection = array();
+        
+        foreach($existing_files as $file){
+            if (!in_array($file['name'], $getImages)) {
+                $collection[] = $file;
+            }
+        }
+
+        $course_images->photo_gallery = json_encode($collection);
+        $course_images->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'deleted',
+            'data' => 'deleted'
+        ], 200);  
+    }
+
 }

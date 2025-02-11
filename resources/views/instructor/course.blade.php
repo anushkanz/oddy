@@ -92,14 +92,13 @@
                   </div>
                 </div>
                 <div class="field">
-                  <label class="label">Course Images</label>
+                  <label class="label">Update Course Images</label>
                   <div class="field-body">
                     <div class="field file">
                       <label class="upload control">
-                        <a class="button blue">
+                        <a href="instructor/course/image/{{ isset($course->_id) ? $course->_id : '' }}" class="button blue">
                           Upload
                         </a>
-                        <input type="file" name="file_upload[]" multiple>
                       </label>
                     </div>
                   </div>
