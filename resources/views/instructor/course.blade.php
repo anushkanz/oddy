@@ -142,7 +142,7 @@
                 </div>
             </div>
           <div class="field">
-            <input type="hidden" name="selected_location" value="{{ isset($course->location->_id) ? $course->location->_id : '' }}">
+            <input type="hidden" id="selected_location" name="selected_location" value="{{ isset($course->location->_id) ? $course->location->_id : '' }}">
             <label class="label">Location Name</label>
             <div class="control">
               <input type="text" autocomplete="on" id="location_name" name="location_name" value="{{ isset($course->location->name) ? $course->location->name : '' }}" class="input" required readonly>
@@ -273,7 +273,8 @@
             $("#location_selected").change(function () {
                 let selectedValue = $(this).val();  // Get selected dropdown value
                 let href = "/instructor/locations/";
-                $("#selected_location").val(selectedValue);
+                
+
                 if( selectedValue == 'create_new'){
                     $("#edit_address").attr("href", href);
                     $("#edit_address").html('Create New Location');   
@@ -304,7 +305,7 @@
                     $("#edit_address").prop('disabled', false);
 
                     //Set selected location id
-                    
+                    $("#selected_location").val(selectedValue);
                 }else{
                     $("#edit_address").prop('disabled', true);
                 }
