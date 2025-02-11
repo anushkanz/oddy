@@ -3,9 +3,7 @@
 @section('title', 'Home Page')
 
 @section('content')
-@php
-dd($location);
-@endphp
+
 <form method='post'  enctype='multipart/form-data'  action="{{ route('instructor.location.update') }}">
 @csrf
 <input type='hidden' name='task' value="update">
