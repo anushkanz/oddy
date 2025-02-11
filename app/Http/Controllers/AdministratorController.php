@@ -37,7 +37,7 @@ class AdministratorController extends Controller
     /**
      * Categories function
      */
-    public function categories(string $id = null)
+    public function categories()
     {
       if(Auth::check()){
         $categories = Category::all();
