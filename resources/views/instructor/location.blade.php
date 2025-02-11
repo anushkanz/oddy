@@ -4,7 +4,7 @@
 
 @section('content')
 @php
-print_r($location->name);
+print_r($location['name']);
 @endphp
 <form method='post'  enctype='multipart/form-data'  action="{{ route('instructor.location.update') }}">
 @csrf
