@@ -188,11 +188,26 @@ class InstructorController extends Controller
 
             return redirect()->route('instructor.courses')->with('success','New Course created.');
         }elseif($request->task == 'update'){
-            //Check if any dates available of not
-            if($request->dates == null){
-
-            }
-            $dates =  ClassDate::where('class_id',$request->id)->get();
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'description'  => 'required',
+                'price'=>'required',
+                'max_capacity'=>'required',
+                'location_name'=> 'required',
+                'location_address'=>'required',
+                'location_city'=>'required',
+                'duration'=>'required'
+              ],
+              [
+                'title.required' => 'Your title is Required', 
+                'description.required' => 'Your description is Required', 
+                'price.required'=> 'Your cost per seat is Required', 
+                'max_capacity.required'=> 'Your max capacity is Required', 
+                'location_name.required'=> 'Your location name is Required', 
+                'location_address.required'=> 'Your address is Required', 
+                'location_city.required'=> 'Your city is Required', 
+              ]
+            );
         }   
             
     }

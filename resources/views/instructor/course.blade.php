@@ -273,7 +273,7 @@
             $("#location_selected").change(function () {
                 let selectedValue = $(this).val();  // Get selected dropdown value
                 let href = "/instructor/locations/";
-
+                $("#selected_location").val(selectedValue);
                 if( selectedValue == 'create_new'){
                     $("#edit_address").attr("href", href);
                     $("#edit_address").html('Create New Location');   
@@ -304,7 +304,7 @@
                     $("#edit_address").prop('disabled', false);
 
                     //Set selected location id
-                    $("#selected_location").val(selectedValue);
+                    
                 }else{
                     $("#edit_address").prop('disabled', true);
                 }
