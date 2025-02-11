@@ -456,6 +456,14 @@ class InstructorController extends Controller
         }
     } 
 
+    public function location(string $id)
+    {
+        if(Auth::check()){
+            $user = Auth::user();
+            $location =  Location::where('user_id', $user->_id)->where('_id', $id)->get();
+            return view('instructor.location',compact('location','user'));
+        } 
+    }
 
     /**
      * 
@@ -464,9 +472,8 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            $reviewer =  Review::where('reviewer_id', $user->_id)->get();
-            $receiver =  Review::where('receiver_id', $user->_id)->get();
-            return view('instructor.locations',compact('reviewer','receiver','user'));
+            $locations =  Location::where('user_id', $user->_id)->get();
+            return view('instructor.locations',compact('locations','user'));
         } 
     }
 
