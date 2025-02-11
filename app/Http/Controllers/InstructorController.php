@@ -465,6 +465,69 @@ class InstructorController extends Controller
         } 
     }
 
+    public function updateLocation(Request $request){
+        if(Auth::check()){
+            $user = Auth::user();
+            if($request->task == 'create'){
+                $validator = Validator::make($request->all(), [
+                    'location_name'=> 'required',
+                    'location_address'=>'required',
+                    'location_city'=>'required',
+                  ],
+                  [
+                    'location_name.required'=> 'Your location name is Required', 
+                    'location_address.required'=> 'Your address is Required', 
+                    'location_city.required'=> 'Your city is Required', 
+                  ]
+                );
+                if ($validator->fails()) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('instructor.locations')->with('error','Unable to validate your data');
+                }
+
+                $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
+                $results = app("geocoder")
+                    ->doNotCache()
+                    ->geocode($address)
+                    ->get();
+                $coordinates = $results[0]->getCoordinates();
+
+                $location = Location::create([
+                    'user_id' => $user->_id,
+                    'name' => $request->location_name,
+                    'address' => $request->location_address,
+                    'city' => $request->location_city,
+                    'country' => $request->location_country,
+                    'latitude' => $coordinates->getLatitude(),
+                    'longitude' => $coordinates->getLongitude(),
+                ]);
+                return redirect()->route('instructor.locations')->with('success','Created new location.');
+            }else{
+                $validator = Validator::make($request->all(), [
+                    'location_name'=> 'required',
+                    'location_address'=>'required',
+                    'location_city'=>'required',
+                  ],
+                  [
+                    'location_name.required'=> 'Your location name is Required', 
+                    'location_address.required'=> 'Your address is Required', 
+                    'location_city.required'=> 'Your city is Required', 
+                  ]
+                );
+                if ($validator->fails()) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('instructor.locations')->with('error','Unable to validate your data');
+                }
+                $location =  Location::where('user_id', $user->_id)->where('_id', $request->id)->get();
+                $location->name = $user->location_name;
+                $location->address = $request->location_address;
+                $location->city = $request->location_city;
+                $location->save();
+                return redirect()->route('instructor.locations')->with('success','Update location.');
+            }
+        }        
+    }
+
     /**
      * 
      */
