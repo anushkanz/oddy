@@ -511,7 +511,7 @@ class InstructorController extends Controller
     public function courseImage(string $id){
         if(Auth::check()){
             $user = Auth::user();
-            $course_images = Course::where('user_id', $user->_id)
+            $course_images = Classes::where('user_id', $user->_id)
                         ->where('_id', $id)
                         ->firstOrFail()->toArray();
             return view('instructor.image',compact('course_images','user'));           
@@ -527,7 +527,7 @@ class InstructorController extends Controller
             $files = $this->upload($request->file('file_upload'),$location,'true');
             $file_decode = json_decode($files,true);
 
-            $course_images = Course::where('user_id', $user->_id)
+            $course_images = Classes::where('user_id', $user->_id)
                         ->where('_id', $id)
                         ->firstOrFail()->toArray();
 
@@ -545,7 +545,7 @@ class InstructorController extends Controller
         $input = $request->all();
 
         //Current images
-        $course_images = Course::where('user_id', $user->_id)
+        $course_images = Classes::where('user_id', $user->_id)
                         ->where('_id', $id)
                         ->firstOrFail()->toArray();
 
