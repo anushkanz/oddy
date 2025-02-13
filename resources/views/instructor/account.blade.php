@@ -22,7 +22,7 @@
           </p>
         </header>
         <div class="card-content">
-        <form method='post' action="{{ route('instructor.account.update') }}">
+        <form method="POST" enctype="multipart/form-data" action="{{ route('instructor.account.update') }}">
               @csrf
               <input type='hidden' name='task' value="details"> 
               <input type='hidden' name='id' value="{{$user->_id}}"> 
@@ -34,7 +34,7 @@
                         <a class="button blue">
                           Upload
                         </a>
-                        <input type="file" name="file_upload">
+                        <input type="file" name="file_upload[]">
                       </label>
                     </div>
                   </div>
