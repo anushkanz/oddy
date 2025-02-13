@@ -96,8 +96,8 @@
         <div class="card-content">
           <div class="image w-48 h-48 mx-auto">
             @php 
-              $images_array = json_decode($user->photo_gallery);
-              print_r($images_array);
+              $images_array = json_decode($user->photo_gallery,true);
+              print_r($images_array['path']);
             @endphp
             <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
           </div>
