@@ -282,7 +282,10 @@ class InstructorController extends Controller
             $courses = Classes::where('instructor_id',$user->_id)->get();
             if($courses != null){
                 foreach($courses as $course){
-                    $bookings[$course->_id] = Booking::where('_id',$course->_id)->get();
+                    $booking = Booking::where('_id',$course->_id)->get();
+                    if(!empty($booking)){
+                        $bookings[$course->_id] = $booking;
+                    }
                 }
             }
             return view('instructor.bookings', compact('bookings','user')); 
