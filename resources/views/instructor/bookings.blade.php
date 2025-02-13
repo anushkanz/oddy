@@ -31,16 +31,16 @@
           </thead>
           <tbody>
           @php
-          if(!empty($bookings)){
-            foreach($bookings as $booking){
+            foreach($bookings as $key => $booking){
+              if(!empty($booking)){
           @endphp
             <tr>
               <td class="image-cell"></td>
-              <td data-label="Name" class="--name">{{$booking->user->name}}</td>
-              <td data-label="Title" class="--title">{{$booking->classes->title}}</td>
-              <td data-label="Category" class="--category">{{$booking->payment->_id}}</td>
-              <td data-label="Status" class="--status">{{$booking->status}}</td>
-              <td data-label="date" class="--date">{{$booking->booking_date}}</td>
+              <td data-label="Name" class="--name">{{ isset($booking->user->name) ? $booking->user->name : '' }}</td>
+              <td data-label="Title" class="--title">{{ isset($booking->classes->title) ? $booking->classes->title : '' }}</td>
+              <td data-label="Category" class="--category">{{ isset($booking->payment->_id) ? $booking->payment->_id : '' }}</td>
+              <td data-label="Status" class="--status">{{ isset($booking->status) ? $booking->status : '' }}</td>
+              <td data-label="date" class="--date">{{ isset($booking->booking_date) ? $booking->booking_date : '' }}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <a href="{{ route('instructor.booking',[$booking->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">

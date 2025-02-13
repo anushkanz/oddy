@@ -285,7 +285,6 @@ class InstructorController extends Controller
                     $bookings[$course->_id] = Booking::where('_id',$course->_id)->get();
                 }
             }
-            dd($bookings);
             return view('instructor.bookings', compact('bookings','user')); 
         }
     }
