@@ -25,18 +25,18 @@
             <form>
               @csrf
               <div class="field">
-                <label class="label">Avatar</label>
-                <div class="field-body">
-                  <div class="field file">
-                    <label class="upload control">
-                      <a class="button blue">
-                        Upload
-                      </a>
-                      <input type="file">
-                    </label>
+                  <label class="label">Profile Images</label>
+                  <div class="field-body">
+                    <div class="field file">
+                      <label class="upload control">
+                        <a class="button blue">
+                          Upload
+                        </a>
+                        <input type="file" name="file_upload[]">
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
             </form>
             <hr>
             <form method='post' action="{{ route('instructor.account.update') }}">

@@ -25,7 +25,7 @@ class CreateUsersCollection extends Migration
             $collection->string('phone')->nullable();
             $collection->integer('status');
             $collection->string('role')->default('customer'); // 'customer' or 'admin'
-
+            $collection->array('photo_gallery');
             // Timestamps
             $collection->timestamps();
         });

@@ -416,12 +416,21 @@ class InstructorController extends Controller
                     $error = $validator->errors()->all();
                     return redirect()->route('instructor.account')->with('error','Unable to validate your data');
                 }
+                $files = '';
+                if($request->has('file_upload')){
+                    //Set files array
+                    $location = 'users';
+                    $files = $this->upload($request->file('file_upload'),$location,'true');
+                }
+                
+                
                 $currentUser = User::find($request->id);
                 if($currentUser)
                 {
                     $currentUser->name = $request->name;
                     $currentUser->email = $request->email;
                     $currentUser->phone = $request->phone;
+                    $currentUser->photo_gallery = $files;
                     $currentUser->save();
                     return redirect()->route('instructor.account')->with('success','Account updated successfully');
                 }
