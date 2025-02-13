@@ -523,7 +523,7 @@ class InstructorController extends Controller
                 $location->address = $request->location_address;
                 $location->city = $request->location_city;
                 $location->save();
-                return redirect()->route('instructor.locations')->with('success','Update location.');
+                return redirect()->route('instructor.locations')->with('success','Update location');
             }
         }        
     }
@@ -535,7 +535,7 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            $locations =  Location::where('user_id', $user->_id)->get();
+            $locations =  Location::where('user_id', $user->_id)->firstOrFail();
             return view('instructor.locations',compact('locations','user'));
         } 
     }
