@@ -31,8 +31,8 @@
           </thead>
           <tbody>
           @php
+          if(!empty($booking)){
             foreach($bookings as $key => $booking){
-              if(!empty($booking)){
           @endphp
             <tr>
               <td class="image-cell"></td>
