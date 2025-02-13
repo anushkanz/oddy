@@ -417,12 +417,10 @@ class InstructorController extends Controller
                     return redirect()->route('instructor.account')->with('error','Unable to validate your data');
                 }
                 $files = '';
-                dd($request->file('file_upload'));
                 if($request->hasFile('file_upload')){
                     //Set files array
                     $location = 'users';
                     $files = $this->upload($request->file('file_upload'),$location,'true');
-                    
                 }
                 
                 
