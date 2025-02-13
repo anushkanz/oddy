@@ -932,8 +932,10 @@ body {
 }
 @media (min-width:1024px) {
     .form-screen .card {
-    width: 41.666667%}
-}.icon {
+        width: 41.666667%;
+    }
+}
+.icon {
     display: inline-flex;
     height: 1.5rem;
     width: 1.5rem;
@@ -958,9 +960,10 @@ thead {
 }
 @media (min-width:1024px) {
     thead {
-    display: table-header-group;
+        display: table-header-group;
+    }
 }
-}tr {
+tr {
     position: relative;
     display: block;
     max-width: 100%;
@@ -1041,7 +1044,8 @@ td.checkbox-cell, th.checkbox-cell {
 @media (min-width:1024px) {
     td.progress-cell progress {
     width: 100%}
-}td.image-cell {
+}
+td.image-cell {
     border-bottom-width: 0;
 }
 @media (min-width:1024px) {
