@@ -460,7 +460,7 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            $location =  Location::where('user_id', $user->_id)->where('_id', $id)->get();
+            $location =  Location::where('user_id', $user->_id)->where('_id', $id)->firstOrFail();
             return view('instructor.location',compact('location','user'));
         } 
     }
@@ -535,7 +535,7 @@ class InstructorController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            $locations =  Location::where('user_id', $user->_id)->firstOrFail();
+            $locations =  Location::where('user_id', $user->_id)->get();
             return view('instructor.locations',compact('locations','user'));
         } 
     }
