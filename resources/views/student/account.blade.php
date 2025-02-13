@@ -17,31 +17,31 @@
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+            <span class="icon"><i class="fa-regular fa-user"></i></span>
             Edit Profile
           </p>
         </header>
         <div class="card-content">
-            <form>
-              @csrf
-              <div class="field">
-                <label class="label">Avatar</label>
-                <div class="field-body">
-                  <div class="field file">
-                    <label class="upload control">
-                      <a class="button blue">
-                        Upload
-                      </a>
-                      <input type="file">
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <hr>
-            <form method='post' action="{{ route('student.account.update') }}">
+          <form method="POST" enctype="multipart/form-data"  action="{{ route('student.account.update') }}">
             <input type='hidden' name='task' value="details"> 
             <input type='hidden' name='id' value="{{$user->_id}}"> 
+              @csrf
+              <div class="field">
+                  <label class="label">Profile Images</label>
+                  <div class="field-body">
+                    <div class="field file">
+                      <label class="upload control">
+                        <a class="button blue">
+                          Upload
+                        </a>
+                        <input type="file" name="file_upload[]">
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+            <hr>
+           
               @csrf
               <div class="field">
                 <label class="label">Name</label>
@@ -90,7 +90,7 @@
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account"></i></span>
+            <span class="icon"><i class="fa-regular fa-address-card"></i></span>
             Profile
           </p>
         </header>
@@ -125,7 +125,7 @@
     <div class="card">
       <header class="card-header">
         <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-lock"></i></span>
+          <span class="icon"><i class="fa-solid fa-passport"></i></span>
           Change Password
         </p>
       </header>

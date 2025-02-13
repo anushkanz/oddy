@@ -180,12 +180,21 @@ class StudentController extends Controller
                     $error = $validator->errors()->all();
                     return redirect()->route('student.account')->with('error','Unable to validate your data');
                 }
+
+                $files = '';
+                if($request->hasFile('file_upload')){
+                    //Set files array
+                    $location = 'users';
+                    $files = $this->upload($request->file('file_upload'),$location,'true');
+                }
+
                 $currentUser = User::find($request->id);
                 if($currentUser)
                 {
                     $currentUser->name = $request->name;
                     $currentUser->email = $request->email;
                     $currentUser->phone = $request->phone;
+                    $currentUser->photo_gallery = $files;
                     $currentUser->save();
                     return redirect()->route('student.account')->with('success','Account updated successfully');
                 }
@@ -222,4 +231,53 @@ class StudentController extends Controller
             }
         }
     } 
+
+
+    public function upload($request,$type = null,$multiple = null){
+        $arr = [];
+        $location = '';
+        
+        if(!empty($type) && ($type == 'users')){
+            $location = 'public/uploads/users';
+        }else{
+            $location = 'public/uploads/courses';
+        }
+        
+        if(!empty($multiple) && ($multiple == 'false')){
+            $string = Str::random(32);
+            $size = filesize($request);
+            $ext = $request->guessExtension();
+            $file_name = $string . '.' .  $ext;
+            
+            if($type == 'users'){
+                $filePath = $request->storeAs($location, $file_name);
+            }else{
+                $filePath = $request->storeAs($location, $file_name);
+            }
+            array_push($arr, [
+                'name' => $file_name,
+                'path' => $filePath,
+            ]);
+             
+        }else{
+            foreach($request as $file){
+                $string = Str::random(32);
+                $size = filesize($file);
+                $ext = $file->guessExtension();
+                $file_name = $string . '.' .  $ext;
+                
+                if($type == 'users'){
+                    $filePath = $file->storeAs($location, $file_name);
+                }else{
+                    $filePath = $file->storeAs($location, $file_name);
+                }
+                array_push($arr, [
+                    'name' => $file_name,
+                    'path' => $filePath,
+                ]);
+            }    
+        }
+
+        return json_encode($arr);
+    }
 }
