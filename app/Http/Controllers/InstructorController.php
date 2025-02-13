@@ -522,7 +522,7 @@ class InstructorController extends Controller
                 $location->name = $user->location_name;
                 $location->address = $request->location_address;
                 $location->city = $request->location_city;
-                $location->save();
+                $location->update();
                 return redirect()->route('instructor.locations')->with('success','Update location');
             }
         }        
