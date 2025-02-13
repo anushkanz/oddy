@@ -584,7 +584,7 @@ class InstructorController extends Controller
             $user = Auth::user();
             $course_images = Classes::where('user_id', $user->_id)
                         ->where('_id', $id)
-                        ->firstOrFail()->toArray();
+                        ->firstOrFail();
             return view('instructor.image',compact('course_images','user'));           
         }
     }
