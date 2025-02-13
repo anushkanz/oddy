@@ -422,7 +422,7 @@ class InstructorController extends Controller
                     $location = 'users';
                     $files = $this->upload($request->file('file_upload'),$location,'true');
                 }
-                
+                dd($files);
                 
                 $currentUser = User::find($request->id);
                 if($currentUser)
