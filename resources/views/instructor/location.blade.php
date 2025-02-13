@@ -1,8 +1,8 @@
 @extends('layouts.master_instructor')
 
 @section('title', 'Home Page')
-
-@section('content')
+@php dd($location) @endphp
+@section('content') 
 
 <form method='post'  enctype='multipart/form-data'  action="{{ route('instructor.location.update') }}">
 @csrf
