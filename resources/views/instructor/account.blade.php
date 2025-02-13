@@ -17,7 +17,7 @@
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+            <span class="icon"><i class="fa-regular fa-user"></i></span>
             Edit Profile
           </p>
         </header>
@@ -89,7 +89,7 @@
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account"></i></span>
+            <span class="icon"><i class="fa-regular fa-address-card"></i></span>
             Profile
           </p>
         </header>
@@ -131,7 +131,7 @@
     <div class="card">
       <header class="card-header">
         <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-lock"></i></span>
+          <span class="icon"><i class="fa-solid fa-passport"></i></span>
           Change Password
         </p>
       </header>
