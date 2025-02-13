@@ -16,6 +16,7 @@
         </a>
       </header>
       <div class="card-content">
+
         <table id="courses">
           <thead>
           <tr>
@@ -30,6 +31,7 @@
           </thead>
           <tbody>
           @php
+          if(!empty($bookings)){
             foreach($bookings as $booking){
           @endphp
             <tr>
@@ -48,7 +50,7 @@
               </td>
             </tr>
           @php
-            }
+            }}
           @endphp
           </tbody>
         </table>
