@@ -63,9 +63,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('instructor/courses', [InstructorController::class, 'courses'])->name('instructor.courses'); //Return all Courses by user
     Route::get('instructor/course/{id}', [InstructorController::class, 'course'])->name('instructor.course'); //Return specific Course
     Route::post('instructor/course', [InstructorController::class, 'updateCourse'])->name('instructor.course.update');
-    Route::get('instructor/course/image/{id}', [InstructorController::class, 'courseImage'])->name('instructor.course.image'); 
-    Route::post('instructor/course/image/', [InstructorController::class, 'courseImageUpdate'])->name('instructor.course.image.update'); 
-    Route::post('instructor/course/ajaximage', [InstructorController::class, 'ajaxImage'])->name('instructor.course.image.ajax');
+    
+    Route::get('instructor/image/{id}', [InstructorController::class, 'courseImage'])->name('instructor.image'); 
+    Route::post('instructor/image', [InstructorController::class, 'courseImageUpdate'])->name('instructor.image.update'); 
+    Route::post('instructor/ajaximage', [InstructorController::class, 'ajaxImage'])->name('instructor.image.ajax');
 
     Route::get('instructor/locations', [InstructorController::class, 'locations'])->name('instructor.locations'); 
     Route::get('instructor/location/{id}', [InstructorController::class, 'location'])->name('instructor.location');
