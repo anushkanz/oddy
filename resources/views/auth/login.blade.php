@@ -1,12 +1,11 @@
 @extends('layouts.master_open_header')
 @section('content')
 <div id="app">
-
   <section class="section main-section">
     <div class="card">
       <header class="card-header">
         <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-lock"></i></span>
+          <span class="icon"><i class="fa-solid fa-lock"></i></span>
           Login
         </p>
       </header>
@@ -17,7 +16,7 @@
             <label class="label">Login</label>
             <div class="control icons-left">
               <input class="input" type="email" name="email"  id="email" placeholder="user@example.com" autocomplete="username"  required autofocus>
-              <span class="icon is-small left"><i class="mdi mdi-account"></i></span>
+              <span class="icon is-small left"><i class="fa-regular fa-user"></i></span>
             </div>
             <p class="help">
               Please enter your login
@@ -28,7 +27,7 @@
             <label class="label">Password</label>
             <p class="control icons-left">
                 <input type="password" placeholder="Password" id="password" class="input" name="password" required>
-                <span class="icon is-small left"><i class="mdi mdi-asterisk"></i></span>
+                <span class="icon is-small left"><i class="fa-solid fa-passport"></i></span>
                 @if ($errors->has('emailPassword'))
                     <span class="text-danger">{{ $errors->first('emailPassword') }}</span>
                 @endif
@@ -61,10 +60,7 @@
         </form>
       </div>
     </div>
-
   </section>
-
-
 </div>
 
 @endsection
