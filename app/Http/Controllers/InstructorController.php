@@ -519,6 +519,7 @@ class InstructorController extends Controller
                     return redirect()->route('instructor.locations')->with('error','Unable to validate your data');
                 }
                 $location =  Location::where('user_id', $user->_id)->where('_id', $request->id)->first();
+                dd($location);
                 $location->name = $request->location_name;
                 $location->address = $request->location_address;
                 $location->city = $request->location_city;
