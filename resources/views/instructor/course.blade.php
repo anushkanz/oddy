@@ -298,7 +298,7 @@
                             alert("Error fetching data");
                         }
                     });
-                    let href = "/instructor/course/"+selectedValue;
+                    let href = "/instructor/location/"+selectedValue;
                     $("#edit_address").attr("href", href);
                     $("#edit_address").html('Update Location');  
                     $("#edit_address").prop('disabled', false);

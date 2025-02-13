@@ -44,9 +44,17 @@
           <div class="field">
             <label class="label">Country</label>
             <div class="control">
-            <input type="text" autocomplete="on" name="location_country" readonly value="NZ" class="input" required>
+                <input type="text" autocomplete="on" name="location_country" readonly value="NZ" class="input" required>
             </div>
             <p class="help">Required. Course country</p>
+          </div>
+          <hr>
+          <div class="field">
+            <div class="control">
+              <button type="submit" class="button green">
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
