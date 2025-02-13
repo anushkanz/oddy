@@ -24,6 +24,8 @@
         <div class="card-content">
         <form method='post' action="{{ route('instructor.account.update') }}">
               @csrf
+              <input type='hidden' name='task' value="details"> 
+              <input type='hidden' name='id' value="{{$user->_id}}"> 
               <div class="field">
                   <label class="label">Profile Images</label>
                   <div class="field-body">
@@ -39,10 +41,7 @@
                 </div>
             
             <hr>
-            
-            <input type='hidden' name='task' value="details"> 
-            <input type='hidden' name='id' value="{{$user->_id}}"> 
-              @csrf
+
               <div class="field">
                 <label class="label">Name</label>
                 <div class="field-body">
