@@ -10,7 +10,7 @@
         </p>
       </header>
       <div class="card-content">
-        <form method="POST" action="{{ route('login.custom') }}">
+        <form method="POST" action="{{ route('login.registration.post') }}">
           @csrf <!-- {{ csrf_field() }} -->
           <input type="hidden" id="token" class="form-control" name="token" value="{{request()->route()->parameters['type']}}">
             <div class="field spaced">
