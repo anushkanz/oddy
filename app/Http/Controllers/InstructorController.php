@@ -627,7 +627,7 @@ class InstructorController extends Controller
 
     public function ajaxImage(Request $request){
         $input = $request->all();
-
+        $user = Auth::user();
         //Current images
         $course_images = Classes::where('user_id', $user->_id)
                         ->where('_id', $id)
