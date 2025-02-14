@@ -27,10 +27,20 @@
               <label class="label">Login</label>
               <div class="control icons-left">
                 <input class="input" type="email" name="email"  id="email" placeholder="user@example.com" autocomplete="username"  required autofocus>
-                <span class="icon is-small left"><i class="fa-regular fa-user"></i></span>
+                <span class="icon is-small left"><i class="fa-regular fa-envelope"></i></span>
               </div>
               <p class="help">
                 Please enter your login
+              </p>
+            </div>
+            <div class="field spaced">
+              <label class="label">Mobile</label>
+              <div class="control icons-left">
+                <input class="input" type="text" name="mobile"  id="name" placeholder="Mobile" autocomplete="mobile"  required autofocus>
+                <span class="icon is-small left"><i class="fa-solid fa-mobile-screen-button"></i></span>
+              </div>
+              <p class="help">
+                Please enter your mobile
               </p>
             </div>
             <div class="field spaced">
@@ -59,16 +69,7 @@
                 Please re enter your password
               </p>
             </div>
-            <div class="field spaced">
-              <label class="label">Mobile</label>
-              <div class="control icons-left">
-                <input class="input" type="text" name="mobile"  id="name" placeholder="Mobile" autocomplete="mobile"  required autofocus>
-                <span class="icon is-small left"><i class="fa-regular fa-user"></i></span>
-              </div>
-              <p class="help">
-                Please enter your mobile
-              </p>
-            </div>
+            
           <hr>
           <div class="field grouped">
             <div class="control">
