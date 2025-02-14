@@ -12,7 +12,7 @@
       <div class="card-content">
         <form method="POST" action="{{ route('login.registration.post') }}">
           @csrf <!-- {{ csrf_field() }} -->
-          <input type="hidden" id="token" class="form-control" name="token" value="{{request()->route()->parameters['type']}}">
+          <input type="hidden" id="type" class="form-control" name="type" value="{{request()->route()->parameters['type']}}">
             <div class="field spaced">
               <label class="label">Name</label>
               <div class="control icons-left">
