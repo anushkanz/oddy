@@ -1,7 +1,7 @@
 @extends('layouts.master_open_header')
 @section('content')
 <div id="app">
-  <section class="section main-section">
+    <section class="section main-section"> 
     <div class="card login-form-card">
       <header class="card-header">
         <p class="card-header-title">
@@ -12,6 +12,17 @@
       <div class="card-content">
         <form method="POST" action="{{ route('login.custom') }}">
           @csrf <!-- {{ csrf_field() }} -->
+          <input type="hidden" id="token" class="form-control" name="token" value="{{request()->route()->parameters['type']}}">
+            <div class="field spaced">
+              <label class="label">Name</label>
+              <div class="control icons-left">
+                <input class="input" type="text" name="name"  id="name" placeholder="Name" autocomplete="name"  required autofocus>
+                <span class="icon is-small left"><i class="fa-regular fa-user"></i></span>
+              </div>
+              <p class="help">
+                Please enter your name
+              </p>
+            </div>
             <div class="field spaced">
               <label class="label">Login</label>
               <div class="control icons-left">
@@ -36,31 +47,39 @@
               </p>
             </div>
             <div class="field spaced">
-              <div class="control">
-                <label class="checkbox"><input type="checkbox" name="remember" value="1" checked>
-                  <span class="check"></span>
-                  <span class="control-label">Remember</span>
-                </label>
+              <label class="label">Password</label>
+              <p class="control icons-left">
+                  <input type="password" placeholder="Password" id="password_confirmation" class="input" name="password_confirmation" required>
+                  <span class="icon is-small left"><i class="fa-solid fa-passport"></i></span>
+                  @if ($errors->has('emailPassword'))
+                      <span class="text-danger">{{ $errors->first('emailPassword') }}</span>
+                  @endif
+              </p>
+              <p class="help">
+                Please re enter your password
+              </p>
+            </div>
+            <div class="field spaced">
+              <label class="label">Mobile</label>
+              <div class="control icons-left">
+                <input class="input" type="text" name="mobile"  id="name" placeholder="Mobile" autocomplete="mobile"  required autofocus>
+                <span class="icon is-small left"><i class="fa-regular fa-user"></i></span>
               </div>
+              <p class="help">
+                Please enter your mobile
+              </p>
             </div>
           <hr>
           <div class="field grouped">
             <div class="control">
               <button type="submit" class="button blue">
-                Login
+                Sign up
               </button>
-              <a href="/registration/student" class="button blue">
-                Student Sign up
-              </a>
-              <a href="/registration/tutor" class="button blue">
-                Tutor Sign up
-              </a>
             </div>
           </div>
         </form>
       </div>
     </div>
-  </section>
+    </section> 
 </div>
-
 @endsection

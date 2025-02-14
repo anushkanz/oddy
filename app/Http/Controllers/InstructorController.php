@@ -186,7 +186,7 @@ class InstructorController extends Controller
                 $date_times->save();
             }
 
-            return redirect()->route('instructor.courses')->with('success','New Course created.');
+            return redirect()->route('instructor.courses')->with('success','New Course updated.');
         }elseif($request->task == 'update'){
             $validator = Validator::make($request->all(), [
                 'title' => 'required',
@@ -217,7 +217,7 @@ class InstructorController extends Controller
             $course->max_capacity = $request->max_capacity;
             $course->level = $request->course_level;
             $course->save();
-            return redirect()->route('instructor.courses')->with('success','New Course created.');
+            return redirect()->route('instructor.courses')->with('success','New Course updated.');
         }elseif($request->task == 'update_images'){
             //Set files array
             $location = 'courses';
@@ -232,6 +232,7 @@ class InstructorController extends Controller
                 $course_images->photo_gallery = json_encode($gallery);
                 $course_images->save();
             }
+            return redirect()->route('instructor.courses')->with('success','New Course updated.');
         }   
     }
 

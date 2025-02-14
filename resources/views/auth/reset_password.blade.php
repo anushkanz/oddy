@@ -6,22 +6,14 @@
       <header class="card-header">
         <p class="card-header-title">
           <span class="icon"><i class="fa-solid fa-lock"></i></span>
-          Login
+          Reset Password
         </p>
       </header>
       <div class="card-content">
-        <form method="POST" action="{{ route('login.custom') }}">
-          @csrf <!-- {{ csrf_field() }} -->
-            <div class="field spaced">
-              <label class="label">Login</label>
-              <div class="control icons-left">
-                <input class="input" type="email" name="email"  id="email" placeholder="user@example.com" autocomplete="username"  required autofocus>
-                <span class="icon is-small left"><i class="fa-regular fa-user"></i></span>
-              </div>
-              <p class="help">
-                Please enter your login
-              </p>
-            </div>
+        <form method="POST" action="{{ route('login.forget_password.update') }}">
+            @csrf <!-- {{ csrf_field() }} -->
+            <input type="hidden" id="token" class="form-control" name="token" value="{{request()->route()->parameters['token']}}">
+            <input type="hidden" id="email" class="form-control" name="email" value="{{request()->route()->parameters['email']}}">
             <div class="field spaced">
               <label class="label">Password</label>
               <p class="control icons-left">
@@ -36,25 +28,24 @@
               </p>
             </div>
             <div class="field spaced">
-              <div class="control">
-                <label class="checkbox"><input type="checkbox" name="remember" value="1" checked>
-                  <span class="check"></span>
-                  <span class="control-label">Remember</span>
-                </label>
-              </div>
+              <label class="label">Password</label>
+              <p class="control icons-left">
+                  <input type="password" placeholder="Password" id="password_confirmation" class="input" name="password_confirmation" required>
+                  <span class="icon is-small left"><i class="fa-solid fa-passport"></i></span>
+                  @if ($errors->has('emailPassword'))
+                      <span class="text-danger">{{ $errors->first('emailPassword') }}</span>
+                  @endif
+              </p>
+              <p class="help">
+                Please re enter your password
+              </p>
             </div>
           <hr>
           <div class="field grouped">
             <div class="control">
               <button type="submit" class="button blue">
-                Login
+              Reset Password
               </button>
-              <a href="/registration/student" class="button blue">
-                Student Sign up
-              </a>
-              <a href="/registration/tutor" class="button blue">
-                Tutor Sign up
-              </a>
             </div>
           </div>
         </form>
@@ -62,5 +53,4 @@
     </div>
   </section>
 </div>
-
 @endsection
