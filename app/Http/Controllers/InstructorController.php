@@ -631,7 +631,7 @@ class InstructorController extends Controller
         //Current images
         $course_images = Classes::where('instructor_id', $user->_id)
                         ->where('_id', $request->id)
-                        ->firstOrFail->toArray();
+                        ->firstOrFail()->toArray();
 
         //Image from request
         $getImages = $request->images;   
