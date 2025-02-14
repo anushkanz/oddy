@@ -631,14 +631,14 @@ class InstructorController extends Controller
         //Current images
         $course_images = Classes::where('instructor_id', $user->_id)
                         ->where('_id', $request->id)
-                        ->firstOrFail()->toArray();
+                        ->firstOrFail();
 
         //Image from request
         $getImages = $request->images;   
         
         $collection = array();
         
-        foreach($course_images as $file){
+        foreach(json_decode($course_images->photo_gallery,true) as $file){
             if (!in_array($file['name'], $getImages)) {
                 $collection[] = $file;
             }
