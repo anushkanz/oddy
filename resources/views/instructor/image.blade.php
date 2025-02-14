@@ -23,8 +23,8 @@
               </div>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 listing-images-z">
-            <input type='hidden' name='user' value="{{$course_images->_id}}">
-            <input type='hidden' name='id' value="{{$course->id}}">
+            <input type='hidden' name='user' value="{{$user->_id}}">
+            <input type='hidden' name='id' value="{{$course_images->id}}">
             <input type="hidden" id="token" name="token" value="{{csrf_token()}}"/>
                 @foreach(json_decode($course_images->photo_gallery,true) as $imges)
                     <div class="image">
