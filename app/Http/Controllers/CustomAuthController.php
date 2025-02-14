@@ -253,6 +253,7 @@ class CustomAuthController extends Controller
                 'status'=> 1,
                 'type'  => $request->type,
                 'password'=> Hash::make($request->password),
+                'photo_gallery'=>''
             ]);
 
             //After create user send email to given email address with code    
