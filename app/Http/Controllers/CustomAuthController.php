@@ -226,6 +226,9 @@ class CustomAuthController extends Controller
         
     }
 
+    public function registration(){
+        return view('auth.registration');
+    }
 
     public function customRegistration(Request $request){
         //Registration role change based on type, only accept student or tutor
