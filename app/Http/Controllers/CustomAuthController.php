@@ -231,6 +231,7 @@ class CustomAuthController extends Controller
     }
 
     public function customRegistration(Request $request){
+        dd($request->all());
         if(($request->type != 'student') || ($request->type != 'tutor')){
             return;
         }
@@ -238,7 +239,7 @@ class CustomAuthController extends Controller
         $user = User::where('email', $request->email)->first();
         
         if($user == null){
-            dd($request->all());
+           
             // $this->validate($request, [
             //     'name' => 'required|min:3|max:50',
             //     'email' => 'email',
