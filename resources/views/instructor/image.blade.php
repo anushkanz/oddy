@@ -39,6 +39,36 @@
         </div>
     </div>
 </div>
+    <div class="grid gap-6 grid-cols-1 md:grid-cols-1 mb-6">
+        <form method='post'  enctype='multipart/form-data'  action="{{ route('instructor.course.update') }}">
+            @csrf
+            <input type='hidden' name='task' value="update_images">
+            <input type='hidden' name='user' value="{{$user->_id}}">
+            <input type='hidden' name='id' value="{{$course->id}}">
+            <div class="field">
+                <label class="label">Add Course Images</label>
+                <div class="field-body">
+                    <div class="field file">
+                        <label class="upload control">
+                        <a class="button blue">
+                            Upload
+                        </a>
+                        <input type="file" name="file_upload[]" multiple>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="field">
+                <div class="control">
+                    <a id="deleteButton" type="submit" class="button red">
+                        Delete Images
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <script>
         $(document).ready(function(){
 

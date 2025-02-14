@@ -96,7 +96,7 @@
                   <div class="field-body">
                     <div class="field file">
                       <label class="upload control">
-                        <a href="/instructor/image/{{ isset($course->_id) ? $course->_id : '' }}" class="button blue">
+                        <a href="/instructor/course/image/{{ isset($course->_id) ? $course->_id : '' }}" class="button blue">
                           Update
                         </a>
                       </label>
