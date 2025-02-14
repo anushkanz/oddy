@@ -238,6 +238,7 @@ class CustomAuthController extends Controller
         $user = User::where('email', $request->email)->first();
         
         if($user == null){
+            dd($request->all());
             // $this->validate($request, [
             //     'name' => 'required|min:3|max:50',
             //     'email' => 'email',
