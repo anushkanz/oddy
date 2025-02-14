@@ -61,9 +61,9 @@
             <hr>
             <div class="field">
                 <div class="control">
-                    <a id="deleteButton" type="submit" class="button red">
+                    <button type="submit" class="button green">
                         Delete Images
-                    </a>
+                    </button>
                 </div>
             </div>
         </form>
