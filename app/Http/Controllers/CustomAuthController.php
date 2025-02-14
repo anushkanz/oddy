@@ -233,7 +233,7 @@ class CustomAuthController extends Controller
     public function customRegistration(Request $request){
         //Registration role change based on type, only accept student or tutor
         $user = User::where('email', $request->email)->first();
-        dd($user);
+        
         if($user == null){
             if(($request->type != 'student') || ($request->type != 'tutor')){
                 return;
