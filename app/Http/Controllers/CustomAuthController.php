@@ -238,20 +238,20 @@ class CustomAuthController extends Controller
             
             if($user == null){
             
-                // $this->validate($request, [
-                //     'name' => 'required|min:3|max:50',
-                //     'email' => 'email',
-                //     'mobile' => 'required',
-                //     'password' => 'min:10|required_with:password_confirmation|same:password_confirmation',
-                //     'password_confirmation' => 'min:10'
-                // ]);
+                $this->validate($request, [
+                    'name' => 'required|min:3|max:50',
+                    'email' => 'email',
+                    'mobile' => 'required',
+                    'password' => 'min:10|required_with:password_confirmation|same:password_confirmation',
+                    'password_confirmation' => 'min:10'
+                ]);
                 
                 $user_created = User::create([
                     'name' => $request->name,
-                    'mobile'=> $request->mobile,
+                    'phone'=> $request->mobile,
                     'email' => $request->email,
                     'status'=> 1,
-                    'type'  => $request->type,
+                    'role'  => $request->type,
                     'password'=> Hash::make($request->password),
                     'photo_gallery'=>''
                 ]);
