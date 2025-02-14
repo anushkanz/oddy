@@ -64,7 +64,7 @@
                             images:array
                         },
                         success:function(response) {
-                            if (response.status === 'success') {
+                            if (response.status === 'deleted') {
                                 Swal.fire({
                                     icon: "success",
                                     title: "Update message",

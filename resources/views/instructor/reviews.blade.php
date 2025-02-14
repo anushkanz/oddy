@@ -7,7 +7,7 @@
 <div class="card has-table">
       <header class="card-header">
         <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+          <span class="icon"><i class="fa-regular fa-comment"></i></span>
           Reviews Given
         </p>
         <a href="#" class="card-header-icon">
@@ -55,7 +55,7 @@
     <div class="card has-table">
       <header class="card-header">
         <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+          <span class="icon"><i class="fa-solid fa-comment"></i></span>
           Reviews Got
         </p>
         <a href="#" class="card-header-icon">
