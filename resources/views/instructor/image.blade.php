@@ -44,7 +44,7 @@
             @csrf
             <input type='hidden' name='task' value="update_images">
             <input type='hidden' name='user' value="{{$user->_id}}">
-            <input type='hidden' name='id' value="{{$course->id}}">
+            <input type='hidden' name='id' value="{{$course_images->id}}">
             <div class="field">
                 <label class="label">Add Course Images</label>
                 <div class="field-body">

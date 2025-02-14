@@ -218,8 +218,21 @@ class InstructorController extends Controller
             $course->level = $request->course_level;
             $course->save();
             return redirect()->route('instructor.courses')->with('success','New Course created.');
-        }   
+        }elseif($request->task == 'update_images'){
+            //Set files array
+            $location = 'courses';
+            $files = $this->upload($request->file('file_upload'),$location,'true');
             
+            //Get current images
+            $course_images = Classes::where('_id',$request->id)->first();
+            $current_photos = json_decode($course_images->photo_gallery,true);
+
+            if(!empty($json_decode($files,true))){
+                $gallery = array_merge(json_decode($files,true), $current_photos);
+                $course_images->photo_gallery = json_encode($gallery);
+                $course_images->save();
+            }
+        }   
     }
 
     public function upload($request,$type = null,$multiple = null){
