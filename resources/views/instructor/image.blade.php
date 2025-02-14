@@ -3,7 +3,7 @@
 @section('title', 'Home Page')
 
 @section('content')
-<div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
+<div class="grid gap-6 grid-cols-1 md:grid-cols-1 mb-6">
     <div class="card mb-6">
       <header class="card-header">
         <p class="card-header-title">
@@ -22,11 +22,12 @@
                 <div></div>
               </div>
             </div>
-            <ul>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 listing-images-z">
                 @foreach(json_decode($course_images->photo_gallery,true) as $imges)
-                    <li><img src="{{$imges['path']}}"></li>
-                @endforeach           
-            </ul>
+                    <div class="image"><img src="{{$imges['path']}}"></div>
+                @endforeach    
+            </div>
+ 
           </div>
         </div>
       </div>
