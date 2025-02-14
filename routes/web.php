@@ -17,7 +17,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/forget_password', [CustomAuthController::class, 'forgetPasswordPost'])->name('login.forget_password.update');
     Route::get('/reset_password/{token}/{email}', [CustomAuthController::class, 'resetPassword'])->name('login.reset_password');
     Route::post('/reset_password', [CustomAuthController::class, 'resetPasswordPost'])->name('login.reset_password.post');
-    
+
     Route::get('/verify/{token}', [CustomAuthController::class, 'verifyAccount'])->name('login.user.verify'); 
     Route::post('account/verification', [CustomAuthController::class, 'sendEmailVerification'])->name('login.verificaiton.send');
 });
@@ -108,6 +108,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('student/account/', [StudentController::class, 'account'])->name('student.account'); 
     Route::post('student/account', [StudentController::class, 'updateAccount'])->name('student.account.update');
 
-    Route::get('student/booking/checkout/{id}', [StudentController::class, 'booking'])->name('student.booking'); //$id is product_id
+    //Route::get('student/booking/checkout/{id}', [StudentController::class, 'booking'])->name('student.booking'); //$id is product_id
 
 });
