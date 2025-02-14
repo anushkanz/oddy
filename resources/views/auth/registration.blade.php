@@ -36,7 +36,7 @@
             <div class="field spaced">
               <label class="label">Mobile</label>
               <div class="control icons-left">
-                <input class="input" type="text" name="mobile"  id="name" placeholder="Mobile" autocomplete="mobile"  required autofocus>
+                <input class="input" type="text" name="mobile"  id="mobile" placeholder="Mobile" autocomplete="mobile"  required autofocus>
                 <span class="icon is-small left"><i class="fa-solid fa-mobile-screen-button"></i></span>
               </div>
               <p class="help">
