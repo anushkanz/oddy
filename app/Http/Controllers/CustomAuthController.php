@@ -231,46 +231,45 @@ class CustomAuthController extends Controller
     }
 
     public function customRegistration(Request $request){
-        dd($request->all());
-        if(($request->type != 'student') || ($request->type != 'tutor')){
-            return;
-        }
-        //Registration role change based on type, only accept student or tutor
-        $user = User::where('email', $request->email)->first();
         
-        if($user == null){
-           
-            // $this->validate($request, [
-            //     'name' => 'required|min:3|max:50',
-            //     'email' => 'email',
-            //     'mobile' => 'required',
-            //     'password' => 'min:10|required_with:password_confirmation|same:password_confirmation',
-            //     'password_confirmation' => 'min:10'
-            // ]);
+        if(($request->type == 'student') || ($request->type == 'tutor')){
+            //Registration role change based on type, only accept student or tutor
+            $user = User::where('email', $request->email)->first();
             
-            $user_created = User::create([
-                'name' => $request->name,
-                'mobile'=> $request->mobile,
-                'email' => $request->email,
-                'status'=> 1,
-                'type'  => $request->type,
-                'password'=> Hash::make($request->password),
-                'photo_gallery'=>''
-            ]);
+            if($user == null){
+            
+                // $this->validate($request, [
+                //     'name' => 'required|min:3|max:50',
+                //     'email' => 'email',
+                //     'mobile' => 'required',
+                //     'password' => 'min:10|required_with:password_confirmation|same:password_confirmation',
+                //     'password_confirmation' => 'min:10'
+                // ]);
+                
+                $user_created = User::create([
+                    'name' => $request->name,
+                    'mobile'=> $request->mobile,
+                    'email' => $request->email,
+                    'status'=> 1,
+                    'type'  => $request->type,
+                    'password'=> Hash::make($request->password),
+                    'photo_gallery'=>''
+                ]);
 
-            //After create user send email to given email address with code    
-            $token = Str::random(64);
+                //After create user send email to given email address with code    
+                $token = Str::random(64);
 
-            UserVerify::create([
-                'user_id' => $user_created->id, 
-                'token' => $token
-            ]);
+                UserVerify::create([
+                    'user_id' => $user_created->id, 
+                    'token' => $token
+                ]);
 
-            $verifyUser = UserVerify::where('user_id', $user_created->id)->first();
-            //$user_created->notify(new UserEmailVerificationMailNotification($user_created,$verifyUser));
+                $verifyUser = UserVerify::where('user_id', $user_created->id)->first();
+                //$user_created->notify(new UserEmailVerificationMailNotification($user_created,$verifyUser));
 
-            return redirect()->intended('/')->withSuccess('Successfully sign up');
-        } 
+                return redirect()->intended('/')->withSuccess('Successfully sign up');
+            } 
+        }    
     }
 
 }
