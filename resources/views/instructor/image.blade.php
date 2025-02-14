@@ -14,17 +14,9 @@
       <div class="card-content">
         <div class="chart-area">
           <div class="h-full">
-            <div class="chartjs-size-monitor">
-              <div class="chartjs-size-monitor-expand">
-                <div></div>
-              </div>
-              <div class="chartjs-size-monitor-shrink">
-                <div></div>
-              </div>
-            </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 listing-images-z">
             <input type='hidden' name='user' value="{{$user->_id}}">
-            <input type='hidden' name='id' value="{{$course_images->id}}">
+            <input type='hidden' name='course_id' value="{{$course_images->id}}">
             <input type="hidden" id="token" name="token" value="{{csrf_token()}}"/>
                 @foreach(json_decode($course_images->photo_gallery,true) as $imges)
                     <div class="image">
@@ -58,7 +50,7 @@
                 });
             
                 var token =  $("input[name=token]").val();
-                var id =  $("input[name=id]").val();
+                var id =  $("input[name=course_id]").val();
             
                 console.log(array);
                 
