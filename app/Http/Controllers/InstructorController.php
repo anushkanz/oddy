@@ -594,10 +594,11 @@ class InstructorController extends Controller
     public function courseImage(string $id){
         if(Auth::check()){
             $user = Auth::user();
-            $course_images = Classes::where('user_id', $user->_id)
-                        ->where('_id', $id)
-                        ->firstOrFail();
-            return view('instructor.image',compact('course_images','user'));           
+            dd($user);
+            // $course_images = Classes::where('user_id', $user->_id)
+            //             ->where('_id', $id)
+            //             ->firstOrFail();
+            // return view('instructor.image',compact('course_images','user'));           
         }
     }
 

@@ -38,18 +38,28 @@ class CustomAuthController extends Controller
 
     public function customLogin(Request $request)
     {
-       $validator =  $request->validate([
+        // Validate request
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
     
         $credentials = $request->only('email', 'password');
-
+    
+        // Find user first
+        $user = User::where('email', $request->email)->first();
+    
+        if (!$user || !\Hash::check($request->password, $user->password)) {
+            return redirect("/")->withErrors(['emailPassword' => 'Email or password is incorrect.']);
+        }
+    
+        // Check if user is inactive
+        if ($user->status == 0) {
+            return redirect("/")->withErrors(['emailPassword' => 'Your account is inactive. Please contact support.']);
+        }
+    
+        // Attempt login
         if (Auth::attempt($credentials)) {
-          
-          if(Auth::check()){
-            $user = Auth::user();
-            //Based on user type redirect to different dashboard
             if($user->role == 'admin'){
                 return redirect()->intended('administrator/dashboard')->withSuccess('Signed in');
             }
@@ -61,10 +71,10 @@ class CustomAuthController extends Controller
                 return redirect()->intended('student/dashboard');
                 //return view('customer.dashboard', compact('user'));  
             }
+            //return redirect()->intended('dashboard')->withSuccess('Signed in');
         }
-        }
-        $validator['emailPassword'] = 'Email address or password is incorrect.';
-        return redirect("/")->withErrors($validator);
+    
+        return redirect("/")->withErrors(['emailPassword' => 'Login failed. Please try again.']);
     }
 
     /**

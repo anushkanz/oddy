@@ -66,7 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
     
     Route::get('instructor/course/image/{id}', [InstructorController::class, 'courseImage'])->name('instructor.image'); 
     Route::post('instructor/course/image', [InstructorController::class, 'courseImageUpdate'])->name('instructor.image.update'); 
-    Route::post('instructor/ajaximage', [InstructorController::class, 'ajaxImage'])->name('instructor.image.ajax');
+    Route::post('instructor/course/image/ajaximage', [InstructorController::class, 'ajaxImage'])->name('instructor.image.ajax');
 
     Route::get('instructor/locations', [InstructorController::class, 'locations'])->name('instructor.locations'); 
     Route::get('instructor/location/{id}', [InstructorController::class, 'location'])->name('instructor.location');
