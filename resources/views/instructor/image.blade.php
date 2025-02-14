@@ -68,7 +68,7 @@
                         url:"{{ route('instructor.image.ajax') }}",
                         data:{
                             _token:token, 
-                            listingId:id,
+                            id:id,
                             images:array
                         },
                         success:function(response) {
