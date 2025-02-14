@@ -38,4 +38,4 @@ return new class extends Migration
         // Drop the 'users' collection
         Schema::drop('tutor_qulification');
     }
-}
+};
