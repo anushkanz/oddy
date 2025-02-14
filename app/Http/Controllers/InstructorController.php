@@ -638,7 +638,7 @@ class InstructorController extends Controller
         
         $collection = array();
         
-        foreach($existing_files as $file){
+        foreach($course_images as $file){
             if (!in_array($file['name'], $getImages)) {
                 $collection[] = $file;
             }
