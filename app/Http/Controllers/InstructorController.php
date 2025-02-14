@@ -629,9 +629,9 @@ class InstructorController extends Controller
         $input = $request->all();
         $user = Auth::user();
         //Current images
-        $course_images = Classes::where('user_id', $user->_id)
+        $course_images = Classes::where('instructor_id', $user->_id)
                         ->where('_id', $request->id)
-                        ->firstOrFail()->toArray();
+                        ->firstOrFail();
 
         //Image from request
         $getImages = $request->images;   
