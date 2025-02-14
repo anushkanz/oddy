@@ -36,6 +36,6 @@ return new class extends Migration
     public function down()
     {
         // Drop the 'users' collection
-        Schema::drop('tutor_qulification');
+        Schema::drop('instructors_qulification');
     }
 };
