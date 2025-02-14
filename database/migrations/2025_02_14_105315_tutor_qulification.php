@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        // Create the 'users' collection
-        Schema::create('tutor_qulification', function (Blueprint $collection) {
+        // Create the 'instructors' collection
+        Schema::create('instructors_qulification', function (Blueprint $collection) {
             // Unique ID (automatically created by MongoDB)
             $collection->index('_id');
 
