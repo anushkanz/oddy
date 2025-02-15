@@ -23,7 +23,7 @@
         </p>
       </header>
       <div class="card-content">
-      <form method='post' action="{{ route('instructor.qualification.update') }}">
+      <form method='post' enctype="multipart/form-data" action="{{ route('instructor.qualification.update') }}">
       <input type='hidden' name='task' value="create">
       <input type='hidden' name='user' value="{{$user->_id}}">
           @csrf
