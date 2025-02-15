@@ -676,12 +676,6 @@ class InstructorController extends Controller
         return view('instructor.qualifications',compact('qualifications','user'));      
     }
 
-    public function qualification(String $id){
-        $user = Auth::user();
-        $qualification = InstructorQulification::where('instructor_id', $user->_id)->where('_id', $id)->get();
-        return view('instructor.qualification',compact('qualification','user'));    
-    }
-
     public function ajaxQualificationDelete(Request $request){
         if(Auth::check()){
             $user = Auth::user();
@@ -697,8 +691,6 @@ class InstructorController extends Controller
     }
 
     public function updateQualification(Request $request){
-        if($request->task == 'qulification'){
-
             if($request->task == 'create'){
                 foreach($request->title as $key => $value){
                     $qulification = new InstructorQulification();
@@ -714,8 +706,5 @@ class InstructorController extends Controller
                     $qulification->save();
                 }
             }
-
-                   
-        }
     }
 }
