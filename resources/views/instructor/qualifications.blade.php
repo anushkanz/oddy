@@ -153,7 +153,7 @@
                             url: "{{ route('instructor.qualificationdelete.ajax') }}",
                             type: "POST",
                             data: { 
-                                "classdate_id": clickedValue,
+                                "qualification_id": clickedValue,
                                 "_token": "{{ csrf_token() }}",
                             },
                             success: function (response) {
