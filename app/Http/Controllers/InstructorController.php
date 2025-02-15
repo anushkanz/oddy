@@ -13,7 +13,7 @@ use App\Models\Payment;
 use App\Models\Review;
 use App\Models\User;
 use App\Models\UserVerify;
-use App\Models\InstructorQuaification;
+use App\Models\InstructorQualification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -672,7 +672,7 @@ class InstructorController extends Controller
 
     public function qualifications(){
         $user = Auth::user();
-        $qualifications = InstructorQuaification::where('instructor_id', $user->_id)->get();
+        $qualifications = InstructorQualification::where('instructor_id', $user->_id)->get();
         dd($qualifications);
         return view('instructor.qualifications',compact('qualifications','user'));      
     }
@@ -680,7 +680,7 @@ class InstructorController extends Controller
     public function ajaxQualificationDelete(Request $request){
         if(Auth::check()){
             $user = Auth::user();
-            $qualification = InstructorQuaification::where('instructor_id', $user->_id)->where('_id',  $qualification->classdate_id)->delete();
+            $qualification = InstructorQualification::where('instructor_id', $user->_id)->where('_id',  $qualification->classdate_id)->delete();
 
             return response()->json([
                 'status' => true,
@@ -696,7 +696,7 @@ class InstructorController extends Controller
                 $user = Auth::user();
                 echo '<pre>';
                 foreach($request->title as $key => $value){
-                    // $qulification = new InstructorQuaification();
+                    // $qulification = new InstructorQualification();
                     // $qulification->instructor_id = $user->_id;
                     // $qulification->title = $value;
                     // $qulification->description = $request->description[$key];

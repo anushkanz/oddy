@@ -4,7 +4,7 @@ namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
 
-class InstructorQuaification extends Model
+class InstructorQualification extends Model
 {
     protected $collection = 'instructor_qualifications'; // MongoDB collection name
     protected $primaryKey = '_id'; // MongoDB primary key
