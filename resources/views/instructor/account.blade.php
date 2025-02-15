@@ -247,7 +247,7 @@
 
             //Remove class dates
             $(document).on("click", ".remove-btn", function () {
-                $(this).parent().remove();
+              $(this).closest(".field-container").remove();
             });
 
       });
