@@ -34,7 +34,7 @@
                     <div class="control">
                     <input type="text" name="title" class="input" style="width: 100%;" required>
                     </div>
-                    <p class="help">Required. Your name</p>
+                    <p class="help">Required. Qualification Title</p>
                   </div>
                 </div>
             </div> 
@@ -45,7 +45,7 @@
                     <div class="control">
                     <textarea type="text" rows="4" cols="50" autocomplete="on" name="description" value="" class="input" required></textarea>
                     </div>
-                    <p class="help">Required. Your phone</p>
+                    <p class="help">Required. Qualification Description</p>
                   </div>
                 </div>
             </div>

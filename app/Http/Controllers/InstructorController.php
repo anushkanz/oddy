@@ -693,26 +693,17 @@ class InstructorController extends Controller
     public function updateQualification(Request $request){
             if($request->task == 'create'){
                 $user = Auth::user();
-                echo '<pre>';
-                foreach($request->title as $key => $value){
-                    // $qulification = new InstructorQualification();
-                    // $qulification->instructor_id = $user->_id;
-                    // $qulification->title = $value;
-                    // $qulification->description = $request->description[$key];
-                    
-                    // $files = '';
-                    // if($request->hasFile('file_upload')){
-                    //     //Set files array
-                    //     $location = 'users';
-                    //     $files = $this->upload($request->file('file_upload'),$location,'true');
-                    //     $qulification->photo_gallery = $files;
-                    // }
-                    // $qulification->save();
-                    echo $key;
-                    print_r($request->file('file_upload'));
-                }
-                echo '</pre>';
-                //return redirect()->route('instructor.qualifications')->with('success','Created new qualification.');
+                $qulification = new InstructorQualification();
+                $qulification->instructor_id = $user->_id;
+                $qulification->title = $request->title;
+                $qulification->description = $request->description;
+
+                $location = 'users';
+                $files = $this->upload($request->file('file_upload'),$location,'true');
+                $qulification->photo_gallery = $files;
+                $qulification->save();
+                
+                return redirect()->route('instructor.qualifications')->with('success','Created new qualification.');
             }
     }
 }
