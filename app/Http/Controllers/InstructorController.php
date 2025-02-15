@@ -692,9 +692,10 @@ class InstructorController extends Controller
 
     public function updateQualification(Request $request){
             if($request->task == 'create'){
+                $user = Auth::user();
                 foreach($request->title as $key => $value){
                     $qulification = new InstructorQulification();
-                    $qulification->instructor_id = $course->_id;
+                    $qulification->instructor_id = $user->_id;
                     $qulification->title = $value;
                     $files = '';
                     if($request->hasFile('file_upload')){
