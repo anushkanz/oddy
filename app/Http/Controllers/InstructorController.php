@@ -684,7 +684,7 @@ class InstructorController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'deleted',
-                'data' => 'deleted'
+                'data' => $request->qualification_id
             ], 200);  
             
         }

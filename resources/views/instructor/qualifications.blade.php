@@ -134,7 +134,7 @@
                 e.preventDefault();
                 let clickedElement = $(this); // Store reference to the clicked element
                 let clickedValue = clickedElement.attr("data-value");
-                
+                console.log(clickedValue);
                 Swal.fire({
                     title: "Do you want to delete this qualification?",
                     showDenyButton: true,
@@ -157,7 +157,7 @@
                                 "_token": "{{ csrf_token() }}",
                             },
                             success: function (response) {
-                                console.log(response.status);
+                                console.log(response);
                                 if(response.status){
                                     Swal.fire("Deleted!", "", "success");
                                     clickedElement.closest("tr").remove(); 
