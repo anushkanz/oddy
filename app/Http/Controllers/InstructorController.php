@@ -709,7 +709,7 @@ class InstructorController extends Controller
                     // }
                     // $qulification->save();
                     echo $key;
-                    print_r($request->hasFile('file_upload'));
+                    print_r($request->file('file_upload'));
                 }
                 echo '</pre>';
                 //return redirect()->route('instructor.qualifications')->with('success','Created new qualification.');
