@@ -673,7 +673,6 @@ class InstructorController extends Controller
     public function qualifications(){
         $user = Auth::user();
         $qualifications = InstructorQualification::where('instructor_id', $user->_id)->get();
-        dd($qualifications);
         return view('instructor.qualifications',compact('qualifications','user'));      
     }
 
