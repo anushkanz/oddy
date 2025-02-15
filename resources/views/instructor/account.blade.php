@@ -208,13 +208,31 @@
         $("#addFieldBtn").click(function () {
                 let fieldHtml = `
                     <div class="field-container">
+                      <div class="field">
                         <label class="label">Title</label>
-                        <input type="text" name="title[]" class="input" style="width: 100%;" required>
+                        <div class="control">
+                          <input type="text" name="title[]" class="input" style="width: 100%;" required>
+                        </div>  
+                      </div>  
+                      <div class="field">  
                         <label class="label">Description</label>
-                        <textarea type="text" rows="4" cols="50" autocomplete="on" name="description[]" value="" class="input" required></textarea>
-                        <label class="upload control">Photo</label>
-                        <a class="button blue">Upload</a>
-                        <input type="file" name="file_upload[]">
+                        <div class="control">
+                          <textarea type="text" rows="4" cols="50" autocomplete="on" name="description[]" value="" class="input" required></textarea>
+                        </div>
+                      </div>  
+                      <div class="field">
+                        <label class="label">Profile Images</label>
+                        <div class="field-body">
+                          <div class="field file">
+                            <label class="upload control">
+                              <a class="button blue">
+                                Upload
+                              </a>
+                              <input type="file" name="file_upload[]">
+                            </label>
+                          </div>
+                        </div>
+                      </div> 
                         <button type="button" class="remove-btn button red">Remove</button>
                     </div>
                 `;
