@@ -233,7 +233,12 @@
                           </div>
                         </div>
                       </div> 
-                        <button type="button" class="remove-btn button red">Remove</button>
+                      <div class="field">  
+                        <div class="control">
+                          <button type="button" class="remove-btn button red">Remove</button>
+                        </div>
+                      </div>  
+                        
                     </div>
                 `;
                 $("#fieldsContainer").append(fieldHtml);
