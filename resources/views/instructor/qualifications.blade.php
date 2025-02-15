@@ -141,11 +141,6 @@
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        let listItems = $("#fieldsUpdateContainer tr").length;
-                        if (listItems <= 1) {
-                            Swal.fire("Cannot delete the last item!", "", "warning");
-                            return;
-                        }
                         $.ajax({
                             url: "{{ route('instructor.qualificationdelete.ajax') }}",
                             type: "POST",
