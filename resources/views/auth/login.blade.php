@@ -49,10 +49,13 @@
               <button type="submit" class="button blue">
                 Login
               </button>
-              <a href="/registration/student" class="button blue">
+              <a href="/forget_password" class="button green">
+                Forget password
+              </a>
+              <a href="/registration/student" class="button green">
                 Student Sign up
               </a>
-              <a href="/registration/tutor" class="button blue">
+              <a href="/registration/tutor" class="button yellow">
                 Tutor Sign up
               </a>
             </div>
