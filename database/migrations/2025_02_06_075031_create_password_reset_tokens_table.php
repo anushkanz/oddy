@@ -14,7 +14,8 @@ return new class extends Migration
 
         Schema::create('password_reset_tokens', function (Blueprint $collection) {
             // Unique ID (automatically created by MongoDB)
-            $collection->index('email');
+            $collection->index('_id');
+            $collection->string('email');
             $collection->longText('token');
             // Timestamps
             $collection->timestamps();
