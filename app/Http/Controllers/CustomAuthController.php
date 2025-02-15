@@ -16,6 +16,7 @@ use App\Models\Payment;
 use App\Models\Review;
 use App\Models\User;
 use App\Models\UserVerify;
+use App\Models\PasswordResetToken;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use Mail; 
@@ -127,13 +128,13 @@ class CustomAuthController extends Controller
         }
 
         //Create Password Reset Token
-        DB::collection('password_reset_tokens')->insert([
+        $reset_token = PasswordResetToken::create([
             'email' => $request->email,
             'token' => Str::random(60),
             'created_at' => Carbon::now()
         ]);
-
-        $tokenData = DB::collection('password_reset_tokens')->where('email', $request->email)->first();
+        
+        $tokenData = PasswordResetToken::where('email',$request->email)->get();
 
         //$user->notify(new UserForgetPasswordMailNotification($user,$tokenData));
         $validator = "A reset link has been sent to your email address.";
