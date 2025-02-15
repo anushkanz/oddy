@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         // Create the 'instructors' collection
-        Schema::create('instructors_qulification', function (Blueprint $collection) {
+        Schema::create('instructor_qualifications', function (Blueprint $collection) {
             // Unique ID (automatically created by MongoDB)
             $collection->index('_id');
 
@@ -36,6 +36,6 @@ return new class extends Migration
     public function down()
     {
         // Drop the 'users' collection
-        Schema::drop('instructors_qulification');
+        Schema::drop('instructor_qualifications');
     }
 };
