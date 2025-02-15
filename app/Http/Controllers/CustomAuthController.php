@@ -112,6 +112,12 @@ class CustomAuthController extends Controller
         return redirect("/")->withSuccess('You are not allowed to access');
     }
 
+
+    public function forgetPassword(){
+        return view('auth.forget_password');
+    }
+
+
     public function forgetPasswordPost(Request $request){
         $user = User::where('email',$request->email)->firstOrFail();
        
