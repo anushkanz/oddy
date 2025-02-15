@@ -6,7 +6,7 @@ use MongoDB\Laravel\Eloquent\Model;
 
 class InstructorQulification extends Model
 {
-    protected $collection = 'instructors_qulification'; // MongoDB collection name
+    protected $collection = 'instructor_qulifications'; // MongoDB collection name
     protected $primaryKey = '_id'; // MongoDB primary key
 
     // Fields that can be mass-assigned
