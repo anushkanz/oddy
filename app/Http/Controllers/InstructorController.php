@@ -13,6 +13,7 @@ use App\Models\Payment;
 use App\Models\Review;
 use App\Models\User;
 use App\Models\UserVerify;
+use App\Models\InstructorQulification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -668,4 +669,53 @@ class InstructorController extends Controller
         ], 200);  
     }
 
+
+    public function qualifications(){
+        $user = Auth::user();
+        $qualifications = InstructorQulification::where('instructor_id', $user->_id)->get();
+        return view('instructor.qualifications',compact('qualifications','user'));      
+    }
+
+    public function qualification(String $id){
+        $user = Auth::user();
+        $qualification = InstructorQulification::where('instructor_id', $user->_id)->where('_id', $id)->get();
+        return view('instructor.qualification',compact('qualification','user'));    
+    }
+
+    public function ajaxQualificationDelete(Request $request){
+        if(Auth::check()){
+            $user = Auth::user();
+            $qualification = InstructorQulification::where('instructor_id', $user->_id)->where('_id',  $qualification->classdate_id)->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'deleted',
+                'data' => 'deleted'
+            ], 200);  
+            
+        }
+    }
+
+    public function updateQualification(Request $request){
+        if($request->task == 'qulification'){
+
+            if($request->task == 'create'){
+                foreach($request->title as $key => $value){
+                    $qulification = new InstructorQulification();
+                    $qulification->instructor_id = $course->_id;
+                    $qulification->title = $value;
+                    $files = '';
+                    if($request->hasFile('file_upload')){
+                        //Set files array
+                        $location = 'users';
+                        $files = $this->upload($request->file('file_upload'),$location,'true');
+                        $qulification->photo_gallery = $files;
+                    }
+                    $qulification->save();
+                }
+            }
+
+                   
+        }
+    }
 }

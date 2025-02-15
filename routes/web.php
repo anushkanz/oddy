@@ -91,6 +91,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('instructor/account/', [InstructorController::class, 'account'])->name('instructor.account'); 
     Route::post('instructor/account', [InstructorController::class, 'updateAccount'])->name('instructor.account.update');
 
+    Route::get('instructor/qualifications/', [InstructorController::class, 'qualification'])->name('instructor.qualifications'); 
+    Route::get('instructor/qualification/{id}', [InstructorController::class, 'qualification'])->name('instructor.qualification');
+    Route::post('instructor/qualification/ajaxqualification', [InstructorController::class, 'ajaxQualificationDelete'])->name('instructor.qualificationdelete.ajax');
+    Route::post('instructor/qualification', [InstructorController::class, 'updateQualification'])->name('instructor.qualification.update');
+
     /**
      * Studuent
      **/

@@ -80,6 +80,12 @@
           <span class="menu-item-label">Account</span>
         </a>
       </li>
+      <li class="--set-active-tables-html">
+        <a href="{{ route('instructor.qualifications'') }}">
+          <span class="icon"><i class="fa-solid fa-certificate"></i></span>
+          <span class="menu-item-label">Qulifications</span>
+        </a>
+      </li>
     </ul>
     <p class="menu-label">About</p>
     <ul class="menu-list">

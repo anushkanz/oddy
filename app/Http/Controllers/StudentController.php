@@ -13,6 +13,7 @@ use App\Models\Payment;
 use App\Models\Review;
 use App\Models\User;
 use App\Models\UserVerify;
+
 use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -153,7 +154,8 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            return view('student.account',compact('user'));
+            $qulifications =  InstructorQulification::where('instructor_id', $user->_id)->get();
+            return view('student.account',compact('user','qulifications'));
         } 
     }
 

@@ -14,7 +14,7 @@ class InstructorQulification extends Model
         'instructor_id',
         'title',
         'description',
-        'profile_picture',
+        'photo_gallery',
     ];
 
     // Define the relationship with the User model
