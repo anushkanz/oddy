@@ -6,7 +6,7 @@
       <header class="card-header">
         <p class="card-header-title">
           <span class="icon"><i class="fa-solid fa-lock"></i></span>
-          Login
+          Forget password
         </p>
       </header>
       <div class="card-content">

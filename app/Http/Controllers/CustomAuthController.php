@@ -127,13 +127,13 @@ class CustomAuthController extends Controller
         }
 
         //Create Password Reset Token
-        // DB::table('password_reset_tokens')->insert([
-        //     'email' => $request->email,
-        //     'token' => Str::random(60),
-        //     'created_at' => Carbon::now()
-        // ]);
+        DB::collection('password_reset_tokens')->insert([
+            'email' => $request->email,
+            'token' => Str::random(60),
+            'created_at' => Carbon::now()
+        ]);
 
-        //$tokenData = DB::table('password_reset_tokens')->where('email', $request->email)->first();
+        $tokenData = DB::collection('password_reset_tokens')->where('email', $request->email)->first();
 
         //$user->notify(new UserForgetPasswordMailNotification($user,$tokenData));
         $validator = "A reset link has been sent to your email address.";
