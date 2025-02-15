@@ -679,12 +679,12 @@ class InstructorController extends Controller
     public function ajaxQualificationDelete(Request $request){
         if(Auth::check()){
             $user = Auth::user();
-            //$qualification = InstructorQualification::where('_id',  $request->qualification_id)->delete();
+            $qualification = InstructorQualification::where('instructor_id', $user->_id)->where('_id',  $request->qualification_id)->delete();
 
             return response()->json([
                 'status' => true,
                 'message' => 'deleted',
-                'data' => $request->qualification_id
+                'data' => 'deleted'
             ], 200);  
             
         }

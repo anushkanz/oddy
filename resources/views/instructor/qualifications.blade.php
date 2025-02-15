@@ -127,9 +127,6 @@
                 pageLength: 10
             });
 
-            
-
-
             $(".class_qulification_edit").click(function (e) {
                 e.preventDefault();
                 let clickedElement = $(this); // Store reference to the clicked element
