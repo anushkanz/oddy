@@ -208,11 +208,13 @@
         $("#addFieldBtn").click(function () {
                 let fieldHtml = `
                     <div class="field-container">
+                        <label class="label">Title</label>
                         <input type="text" name="title[]" class="input" style="width: 100%;" required>
+                        <label class="label">Description</label>
                         <textarea type="text" rows="4" cols="50" autocomplete="on" name="description[]" value="" class="input" required></textarea>
-                        <label class="upload control"><a class="button blue">Upload</a>
-                          <input type="file" name="file_upload[]">
-                        </label>
+                        <label class="upload control">Photo</label>
+                        <a class="button blue">Upload</a>
+                        <input type="file" name="file_upload[]">
                         <button type="button" class="remove-btn button red">Remove</button>
                     </div>
                 `;
