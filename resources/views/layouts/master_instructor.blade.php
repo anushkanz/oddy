@@ -81,7 +81,7 @@
         </a>
       </li>
       <li class="--set-active-tables-html">
-        <a href="{{ route('instructor.qualifications'') }}">
+        <a href="{{ route('instructor.qualifications') }}">
           <span class="icon"><i class="fa-solid fa-certificate"></i></span>
           <span class="menu-item-label">Qulifications</span>
         </a>
