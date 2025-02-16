@@ -109,7 +109,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input id="cardNumber" type="text" autocomplete="on" name="cardholderName" value="" class="input" required maxlength="19" autocomplete='off'>
+                                <input id="cardNumber" type="text" autocomplete="on" name="cardholderName"  class="input" required maxlength="19" autocomplete='off'>
                             </div>
                         </div>
                     </div>
