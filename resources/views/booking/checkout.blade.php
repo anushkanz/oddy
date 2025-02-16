@@ -60,7 +60,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input type="text" autocomplete="on" name="email" value="{{$user->name}}" class="input" required autocomplete='off'>
+                                <input type="text" autocomplete="on" name="email" value="{{$user->email}}" class="input" required autocomplete='off'>
                             </div>
                         </div>
                     </div>
