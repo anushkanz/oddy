@@ -67,7 +67,7 @@ class BookingController extends Controller
     public function bookingCart(String $id){
         $user = Auth::user();
         $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
-        return view('student.booking.cart',compact('booking','user'));
+        return view('booking.cart',compact('booking','user'));
     }
 
     public function updateBooking(Request $request){
@@ -159,6 +159,6 @@ class BookingController extends Controller
     public function bookingStatus(String $id, String $status){
         $user = Auth::user();
         $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->get();
-        return view('student.booking.status',compact('booking','user','status'));
+        return view('booking.status',compact('booking','user','status'));
     }
 }
