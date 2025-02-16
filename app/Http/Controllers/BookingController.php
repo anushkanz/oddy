@@ -59,9 +59,16 @@ class BookingController extends Controller
             'status'=> 0,
             'class_date_id'  => '',
         ]);
-        return view('booking.booking',compact('booking','user'));
+
+        return redirect()->intended('booking/cart/{$booking->_id}');
+        //return view('student.booking.checkout',compact('booking','user'));
     }
 
+    public function bookingCart(String $id){
+        $user = Auth::user();
+        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
+        return view('student.booking.cart',compact('booking','user'));
+    }
 
     public function updateBooking(Request $request){
         $booking_id = $request->booking_id;
@@ -144,14 +151,14 @@ class BookingController extends Controller
                 $payment_add->save();
                 $payment_id = $payment_add->id;
 
-                return redirect()->intended('booking/status/{$id}');   
+                return redirect()->intended('booking/status/{$id}/success');   
             }
         }
     }
 
-    public function bookingStatus(String $id){
+    public function bookingStatus(String $id, String $status){
         $user = Auth::user();
         $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->get();
-        return view('student.booking.status',compact('booking','user'));
+        return view('student.booking.status',compact('booking','user','status'));
     }
 }
