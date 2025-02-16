@@ -15,7 +15,7 @@ class Booking extends Model
         'class_id',
         'payment_id',
         'status',
-        'booking_date',
+        'class_date_id',
     ];
 
     // Timestamps
@@ -37,6 +37,13 @@ class Booking extends Model
     public function payment()
     {
         return $this->belongsTo(Payment::class, 'payment_id');
+    }
+
+
+    // Define the relationship with the ClassDate model
+    public function classdate()
+    {
+        return $this->belongsTo(ClassDate::class, 'class_date_id');
     }
 
     protected $casts = [

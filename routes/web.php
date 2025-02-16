@@ -5,6 +5,8 @@ use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\BookingController;
+
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', [CustomAuthController::class, 'index'])->name('login');
@@ -112,6 +114,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('student/account/', [StudentController::class, 'account'])->name('student.account'); 
     Route::post('student/account', [StudentController::class, 'updateAccount'])->name('student.account.update');
 
-    //Route::get('student/booking/checkout/{id}', [StudentController::class, 'booking'])->name('student.booking'); //$id is product_id
+    
+    
+    Route::get('booking/addtocart/{id}', [BookingController::class, 'booking'])->name('student.booking'); //$id is product_id
+    Route::get('booking/checkout/{id}', [BookingController::class, 'checkout'])->name('student.booking.checkout'); //$id is booking_id
+
+
 
 });
