@@ -197,16 +197,16 @@ class CustomAuthController extends Controller
 
 
     public function verifyAccount($token){
-        $verifyUser = UserVerify::where('token', $token)->first();
+        $verify_user = UserVerify::where('token', $token)->first();
         $message = 'Sorry your email cannot be identified.';
 
-        if(!is_null($verifyUser) ){
-            $user = $verifyUser->user;
+        if(!is_null($verify_user) ){
+            $user = $verify_user->user;
 
             if(!$user->is_email_verified) {
-                $verifyUser->user->is_email_verified = 1;
-                $verifyUser->user->email_verified_at = Carbon::now();
-                $verifyUser->user->save();
+                $verify_user->user->is_email_verified = 1;
+                $verify_user->user->email_verified_at = Carbon::now();
+                $verify_user->user->save();
                 $message = "Your e-mail is verified. You can now login.";
             } else {
                 $message = "Your e-mail is already verified. You can now login.";
@@ -218,9 +218,9 @@ class CustomAuthController extends Controller
 
     public function sendEmailVerification(Request $request){
         $id = $request->id;
-        $verifyUser = UserVerify::where('user_id', $id)->first();
+        $verify_user = UserVerify::where('user_id', $id)->first();
         $user = User::where('id',$id)->firstOrFail();
-        //$user->notify(new UserEmailVerificationMailNotification($user,$userVerifiy));
+        //$user->notify(new UserEmailVerificationMailNotification($user,$verify_user));
         
         /**
          * TO DO : NEED SUITABLE ACTION AFTER SEND EMAIL
@@ -267,8 +267,8 @@ class CustomAuthController extends Controller
                     'token' => $token
                 ]);
 
-                $verifyUser = UserVerify::where('user_id', $user_created->id)->first();
-                //$user_created->notify(new UserEmailVerificationMailNotification($user_created,$verifyUser));
+                $verify_user = UserVerify::where('user_id', $user_created->id)->first();
+                //$user_created->notify(new UserEmailVerificationMailNotification($user_created,$verify_user));
 
                 return redirect()->intended('/')->withSuccess('Successfully sign up');
             } 

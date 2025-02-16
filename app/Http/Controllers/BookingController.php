@@ -21,6 +21,8 @@ use Mail;
 use Validator;
 use Hash;
 use Session;
+use Stripe;
+use Config;
 
 class BookingController extends Controller
 {
@@ -31,6 +33,54 @@ class BookingController extends Controller
      * Status 0 (0 mean not confirmed)
      */
     public function booking(String $id){
+        //Check booking status
+        $booking =  Booking::where('_id', $id)->get();
+        $user = Auth::user();
+        if(!empty($booking)){
+            if($booking->status == 1 ){
+                return redirect()->intended('booking/status/{$id}');
+            }
+        }
+        
+        if(empty($user)){
+            $message = "Need to login for doing booking.";
+            return redirect()->route('login')->with('message', $message);
+        }
+
+        //create booking
+        $booking = Booking::create([
+            'user_id' => $user->_id,
+            'class_id'=> $id,
+            'payment_id' => '',
+            'status'=> 0,
+            'class_date_id'  => '',
+        ]);
+        return view('booking.booking',compact('booking','user'));
+    }
+
+
+    public function updateBooking(Request $request){
+        $booking_id = $request->booking_id;
+        $user_id = $request->user_id;
+        $class_date_id = $request->class_date_id;
+
+        $request->validate([
+            'class_date_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $error = $validator->errors()->all();
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $booking =  Booking::where('_id', $booking_id)->where('user_id', $user_id)->get();
+        
+        if(!empty($booking) && ($booking->status == 0)){
+            $booking-> class_date_id = $class_date_id;
+            $user->update();
+        }
+
+        return redirect()->intended('booking/checkout/{$booking_id}');
 
     }
 
@@ -41,6 +91,63 @@ class BookingController extends Controller
      * Then -1 on available seat
      */
     public function checkout(String $id){
-        
+        $user = Auth::user();
+        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->get();
+        return view('booking.checkout',compact('booking','user'));
+    }
+
+    public function updateCheckout(Request $request){
+        $user = Auth::user();
+        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->get();
+
+        $validator = Validator::make($request->all(), [
+            'cardNumber' => 'required',
+            'cardholderName' => 'required',
+            'expMonth' => 'required',
+            'expYear' => 'required',
+            'cvc' => 'required',
+            'amount' => 'required',
+        ]);
+
+        $input = $request->all();
+        if ($validator->passes()) { 
+            $stripe_key = Config::get('services.stripe');
+            Stripe\Stripe::setApiKey($stripe_key['secret']);
+
+            //Transfering transaction fee to Student
+            $amount = $request->amount;
+            $fee_percentage = 0.963; // Change this value to set the desired fee percentage
+            $payment_processing_fee =  (($amount + 0.3)/0.963) - $amount;
+            $charge = round($amount + $payment_processing_fee, 2);
+
+            $booking_description = '#'.$booking->_id.' '.$booking->classes->title;
+            $payment = Stripe\Charge::create ([
+                "amount" => $charge * 100,
+                "currency" => "nzd",
+                "source" => $request->stripeToken,
+                "description" => $booking_description, 
+            ]);
+
+            //If payment get result then base on return save and send message
+            if($payment->id){
+                $payment_add = new Payment();
+                $payment_add->booking_id = $booking->_id;
+                $payment_add->transaction_id = $payment->id;
+                $payment_add->status = $payment->status;
+                $payment_add->amount = $amount;
+                $payment_add->transaction_return = json_encode($payment);
+                $payment_add->payment_method = "Stripe";
+                $payment_add->save();
+                $payment_id = $payment_add->id;
+
+                return redirect()->intended('booking/status/{$id}');   
+            }
+        }
+    }
+
+    public function bookingStatus(String $id){
+        $user = Auth::user();
+        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->get();
+        return view('student.booking.status',compact('booking','user'));
     }
 }
