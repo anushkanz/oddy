@@ -35,14 +35,14 @@ class BookingController extends Controller
     public function booking(String $id){
         //Check booking status
         $user = Auth::user();
-        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
+        $class =  Classes::where('_id', $id)->firstOrFail();
         
 
-        if(empty($booking)){
-            return redirect()->intended('booking/status/{$id}/empty');
+        if(empty($class)){
+            return redirect()->intended('booking/status/{$id}/noclass');
         }else{
-            if($booking->status == 1){
-                return redirect()->intended('booking/status/{$id}/alreadybooked');
+            if($booking->max_capacity == 0){
+                return redirect()->intended('booking/status/{$id}/fullbooked');
             }
         }
         
