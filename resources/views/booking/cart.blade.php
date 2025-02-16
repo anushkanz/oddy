@@ -39,6 +39,9 @@
                     <h3>
                         Course Dates
                     </h3>
+                    <h1>
+                        &nbsp;
+                    </h1>
                 </div>
             </div>
             <div class="field">
@@ -47,7 +50,7 @@
                         <div class="control">
                             <select name="class_date_id" id="class_date_id" class="input" >
                                 @php foreach($course_dates as $dates) { @endphp
-                                    <option value="{{$dates->_id}}">{{$dates->class_date}} {{$dates->start_at}} {{$dates->end_at}}</option>
+                                    <option value="{{$dates->_id}}">{{$dates->class_date}} {{$dates->start_at}} to {{$dates->end_at}}</option>
                                 @php } @endphp    
                             </select>
                         </div>
@@ -65,10 +68,25 @@
                         Cart Infromation 
                     </h3>
                     <h1>
-                        $7,770
+                        &nbsp;
                     </h1>
                 </div>
-                <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
+            </div>
+            <div class="field">
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                        <p>Class fee : $ {{$booking->classes->price}}</p>
+                            @php 
+                                $fee_percentage = 0.963; // Change this value to set the desired fee percentage
+                                $payment_processing_fee =  (($amount + 0.3)/0.963) - $booking->classes->price;
+                                $charge = round($amount + $payment_processing_fee, 2);         
+                            @endphp
+                        <p>Booking fee : $ {{$payment_processing_fee}}</p>
+                        <p>Total : $ $ {{$charge}}
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
     </div>
