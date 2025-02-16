@@ -109,7 +109,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input id="cardNumber" type="text" autocomplete="on" name="cardholderName"  class="input" required maxlength="19" autocomplete='off'>
+                                <input  type="text" autocomplete="on" name="cardholderName"  class="input" autocomplete='off' required>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input id="cardNumber" type="text" autocomplete="off" name="cardholderName" placeholder="XXXX XXXX XXXX XXXX" class="input" maxlength="19" required>
+                                <input id="cardNumber" type="text" autocomplete="off" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" class="input" maxlength="19" required>
                             </div>
                             <p class="help">Required. XXXX XXXX XXXX XXXX</p>
                         </div>
