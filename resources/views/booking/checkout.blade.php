@@ -25,11 +25,22 @@
                         </h1>
                     </div>
                 </div>
+                
                 <div class="field">
                     <div class="field-body">
                     <div class="field">
                         <div class="control">
                             <p>Selected time : {{$booking->classdate->class_date}} {{$booking->classdate->start_at}} to {{$booking->classdate->end_at}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <p> {{$booking->classes->description}}</p>
+                            <p> {{$booking->classes->instructor->name}}</p>
                         </div>
                     </div>
                     </div>
