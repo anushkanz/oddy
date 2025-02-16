@@ -94,7 +94,7 @@ class BookingController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $booking =  Booking::where('_id', $booking_id)->where('user_id', $user_id)->get();
+        $booking =  Booking::where('_id', $booking_id)->where('user_id', $user_id)->firstOrFail();
         
         if(!empty($booking) && ($booking->status == 0)){
             $booking-> class_date_id = $class_date_id;
@@ -113,13 +113,13 @@ class BookingController extends Controller
      */
     public function checkout(String $id){
         $user = Auth::user();
-        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->get();
+        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
         return view('booking.checkout',compact('booking','user'));
     }
 
     public function updateCheckout(Request $request){
         $user = Auth::user();
-        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->get();
+        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
 
         $validator = Validator::make($request->all(), [
             'cardNumber' => 'required',
@@ -168,7 +168,7 @@ class BookingController extends Controller
 
     public function bookingStatus(String $id, String $status){
         $user = Auth::user();
-        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->get();
+        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
         return view('booking.status',compact('booking','user','status'));
     }
 }
