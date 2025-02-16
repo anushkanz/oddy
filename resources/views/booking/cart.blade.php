@@ -80,10 +80,10 @@
                             @php 
                                 $fee_percentage = 0.963; // Change this value to set the desired fee percentage
                                 $payment_processing_fee =  (($amount + 0.3)/0.963) - $booking->classes->price;
-                                $charge = round($amount + $payment_processing_fee, 2);         
+                                $charge = round($booking->classes->price + $payment_processing_fee, 2);         
                             @endphp
                         <p>Booking fee : $ {{$payment_processing_fee}}</p>
-                        <p>Total : $ $ {{$charge}}
+                        <p>Total : $ {{$charge}}
                     </div>
                   </div>
                 </div>
