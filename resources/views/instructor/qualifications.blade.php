@@ -101,7 +101,12 @@
               <td class="image-cell"></td>
               <td data-label="Title" class="--name">{{$qualification->title}}</td>
               <td data-label="Description" class="--title">{{$qualification->description}}</td>
-              <td data-label="Photo" class="--category">{{$qualification->photo_gallery}}</td>
+              <td data-label="Photo" class="--category">
+                @php 
+                  $image = json_decode($qualification->photo_gallery,true);
+                @endphp
+                <img src="{{$image['path]}}">
+              </td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <a data-value="{{$qualification->_id}}" href="#" class="button small blue --jb-modal class_qulification_edit class_date_edit"  data-target="sample-modal-2" type="button">
