@@ -67,7 +67,9 @@ class BookingController extends Controller
     public function bookingCart(String $id){
         $user = Auth::user();
         $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
-        return view('booking.cart',compact('booking','user'));
+        $course_dates = ClassDate::where('class_id', $booking->class_id)->get();
+        
+        return view('booking.cart',compact('booking','user','course_dates'));
     }
 
     public function updateBooking(Request $request){

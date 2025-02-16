@@ -13,13 +13,13 @@
             <div class="flex items-center justify-between">
                 <div class="widget-label">
                     <h3>
-                        Clients
+                        Course Details
                     </h3>
                     <h1>
-                        512
+                        {{$booking->course->title}}
                     </h1>
                 </div>
-                <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
+                
             </div>
         </div>
     </div>
@@ -28,7 +28,22 @@
             <div class="flex items-center justify-between">
                 <div class="widget-label">
                     <h3>
-                        Sales
+                        Course Dates
+                    </h3>
+                    <h1>
+                        $7,770
+                    </h1>
+                </div>
+                <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-content">
+            <div class="flex items-center justify-between">
+                <div class="widget-label">
+                    <h3>
+                        Cart Infromation 
                     </h3>
                     <h1>
                         $7,770

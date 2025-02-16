@@ -146,8 +146,7 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            $qulifications =  InstructorQulification::where('instructor_id', $user->_id)->get();
-            return view('student.account',compact('user','qulifications'));
+            return view('student.account',compact('user'));
         } 
     }
 
