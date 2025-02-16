@@ -46,37 +46,36 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Name</label>
-                        <div class="field-body">
-                            <div class="field">
-                                <div class="control">
-                                    <input type="text" autocomplete="on" name="name" value="{{ $user->name }}" class="input" required disabled>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>    
-                <div class="field">
-                    <label class="label">Email</label>
+                <label class="label">Name</label>
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input type="text" autocomplete="on" name="email" value="{{ $user->email }}" class="input" required disabled>
+                                <input type="text" autocomplete="on" name="name" value="{{$user->name}}" class="input" required autocomplete='off'>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Phone</label>
+                <label class="label">Email</label>
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input type="text" autocomplete="on" name="phone" value="{{ $user->phone }}" class="input" required disabled>
+                                <input type="text" autocomplete="on" name="email" value="{{$user->name}}" class="input" required autocomplete='off'>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>    
+                <div class="field">
+                <label class="label">Phone</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" autocomplete="on" name="phone" value="{{$user->phone}}" class="input" required autocomplete='off'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card">
             <div class="card-content">
