@@ -103,9 +103,17 @@
               <td data-label="Description" class="--title">{{$qualification->description}}</td>
               <td data-label="Photo" class="--category">
                 @php 
+                if(!empty($qualification->photo_gallery)){
                   $image = json_decode($qualification->photo_gallery,true);
                 @endphp
-                <img src="{{$image['path']}}" alt="{{$image['name']}}">
+                  <img src="{{$image[0]['path']}}" alt="{{$image[0]['name']}}">
+                @php 
+                  }else{
+                @endphp
+                  <i class="fa-solid fa-certificate"></i>
+                @php 
+                  }
+                @endphp
               </td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
