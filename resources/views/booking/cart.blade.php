@@ -19,8 +19,18 @@
                         {{$booking->course->title}}
                     </h1>
                 </div>
-                
             </div>
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                        <p> {{$booking->course->description}}</p>
+                        <p> {{$booking->instructor->user->name}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
         </div>
     </div>
     <div class="card">
