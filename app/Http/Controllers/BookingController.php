@@ -36,9 +36,12 @@ class BookingController extends Controller
         //Check booking status
         $booking =  Booking::where('_id', $id)->get();
         $user = Auth::user();
-        if(!empty($booking)){
-            if($booking->status == 1 ){
-                return redirect()->intended('booking/status/{$id}');
+        
+        if(empty($booking)){
+            return redirect()->intended('booking/status/{$id}/empty');
+        }else{
+            if($booking->status == 1){
+                return redirect()->intended('booking/status/{$id}/alreadybooked');
             }
         }
         
