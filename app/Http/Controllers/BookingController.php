@@ -81,6 +81,14 @@ class BookingController extends Controller
             'class_date_id' => 'required',
         ]);
 
+        $validator = Validator::make($request->all(), [
+            'class_date_id' => 'required',
+          ],
+          [
+            'class_date_id.required' => 'Class date is required', 
+          ]
+        );
+
         if ($validator->fails()) {
             $error = $validator->errors()->all();
             return back()->withErrors($validator)->withInput();
