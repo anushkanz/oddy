@@ -63,14 +63,6 @@ class StudentController extends Controller
     }
 
     /**
-     * Update Booking function
-     */
-    public function updateBooking(Request $request)
-    {
-
-    }
-
-    /**
      * Reviews function
      */
     public function reviews()

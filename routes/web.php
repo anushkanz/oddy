@@ -105,7 +105,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('student/bookings', [StudentController::class, 'bookings'])->name('student.bookings');
     Route::get('student/booking/{id}', [StudentController::class, 'booking'])->name('student.booking');
-    Route::post('student/booking', [StudentController::class, 'updateBooking'])->name('student.booking.update');
+ 
 
     Route::get('student/reviews', [StudentController::class, 'reviews'])->name('student.reviews');
     Route::get('student/review/{id}', [StudentController::class, 'review'])->name('student.review');
@@ -116,7 +116,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     
     
-    Route::get('booking/addtocart/{id}', [BookingController::class, 'booking'])->name('student.booking'); //$id is product_id
+    Route::get('booking/addtocart/{id}', [BookingController::class, 'booking'])->name('student.booking.start'); //$id is product_id
     Route::post('booking/addtocart', [StudentController::class, 'updateBooking'])->name('student.booking.update');
     Route::get('booking/checkout/{id}', [BookingController::class, 'checkout'])->name('student.booking.checkout'); //$id is booking_id
     Route::post('booking/checkout', [StudentController::class, 'updateCheckout'])->name('student.booking.checkout.update');
