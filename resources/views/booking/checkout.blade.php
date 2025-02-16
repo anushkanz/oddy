@@ -7,7 +7,7 @@
         </h1>
     </div>
 </section>
-<form method="POST" action="{{ route('student.booking.cart.update') }}">
+<form method="POST" action="{{ route('student.booking.cart.update') }}" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" role="form" class="require-validation">
     @csrf
     <input type='hidden' name='task' value="checkout"> 
     <input type='hidden' name='booking_id' value="{{$booking->_id}}"> 
@@ -50,7 +50,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input type="text" autocomplete="on" name="name" value="{{$user->name}}" class="input" required autocomplete='off'>
+                                <input type="text" autocomplete="on" name="name" value="{{$user->name}}" class="input" required autocomplete='off' disabled>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input type="text" autocomplete="on" name="email" value="{{$user->email}}" class="input" required autocomplete='off'>
+                                <input type="text" autocomplete="on" name="email" value="{{$user->email}}" class="input" required autocomplete='off' disabled>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input type="text" autocomplete="on" name="phone" value="{{$user->phone}}" class="input" required autocomplete='off'>
+                                <input type="text" autocomplete="on" name="phone" value="{{$user->phone}}" class="input" required autocomplete='off' disabled>
                             </div>
                         </div>
                     </div>
