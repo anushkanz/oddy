@@ -84,6 +84,9 @@
                             @endphp
                         <p>Booking fee : ${{round($payment_processing_fee,4)}}</p>
                         <p>Total : ${{$charge}}
+                        <a href="/booking/checkout/{{$booking->_id}}" class="button green">
+                            Pay Now
+                        </a>
                     </div>
                   </div>
                 </div>
