@@ -74,21 +74,27 @@
             </div>
             <div class="field">
                 <div class="field-body">
-                  <div class="field">
-                    <div class="control">
-                        <p>Class fee : ${{$booking->classes->price}}</p>
-                            @php 
-                                $fee_percentage = 0.963; // Change this value to set the desired fee percentage
-                                $payment_processing_fee =  (($booking->classes->price + 0.3)/0.963) - $booking->classes->price;
-                                $charge = round($booking->classes->price + $payment_processing_fee, 2);         
-                            @endphp
-                        <p>Booking fee : ${{round($payment_processing_fee,4)}}</p>
-                        <p>Total : ${{$charge}}
-                        <a href="/booking/checkout/{{$booking->_id}}" class="button green">
-                            Pay Now
-                        </a>
+                    <div class="field">
+                        <div class="control">
+                            <p>Class fee : ${{$booking->classes->price}}</p>
+                                @php 
+                                    $fee_percentage = 0.963; // Change this value to set the desired fee percentage
+                                    $payment_processing_fee =  (($booking->classes->price + 0.3)/0.963) - $booking->classes->price;
+                                    $charge = round($booking->classes->price + $payment_processing_fee, 2);         
+                                @endphp
+                            <p>Booking fee : ${{round($payment_processing_fee,4)}}</p>
+                            <p>Total : ${{$charge}}
+                            
+                        </div>
                     </div>
-                  </div>
+                </div>
+            </div>
+            <hr>
+            <div class="field">
+                <div class="control">
+                    <a href="/booking/checkout/{{$booking->_id}}" class="button green">
+                        Pay Now
+                    </a>
                 </div>
             </div>
         </div>
