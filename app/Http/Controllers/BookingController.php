@@ -34,9 +34,10 @@ class BookingController extends Controller
      */
     public function booking(String $id){
         //Check booking status
-        $booking =  Booking::where('_id', $id)->get();
         $user = Auth::user();
+        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
         
+
         if(empty($booking)){
             return redirect()->intended('booking/status/{$id}/empty');
         }else{
