@@ -1,7 +1,138 @@
 @extends('layouts.master_open_header')
 @section('content')
+<section class="is-hero-bar">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+        <h1 class="title">
+            Checkout
+        </h1>
+    </div>
+</section>
+<form method="POST" action="{{ route('student.booking.cart.update') }}">
+    @csrf
+    <input type='hidden' name='task' value="checkout"> 
+    <input type='hidden' name='booking_id' value="{{$booking->_id}}"> 
+    <input type='hidden' name='user_id' value="{{$user->_id}}"> 
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
+        <div class="card">
+            <div class="card-content">
+                <div class="flex items-center justify-between">
+                    <div class="widget-label">
+                        <h3>
+                            Course Details
+                        </h3>
+                        <h1>
+                            {{$booking->classes->title}}
+                        </h1>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <p>Selected time : {{$booking->classdate->class_date}} {{$booking->classdate->start_at}} to {{$booking->classdate->end_at}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <div class="flex items-center justify-between">
+                    <div class="widget-label">
+                        <h3>
+                            Payment Details
+                        </h3>
+                        <h1>
+                            &nbsp;
+                        </h1>
+                    </div>
+                </div>
+                <div class="field">
+                <label class="label">Amount</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                     @php 
+                                        $fee_percentage = 0.963; // Change this value to set the desired fee percentage
+                                        $payment_processing_fee =  (($booking->classes->price + 0.3)/0.963) - $booking->classes->price;
+                                        $charge = round($booking->classes->price + $payment_processing_fee, 2);         
+                                    @endphp
+                                <input type="text" autocomplete="on" name="amount" value="{{ $charge }}" class="input" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                <label class="label">Name on Card</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input id="cardNumber" type="text" autocomplete="on" name="cardholderName" value="" class="input" required maxlength="19" autocomplete='off'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                <label class="label">Card Number</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input id="cardNumber" type="text" autocomplete="off" name="cardholderName" placeholder="XXXX XXXX XXXX XXXX" class="input" maxlength="19" required>
+                            </div>
+                            <p class="help">Required. XXXX XXXX XXXX XXXX</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                <label class="label">CVC</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input id="cvcNumber" type="text" autocomplete="off" name="cvc" placeholder="ex. 311" class="input" maxlength="3" required>
+                            </div>
+                            <p class="help">Required. ex. 311</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                <label class="label">Expiration Month</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" autocomplete="off" name="expMonth" placeholder="MM" class="input" size='2' required>
+                            </div>
+                            <p class="help">Required.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                <label class="label">Expiration Year</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input type="text" autocomplete="off" name="expYear" placeholder="YYYY" class="input" size='4' required>
+                            </div>
+                            <p class="help">Required.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field error">
+                    <div class="label">Please correct the errors and try again.</div>
+                </div>
+                <hr>
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" class="button green">
+                            Pay now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
+    </div>
+</form>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
 

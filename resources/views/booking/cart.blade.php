@@ -9,7 +9,7 @@
 </section>
 <form method="POST" action="{{ route('student.booking.cart.update') }}">
     @csrf
-    <input type='hidden' name='task' value="checkout"> 
+    <input type='hidden' name='task' value="cart"> 
     <input type='hidden' name='booking_id' value="{{$booking->_id}}"> 
     <input type='hidden' name='user_id' value="{{$user->_id}}"> 
     <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">

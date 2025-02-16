@@ -136,14 +136,14 @@ class BookingController extends Controller
             Stripe\Stripe::setApiKey($stripe_key['secret']);
 
             //Transfering transaction fee to Student
-            $amount = $request->amount;
-            $fee_percentage = 0.963; // Change this value to set the desired fee percentage
-            $payment_processing_fee =  (($amount + 0.3)/0.963) - $amount;
-            $charge = round($amount + $payment_processing_fee, 2);
+             $amount = $request->amount;
+            // $fee_percentage = 0.963; // Change this value to set the desired fee percentage
+            // $payment_processing_fee =  (($amount + 0.3)/0.963) - $amount;
+            // $charge = round($amount + $payment_processing_fee, 2);
 
             $booking_description = '#'.$booking->_id.' '.$booking->classes->title;
             $payment = Stripe\Charge::create ([
-                "amount" => $charge * 100,
+                "amount" => $amount * 100,
                 "currency" => "nzd",
                 "source" => $request->stripeToken,
                 "description" => $booking_description, 
