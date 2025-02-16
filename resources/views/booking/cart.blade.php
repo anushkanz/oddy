@@ -40,20 +40,21 @@
                         Course Dates
                     </h3>
                 </div>
-                <div class="field">
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <select name="class_date_id" id="class_date_id">
-                                    @php foreach($course_dates as $dates) { @endphp
-                                        <option value="{{$dates->_id}}">{{$dates->class_date}} {{$dates->start_at}} {{$dates->end_at}}</option>
-                                    @php } @endphp    
-                                </select>
-                            </div>
+            </div>
+            <div class="field">
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <select name="class_date_id" id="class_date_id">
+                                @php foreach($course_dates as $dates) { @endphp
+                                    <option value="{{$dates->_id}}">{{$dates->class_date}} {{$dates->start_at}} {{$dates->end_at}}</option>
+                                @php } @endphp    
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
     <div class="card">
