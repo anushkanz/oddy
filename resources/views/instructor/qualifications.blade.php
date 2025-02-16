@@ -105,7 +105,7 @@
                 @php 
                   $image = json_decode($qualification->photo_gallery,true);
                 @endphp
-                <img src="{{$image['path]'}}" alt="{{$image['name]'}}">
+                <img src="{{$image['path']}}" alt="{{$image['name']}}">
               </td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
