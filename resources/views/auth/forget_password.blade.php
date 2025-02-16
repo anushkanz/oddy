@@ -13,7 +13,7 @@
         <form method="POST" action="{{ route('login.forget_password.update') }}">
           @csrf <!-- {{ csrf_field() }} -->
             <div class="field spaced">
-              <label class="label">Login</label>
+              <label class="label">Email</label>
               <div class="control icons-left">
                 <input class="input" type="email" name="email"  id="email" placeholder="user@example.com" autocomplete="username"  required autofocus>
                 <span class="icon is-small left"><i class="fa-regular fa-user"></i></span>

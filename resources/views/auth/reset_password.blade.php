@@ -28,7 +28,7 @@
               </p>
             </div>
             <div class="field spaced">
-              <label class="label">Password</label>
+              <label class="label">Confrim Password</label>
               <p class="control icons-left">
                   <input type="password" placeholder="Password" id="password_confirmation" class="input" name="password_confirmation" required>
                   <span class="icon is-small left"><i class="fa-solid fa-passport"></i></span>

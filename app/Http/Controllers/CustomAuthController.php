@@ -148,12 +148,8 @@ class CustomAuthController extends Controller
     
     public function resetPasswordPost(Request $request){
         $password = $request->password;// Validate the token
-        $tokenData = DB::table('password_reset_tokens')->where('token', $request->token)->count();// Redirect the user back to the password reset request form if the token is invalid
-        
-        $request->validate($request, [
-            
-        ]);
-    
+        // Redirect the user back to the password reset request form if the token is invalid
+        $tokenData = PasswordResetToken::where('token',$request->token)->count();    
         $validator = Validator::make($request->all(), 
             [
                 'password' => 'required|confirmed|min:9',
