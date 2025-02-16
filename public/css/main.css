@@ -1365,3 +1365,8 @@ textarea{
     overflow: hidden;
     width: 100%;
 }
+
+
+.open {
+    padding-left: 0rem;
+}
