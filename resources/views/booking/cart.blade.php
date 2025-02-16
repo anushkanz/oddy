@@ -16,7 +16,7 @@
                         Course Details
                     </h3>
                     <h1>
-                        {{$booking->course->title}}
+                        @php print_r($booking); @endphp
                     </h1>
                 </div>
             </div>
@@ -25,8 +25,7 @@
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
-                        <p> {{$booking->course->description}}</p>
-                        <p> {{$booking->instructor->user->name}}</p>
+                 
                     </div>
                   </div>
                 </div>
