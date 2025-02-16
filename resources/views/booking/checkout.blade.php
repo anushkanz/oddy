@@ -57,7 +57,7 @@
                     </div>
                 </div>    
                 <div class="field">
-                <label class="label">Email</label>
+                    <label class="label">Email</label>
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="field">
-                <label class="label">Phone</label>
+                    <label class="label">Phone</label>
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
@@ -76,6 +76,7 @@
                         </div>
                     </div>
                 </div>
+            </div>    
         </div>
         <div class="card">
             <div class="card-content">
