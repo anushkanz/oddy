@@ -90,7 +90,7 @@ class BookingController extends Controller
         
         if(!empty($booking) && ($booking->status == 0)){
             $booking-> class_date_id = $class_date_id;
-            $user->update();
+            $booking->update();
         }
 
         return redirect()->intended('booking/checkout/'.$booking_id);
