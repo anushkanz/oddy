@@ -60,7 +60,7 @@ class BookingController extends Controller
             'class_date_id'  => '',
         ]);
 
-        return redirect()->intended('booking/cart/{$booking->_id}');
+        return redirect()->intended('booking/cart/'.$booking->_id);
         //return view('student.booking.checkout',compact('booking','user'));
     }
 
@@ -91,7 +91,7 @@ class BookingController extends Controller
             $user->update();
         }
 
-        return redirect()->intended('booking/checkout/{$booking_id}');
+        return redirect()->intended('booking/checkout/'.$booking_id);
 
     }
 
@@ -151,7 +151,7 @@ class BookingController extends Controller
                 $payment_add->save();
                 $payment_id = $payment_add->id;
 
-                return redirect()->intended('booking/status/{$id}/success');   
+                return redirect()->intended('booking/status/'.$id.'/success');   
             }
         }
     }
