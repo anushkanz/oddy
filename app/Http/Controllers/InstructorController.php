@@ -698,8 +698,13 @@ class InstructorController extends Controller
                 $qulification->title = $request->title;
                 $qulification->description = $request->description;
 
+                //Set files array
+                $files = '';
                 $location = 'users';
-                $files = $this->upload($request->file('file_upload'),$location,'true');
+                if($request->hasFile('file_upload')){
+                    $files = $this->upload($request->file('file_upload'),$location,'true');
+                }
+
                 $qulification->photo_gallery = $files;
                 $qulification->save();
                 
