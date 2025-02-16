@@ -58,7 +58,7 @@
                                         $payment_processing_fee =  (($booking->classes->price + 0.3)/0.963) - $booking->classes->price;
                                         $charge = round($booking->classes->price + $payment_processing_fee, 2);         
                                     @endphp
-                                <input type="text" autocomplete="on" name="amount" value="{{ $charge }}" class="input" required>
+                                <input type="text" autocomplete="on" name="amount" value="{{ $charge }}" class="input" required disabled>
                             </div>
                         </div>
                     </div>
