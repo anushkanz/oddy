@@ -131,7 +131,7 @@ class BookingController extends Controller
         ]);
         
         $input = $request->all();
-        dd($input);
+       
         if ($validator->passes()) { 
             $stripe_key = Config::get('services.stripe');
             Stripe\Stripe::setApiKey($stripe_key['secret']);
