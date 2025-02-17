@@ -14,7 +14,8 @@ class ClassDate extends Model
         'class_id',
         'class_date',
         'start_at',
-        'end_at'
+        'end_at',
+        'max_capacity'
     ];
 
     // Timestamps

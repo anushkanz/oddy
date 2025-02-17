@@ -19,7 +19,6 @@ class Classes extends Model
         'duration',
         'duration_type',
         'price',
-        'max_capacity',
         'level',
         'photo_gallery'
     ];

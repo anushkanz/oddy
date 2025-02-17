@@ -65,17 +65,6 @@
                   </div>
                 </div>
                 <div class="field">
-                  <label class="label">Max capacity</label>
-                  <div class="field-body">
-                    <div class="field">
-                      <div class="control">
-                        <input type="text" autocomplete="on" name="max_capacity" value="" class="input" required>
-                      </div>
-                      <p class="help">Required. Course max capacity</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="field">
                   <label class="label">Course Level</label>
                   <div class="control">
                     <div class="select">
@@ -232,7 +221,6 @@
             <th>Title</th>
             <th>Category</th>
             <th>Price</th>
-            <th>Seats</th>
             <th>Level</th>
             <th></th>
           </tr>
@@ -247,7 +235,6 @@
               <td data-label="Title" class="--title">{{$course->title}}</td>
               <td data-label="Category" class="--category">{{$course->category->name}}</td>
               <td data-label="Price" class="--role">{{$course->price}}</td>
-              <td data-label="Seats" class="--role">{{$course->max_capacity}}</td>
               <td data-label="level" class="--role">{{$course->level}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
@@ -278,9 +265,10 @@
           $("#addFieldBtn").click(function () {
                 let fieldHtml = `
                     <div class="field-container">
-                        <input type="date" name="dates[]"  class="input" style="width: 30%;" required>
-                        <input type="time" name="start_times[]"  class="input" style="width: 30%;" required>
-                        <input type="time" name="end_times[]"  class="input" style="width: 30%;" required>
+                        <input type="date" name="dates[]"  class="input" style="width: 25%;" required>
+                        <input type="time" name="start_times[]"  class="input" style="width: 25%;" required>
+                        <input type="time" name="end_times[]"  class="input" style="width: 25%;" required>
+                        <input type="time" name="max_capacity[]"  class="input" style="width: 25%;" required>
                         <button type="button" class="remove-btn button red">Remove</button>
                     </div>
                 `;

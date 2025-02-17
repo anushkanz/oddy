@@ -32,7 +32,7 @@ return new class extends Migration
             $collection->integer('duration');
             $collection->string('duration_type');
             $collection->integer('price');
-            $collection->integer('max_capacity');
+   
             $collection->string('level');
             $collection->array('photo_gallery'); // Array of gallery (e.g., ["url", "caption"])
 

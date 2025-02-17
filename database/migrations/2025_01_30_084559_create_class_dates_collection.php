@@ -18,11 +18,10 @@ return new class extends Migration
 
             // Reference to the class_dates collection (if class_dates are also users)
             $collection->foreignId('class_id')->constrained('classes')->onDelete('cascade');
-
             $collection->timestamp('class_date');
             $collection->time('start_at');
             $collection->time('end_at');
-           
+            $collection->integer('max_capacity');
             // Timestamps
             $collection->timestamps();
         });

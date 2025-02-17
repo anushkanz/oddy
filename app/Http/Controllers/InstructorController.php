@@ -79,7 +79,6 @@ class InstructorController extends Controller
                     'title' => 'required',
                     'description'  => 'required',
                     'price'=>'required',
-                    'max_capacity'=>'required',
                     'location_name'=> 'required',
                     'location_address'=>'required',
                     'location_city'=>'required',
@@ -90,12 +89,13 @@ class InstructorController extends Controller
                     'start_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
                     'end_times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
                     'end_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
+                    'max_capacity' => ['required', 'array'],
+                    'max_capacity.*' => ['required',], 
                   ],
                   [
                     'title.required' => 'Your title is Required', 
                     'description.required' => 'Your description is Required', 
                     'price.required'=> 'Your cost per seat is Required', 
-                    'max_capacity.required'=> 'Your max capacity is Required', 
                     'location_name.required'=> 'Your location name is Required', 
                     'location_address.required'=> 'Your address is Required', 
                     'location_city.required'=> 'Your city is Required', 
@@ -103,6 +103,7 @@ class InstructorController extends Controller
                     'dates.required'=> 'Your course dates is Required', 
                     'start_times.required'=> 'Your course start times is Required', 
                     'end_times.required'=> 'Your course end times is Required', 
+                    'max_capacity.required'=> 'Your max capacity is Required', 
                   ]
                 );
             }else{
@@ -110,7 +111,6 @@ class InstructorController extends Controller
                     'title' => 'required',
                     'description'  => 'required',
                     'price'=>'required',
-                    'max_capacity'=>'required',
                     'duration'=>'required',
                     'dates'=>'required',
                     'times'=>'required',
@@ -119,7 +119,6 @@ class InstructorController extends Controller
                     'title.required' => 'Your title is Required', 
                     'description.required' => 'Your description is Required', 
                     'price.required'=> 'Your cost per seat is Required', 
-                    'max_capacity.required'=> 'Your max capacity is Required', 
                     'duration.required'=> 'Your course duration is Required', 
                     'dates.required'=> 'Your course dates is Required', 
                     'times.required'=> 'Your course times is Required', 
@@ -172,7 +171,6 @@ class InstructorController extends Controller
             $course->duration = $request->duration;
             $course->duration_type = $request->duration_type;
             $course->price = $request->price;
-            $course->max_capacity = $request->max_capacity;
             $course->level = $request->course_level;
             $course->photo_gallery = $files;
             $course->save();
@@ -184,6 +182,7 @@ class InstructorController extends Controller
                 $date_times->class_date = $value;
                 $date_times->start_at = $request->start_times[$key];
                 $date_times->end_at = $request->end_times[$key];
+                $date_times->max_capacity = $request->max_capacity[$key];
                 $date_times->save();
             }
 
@@ -193,14 +192,12 @@ class InstructorController extends Controller
                 'title' => 'required',
                 'description'  => 'required',
                 'price'=>'required',
-                'max_capacity'=>'required',
                 'selected_location'=> 'required',
               ],
               [
                 'title.required' => 'Your title is Required', 
                 'description.required' => 'Your description is Required', 
                 'price.required'=> 'Your cost per seat is Required', 
-                'max_capacity.required'=> 'Your max capacity is Required', 
                 'selected_location.required'=> 'Your location is Required', 
 
               ]
@@ -215,7 +212,6 @@ class InstructorController extends Controller
             $course->duration = $request->duration;
             $course->duration_type = $request->duration_type;
             $course->price = $request->price;
-            $course->max_capacity = $request->max_capacity;
             $course->level = $request->course_level;
             $course->save();
             return redirect()->route('instructor.courses')->with('success','New Course updated.');
@@ -691,24 +687,24 @@ class InstructorController extends Controller
     }
 
     public function updateQualification(Request $request){
-            if($request->task == 'create'){
-                $user = Auth::user();
-                $qulification = new InstructorQualification();
-                $qulification->instructor_id = $user->_id;
-                $qulification->title = $request->title;
-                $qulification->description = $request->description;
+        if($request->task == 'create'){
+            $user = Auth::user();
+            $qulification = new InstructorQualification();
+            $qulification->instructor_id = $user->_id;
+            $qulification->title = $request->title;
+            $qulification->description = $request->description;
 
-                //Set files array
-                $files = '';
-                $location = 'users';
-                if($request->hasFile('file_upload')){
-                    $files = $this->upload($request->file('file_upload'),$location,'true');
-                }
-
-                $qulification->photo_gallery = $files;
-                $qulification->save();
-                
-                return redirect()->route('instructor.qualifications')->with('success','Created new qualification.');
+            //Set files array
+            $files = '';
+            $location = 'users';
+            if($request->hasFile('file_upload')){
+                $files = $this->upload($request->file('file_upload'),$location,'true');
             }
+
+            $qulification->photo_gallery = $files;
+            $qulification->save();
+            
+            return redirect()->route('instructor.qualifications')->with('success','Created new qualification.');
+        }
     }
 }
