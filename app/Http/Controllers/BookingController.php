@@ -140,8 +140,10 @@ class BookingController extends Controller
         $stripe_key = Config::get('services.stripe');
         Stripe\Stripe::setApiKey($stripe_key['secret']);
 
+        dd($input);
+
         //Transfering transaction fee to Student
-            $amount = $request->amount;
+        $amount = $request->amount;
         // $fee_percentage = 0.963; // Change this value to set the desired fee percentage
         // $payment_processing_fee =  (($amount + 0.3)/0.963) - $amount;
         // $charge = round($amount + $payment_processing_fee, 2);
@@ -153,8 +155,6 @@ class BookingController extends Controller
             "source" => $request->stripeToken,
             "description" => $booking_description, 
         ]);
-
-        dd($payment);
 
         //If payment get result then base on return save and send message
         if($payment->id){
