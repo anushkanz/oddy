@@ -131,6 +131,7 @@ class BookingController extends Controller
         ]);
         
         $input = $request->all();
+        dd($input);
         if ($validator->fails()) {
             $error = $validator->errors()->all();
             //return redirect()->route('instructor.courses')->with('error','Unable to validate your data');
@@ -140,7 +141,7 @@ class BookingController extends Controller
         $stripe_key = Config::get('services.stripe');
         Stripe\Stripe::setApiKey($stripe_key['secret']);
 
-        dd($input);
+        
 
         //Transfering transaction fee to Student
         $amount = $request->amount;
