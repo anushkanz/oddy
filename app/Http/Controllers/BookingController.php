@@ -131,42 +131,46 @@ class BookingController extends Controller
         ]);
         
         $input = $request->all();
-       
-        if ($validator->passes()) { 
-            $stripe_key = Config::get('services.stripe');
-            Stripe\Stripe::setApiKey($stripe_key['secret']);
-
-            //Transfering transaction fee to Student
-             $amount = $request->amount;
-            // $fee_percentage = 0.963; // Change this value to set the desired fee percentage
-            // $payment_processing_fee =  (($amount + 0.3)/0.963) - $amount;
-            // $charge = round($amount + $payment_processing_fee, 2);
-
-            $booking_description = '#'.$booking->_id.' '.$booking->classes->title;
-            $payment = Stripe\Charge::create ([
-                "amount" => $amount * 100,
-                "currency" => "nzd",
-                "source" => $request->stripeToken,
-                "description" => $booking_description, 
-            ]);
-
-            dd($payment);
-
-            //If payment get result then base on return save and send message
-            if($payment->id){
-                $payment_add = new Payment();
-                $payment_add->booking_id = $booking->_id;
-                $payment_add->transaction_id = $payment->id;
-                $payment_add->status = $payment->status;
-                $payment_add->amount = $amount;
-                $payment_add->transaction_return = json_encode($payment);
-                $payment_add->payment_method = "Stripe";
-                $payment_add->save();
-                $payment_id = $payment_add->id;
-
-                return redirect()->intended('booking/status/'.$id.'/success');   
-            }
+        if ($validator->fails()) {
+            $error = $validator->errors()->all();
+            //return redirect()->route('instructor.courses')->with('error','Unable to validate your data');
+            return back()->withErrors($validator)->withInput();
         }
+        
+        $stripe_key = Config::get('services.stripe');
+        Stripe\Stripe::setApiKey($stripe_key['secret']);
+
+        //Transfering transaction fee to Student
+            $amount = $request->amount;
+        // $fee_percentage = 0.963; // Change this value to set the desired fee percentage
+        // $payment_processing_fee =  (($amount + 0.3)/0.963) - $amount;
+        // $charge = round($amount + $payment_processing_fee, 2);
+
+        $booking_description = '#'.$booking->_id.' '.$booking->classes->title;
+        $payment = Stripe\Charge::create ([
+            "amount" => $amount * 100,
+            "currency" => "nzd",
+            "source" => $request->stripeToken,
+            "description" => $booking_description, 
+        ]);
+
+        dd($payment);
+
+        //If payment get result then base on return save and send message
+        if($payment->id){
+            $payment_add = new Payment();
+            $payment_add->booking_id = $booking->_id;
+            $payment_add->transaction_id = $payment->id;
+            $payment_add->status = $payment->status;
+            $payment_add->amount = $amount;
+            $payment_add->transaction_return = json_encode($payment);
+            $payment_add->payment_method = "Stripe";
+            $payment_add->save();
+            $payment_id = $payment_add->id;
+
+            return redirect()->intended('booking/status/'.$id.'/success');   
+        }
+        
     }
 
     public function bookingStatus(String $id, String $status){
