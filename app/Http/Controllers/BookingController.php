@@ -129,8 +129,9 @@ class BookingController extends Controller
             'cvc' => 'required',
             'amount' => 'required',
         ]);
-
+        
         $input = $request->all();
+        dd($input);
         if ($validator->passes()) { 
             $stripe_key = Config::get('services.stripe');
             Stripe\Stripe::setApiKey($stripe_key['secret']);
