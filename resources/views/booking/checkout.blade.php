@@ -7,7 +7,7 @@
         </h1>
     </div>
 </section>
-<form method="POST" action="{{ route('student.booking.cart.update') }}" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" role="form" class="require-validation">
+<form method="POST" action="{{ route('student.booking.checkout.update') }}" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" role="form" class="require-validation">
     @csrf
     <input type='hidden' name='task' value="checkout"> 
     <input type='hidden' name='booking_id' value="{{$booking->_id}}"> 
