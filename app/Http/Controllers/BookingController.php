@@ -149,6 +149,8 @@ class BookingController extends Controller
                 "description" => $booking_description, 
             ]);
 
+            dd($payment);
+
             //If payment get result then base on return save and send message
             if($payment->id){
                 $payment_add = new Payment();
