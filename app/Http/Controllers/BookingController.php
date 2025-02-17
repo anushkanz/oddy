@@ -113,7 +113,7 @@ class BookingController extends Controller
      */
     public function checkout(String $id){
         $user = Auth::user();
-        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
+        $booking =  Booking::where('_id', $request->booking_id)->where('user_id', $request->user_id)->firstOrFail();
         return view('booking.checkout',compact('booking','user'));
     }
 
