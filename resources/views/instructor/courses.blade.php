@@ -296,7 +296,12 @@
                     $("#location_address").val("");
                     $("#location_city").val("");
                     $("#location_country").val("");
-                    
+
+                    $("#location_name").prop("readonly", false);
+                    $("#location_address").prop("readonly", false);
+                    $("#location_city").prop("readonly", false);
+                    $("#location_country").prop("readonly", false);
+
                 }else if( (selectedValue != 'select_address') && (selectedValue != 'create_new') ){
                     $.ajax({
                         url: "{{ route('instructor.location.ajax') }}",
