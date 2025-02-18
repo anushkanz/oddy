@@ -74,10 +74,7 @@ class InstructorController extends Controller
     {
         $user = Auth::user();
         if(Auth::check() && ($request->task == 'create')){
-            if($request->location_selected == ''){
-
-
-
+            if($request->location_selected == 'create_new'){
                 $validator = Validator::make($request->all(), [
                     'title' => 'required',
                     'description'  => 'required',
@@ -138,7 +135,7 @@ class InstructorController extends Controller
             /**
             * Get locataion codinates / create location
             */ 
-            if($request->location_selected == ''){
+            if($request->location_selected == 'create_new'){
                 $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
                 $results = app("geocoder")
                     ->doNotCache()
@@ -157,7 +154,7 @@ class InstructorController extends Controller
                 ]);
                 $location_id = $location->_id;
             }else{
-                $location_id = $request->location_selected;
+                $location_id = $request->selected_location;
             } 
             
             //Set files array
