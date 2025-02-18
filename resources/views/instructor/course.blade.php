@@ -244,10 +244,10 @@
             $("#addFieldBtn").click(function () {
                 let fieldHtml = `
                     <div class="field-container">
-                        <input type="date" name="dates[]"  class="input" style="width: 25%;" required>
-                        <input type="time" name="start_times[]"  class="input" style="width: 25%;" required>
-                        <input type="time" name="end_times[]"  class="input" style="width: 25%;" required>
-                        <input type="number" name="max_capacity[]"  class="input" style="width: 25%;" required>
+                        <input type="date" name="dates[]"  class="input" style="width: 20%;" required>
+                        <input type="time" name="start_times[]"  class="input" style="width: 20%;" required>
+                        <input type="time" name="end_times[]"  class="input" style="width: 20%;" required>
+                        <input type="number" name="max_capacity[]"  class="input" style="width: 20%;" required>
                         <button type="button" class="remove-btn button red">Remove</button>
                     </div>
                 `;
