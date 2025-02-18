@@ -104,7 +104,7 @@
             <label class="label">Location Selection</label>
             <div class="control">
               <div class="select">
-                <select name="location_selected">
+                <select name="location_selected"  id="location_selected">
                   <option value="select_address">Select Location</option>
                   <option value="create_new">Create new Location</option>
                   @foreach($locations as $location)
@@ -281,7 +281,6 @@
             $(document).on("click", ".remove-btn", function () {
                 $(this).parent().remove();
             });
-
 
             //Location selecting
             $("#location_selected").change(function () {
