@@ -105,7 +105,8 @@
             <div class="control">
               <div class="select">
                 <select name="location_selected">
-                  <option value="">Select Location</option>
+                  <option value="select_address">Select Location</option>
+                  <option value="create_new">Create new Location</option>
                   @foreach($locations as $location)
                     <option value="{{$location->_id}}">{{$location->name}}</option>
                   @endforeach  
@@ -114,18 +115,7 @@
               </div>
             </div>
           </div>
-          <div class="field">
-                <label class="label">Edit address</label>
-                <div class="field-body">
-                <div class="field edit-address">
-                    <label class="edit-address control">
-                    <a class="button blue" id="edit_address">
-                        Address Actions
-                    </a>
-                    </label>
-                </div>
-                </div>
-            </div>
+          
           <div class="field">
           <input type="hidden" id="selected_location" name="selected_location" value="">
             <label class="label">Location Name</label>
@@ -297,10 +287,11 @@
             $("#location_selected").change(function () {
                 let selectedValue = $(this).val();  // Get selected dropdown value
                 
-                if( selectedValue == ''){
-                    $("#edit_address").attr("href", href);
-                    $("#edit_address").html('Create New Location');   
-                    $("#edit_address").prop('disabled', false);
+                if( selectedValue == 'create_new'){
+                    $("#location_name").prop("required", true);
+                    $("#location_address").prop("required", true);
+                    $("#location_city").prop("required", true);
+                    $("#location_country").prop("required", true);
                 }else if( (selectedValue != 'select_address') && (selectedValue != 'create_new') ){
                     $.ajax({
                         url: "{{ route('instructor.location.ajax') }}",
