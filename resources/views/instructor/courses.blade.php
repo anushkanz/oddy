@@ -285,12 +285,18 @@
             //Location selecting
             $("#location_selected").change(function () {
                 let selectedValue = $(this).val();  // Get selected dropdown value
-                
+                console.log(selectedValue);
                 if( selectedValue == 'create_new'){
                     $("#location_name").prop("required", true);
                     $("#location_address").prop("required", true);
                     $("#location_city").prop("required", true);
                     $("#location_country").prop("required", true);
+                    
+                    $("#location_name").val("");
+                    $("#location_address").val("");
+                    $("#location_city").val("");
+                    $("#location_country").val("");
+                    
                 }else if( (selectedValue != 'select_address') && (selectedValue != 'create_new') ){
                     $.ajax({
                         url: "{{ route('instructor.location.ajax') }}",
