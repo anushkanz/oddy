@@ -115,9 +115,22 @@
             </div>
           </div>
           <div class="field">
+                <label class="label">Edit address</label>
+                <div class="field-body">
+                <div class="field edit-address">
+                    <label class="edit-address control">
+                    <a class="button blue" id="edit_address">
+                        Address Actions
+                    </a>
+                    </label>
+                </div>
+                </div>
+            </div>
+          <div class="field">
+          <input type="hidden" id="selected_location" name="selected_location" value="">
             <label class="label">Location Name</label>
             <div class="control">
-              <input type="text" autocomplete="on" name="location_name" value="" class="input" required>
+              <input type="text" autocomplete="on" id="location_name" name="location_name" value="" class="input" >
             </div>
             <p class="help">Required. Course Location name</p>
           </div>
@@ -125,7 +138,7 @@
           <div class="field">
             <label class="label">Address</label>
             <div class="control">
-            <input type="text" autocomplete="on" name="location_address" value="" class="input" required>
+            <input type="text" autocomplete="on" id="location_address" name="location_address" value="" class="input" >
             </div>
             <p class="help">Required. Course address</p>
           </div>
@@ -133,14 +146,14 @@
           <div class="field">
             <label class="label">City</label>
             <div class="control">
-            <input type="text" autocomplete="on" name="location_city" value="" class="input" required>
+            <input type="text" autocomplete="on" id="location_city" name="location_city" value="" class="input" >
             </div>
             <p class="help">Required. Course City</p>
           </div>
           <div class="field">
             <label class="label">Country</label>
             <div class="control">
-            <input type="text" autocomplete="on" name="location_country" readonly value="NZ" class="input" required>
+            <input type="text" autocomplete="on" id="location_country" name="location_country" readonly value="NZ" class="input" >
             </div>
             <p class="help">Required. Course country</p>
           </div>
@@ -277,6 +290,47 @@
 
             $(document).on("click", ".remove-btn", function () {
                 $(this).parent().remove();
+            });
+
+
+            //Location selecting
+            $("#location_selected").change(function () {
+                let selectedValue = $(this).val();  // Get selected dropdown value
+                
+                if( selectedValue == ''){
+                    $("#edit_address").attr("href", href);
+                    $("#edit_address").html('Create New Location');   
+                    $("#edit_address").prop('disabled', false);
+                }else if( (selectedValue != 'select_address') && (selectedValue != 'create_new') ){
+                    $.ajax({
+                        url: "{{ route('instructor.location.ajax') }}",
+                        type: "POST",
+                        data: { 
+                            "location_id": selectedValue,
+                            "_token": "{{ csrf_token() }}",
+                        },
+                        success: function (response) {
+                            console.log(response);
+                            // Assuming response is { "name": "John Doe", "email": "john@example.com" }
+                            $("#location_name").val(response.data.name).prop("readonly", true);
+                            $("#location_address").val(response.data.address).prop("readonly", true);
+                            $("#location_city").val(response.data.city).prop("readonly", true);
+                            $("#location_country").val(response.data.country).prop("readonly", true);
+                        },
+                        error: function () {
+                            alert("Error fetching data");
+                        }
+                    });
+                    let href = "/instructor/location/"+selectedValue;
+                    $("#edit_address").attr("href", href);
+                    $("#edit_address").html('Update Location');  
+                    $("#edit_address").prop('disabled', false);
+
+                    //Set selected location id
+                    $("#selected_location").val(selectedValue);
+                }else{
+                    $("#edit_address").prop('disabled', true);
+                }
             });
 
       });
