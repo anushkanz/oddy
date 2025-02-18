@@ -156,7 +156,7 @@ class InstructorController extends Controller
             }else{
                 $location_id = $request->selected_location;
             } 
-            
+            dd($request->all());
             //Set files array
             $location = 'courses';
             $files = $this->upload($request->file('file_upload'),$location,'true');
