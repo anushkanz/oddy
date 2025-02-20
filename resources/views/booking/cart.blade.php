@@ -102,7 +102,7 @@
                                     @endphp
                                 <p>Booking fee : $<span id="booking_fee_select"></span></p>
                                 <p>Seats : <span id="seat_count_select" data-seat=""></span></p>
-                                <p>Total :  <span id="seat_count_select"></span></p>
+                                <p>Total :  <span id="total_select"></span></p>
                                 
                             </div>
                         </div>
@@ -156,7 +156,7 @@
             let totalCost = parseInt(seatCost) * parseInt(selectedValue);
             let finalCost = ((parseInt(totalCost) + 0.3)/0.963) - parseInt(totalCost); 
             let printedCost = parseInt(finalCost).toFixed(2);
-            $("#seat_count_select").html(printedCost);
+            $("#total_select").html(printedCost);
         }); 
 
     });
