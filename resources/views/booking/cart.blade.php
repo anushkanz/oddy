@@ -124,6 +124,7 @@
     $(function() {
         let seatCost = $('#seat_fee_selected').data('fee'); 
         $("#seat_count").val(1).prop("readonly", true);
+        $("#total_select").html(total_calculation(1,seatCost));
 
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
@@ -168,5 +169,6 @@
         let printedCost = parseFloat(finalCost).toFixed(2);
         return totalCost;
     }
+    
 </script>  
 @endsection
