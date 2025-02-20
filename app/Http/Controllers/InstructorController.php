@@ -227,14 +227,14 @@ class InstructorController extends Controller
             //Adding course dates and times
             foreach($request->dates as $key => $value){
                 $date_times = new ClassDate();
-                $date_times->class_id = $course->_id;
+                $date_times->class_id = $request->id;
                 $date_times->class_date = $value;
                 $date_times->start_at = $request->start_times[$key];
                 $date_times->end_at = $request->end_times[$key];
                 $date_times->max_capacity = $request->max_capacity[$key];
                 $date_times->save();
             }
-            
+
             $course = Classes::where('_id',$request->id)->first();
             $course->instructor_id = $user->id;
             $course->title = strip_tags($request->title);
