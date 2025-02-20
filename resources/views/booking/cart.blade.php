@@ -127,7 +127,7 @@
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
             console.log(selectedValue);
             if(selectedValue == 0){
-                $("#seat_count").val(0).prop("readonly", true);
+                $("#seat_count").val(1).prop("readonly", true);
             }else{
                 $("#seat_count").prop('max',selectedValue); 
                 $("#seat_count").val(1).prop("readonly", false);
@@ -160,5 +160,12 @@
         }); 
 
     });
+    function total_calculation(seat_count,seat_cost){
+        let feePercentage = 0.963;
+        let totalCost = parseInt(seat_cost) * parseInt(seat_count);
+        let finalCost = ((parseInt(totalCost) + 0.3)/0.963) - parseInt(totalCost); 
+        let printedCost = parseInt(finalCost).toFixed(2);
+        return printedCost;
+    }
 </script>  
 @endsection
