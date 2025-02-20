@@ -125,6 +125,7 @@
         let seatCost = $('#seat_fee_selected').data('fee'); 
         $("#seat_count").val(1).prop("readonly", true);
         $("#total_select").html(total_calculation(1,seatCost));
+        console.log(total_calculation(1,seatCost));
         $("#seat_count_select").html(1);
         $("#booking_fee_select").html(booking_fee_calculator(total_calculation(1,seatCost)));
 
@@ -171,7 +172,8 @@
         let totalCost = parseFloat(seat_cost) * parseFloat(seat_count);
         let finalCost = ((parseFloat(totalCost) +parseFloat(0.3))/parseFloat(0.963)) - parseFloat(totalCost); 
         let printedCost = parseFloat(finalCost) +  parseFloat(totalCost);
-        return printedCost;
+        let return = {printedCost,printedCost}
+        return return;
     }
 
     function booking_fee_calculator(total){
