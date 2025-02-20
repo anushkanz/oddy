@@ -94,15 +94,15 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <p>Course fee : ${{$booking->classes->price}}</p>
+                                <p>Course fee : <span id="seat_fee_selected" data-fee="{{$booking->classes->price}}"></span>${{$booking->classes->price}}</p>
                                     @php 
                                         $fee_percentage = 0.963; // Change this value to set the desired fee percentage
                                         $payment_processing_fee =  (($booking->classes->price + 0.3)/0.963) - $booking->classes->price;
                                         $charge = round($booking->classes->price + $payment_processing_fee, 2);         
                                     @endphp
-                                <p>Booking fee : <span id="booking_fee_select"></span>${{round($payment_processing_fee,4)}}</p>
-                                <p>Seats : <span id="seat_count_select"></span></p>
-                                <p>Total : ${{$charge}}
+                                <p>Booking fee : $<span id="booking_fee_select"></span></p>
+                                <p>Seats : <span id="seat_count_select" data-seat=""></span></p>
+                                <p>Total :  <span id="seat_count_select"></span></p>
                                 
                             </div>
                         </div>
@@ -150,6 +150,13 @@
             }else{
                 $("#seat_count_select").html(selectedValue);
             }
+
+            let feePercentage = 0.963;
+            let seatCost = $('#seat_fee_selected').attr('data-fee'); 
+            let totalCost = parseInt(seatCost) * parseInt(selectedValue);
+            let finalCost = ((parseInt(totalCost) + 0.3)/0.963) - parseInt(totalCost); 
+            let printedCost = parseInt(finalCost).toFixed(2);
+            $("#seat_count_select").html(printedCost);
         }); 
 
     });
