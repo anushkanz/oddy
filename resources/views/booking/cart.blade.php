@@ -136,7 +136,7 @@
         });
 
 
-        $("#seat_count").change(function() { 
+        $("#seat_count").keyup(function() { 
             let selectedValue = $(this).val();  
             let max = $(this).attr('max');
             if(parseInt(selectedValue) > parseInt(max)){
