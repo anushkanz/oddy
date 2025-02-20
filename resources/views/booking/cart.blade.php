@@ -132,7 +132,6 @@
 
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
-            console.log(selectedValue);
             
             $("#total_select").html(total_calculation(1,seatCost));
             $("#booking_fee_select").html(booking_fee_calculator(total_calculation(1,seatCost)));
@@ -179,14 +178,8 @@
         let totalCost = parseFloat(seat_cost) * parseFloat(seat_count);
         let finalCost = ((parseFloat(totalCost) +parseFloat(0.3))/parseFloat(0.963)) - parseFloat(totalCost); 
         let printedCost = parseFloat(finalCost) +  parseFloat(totalCost);
-        let return_cal = {'printedCost':printedCost,'bookingFee':finalCost}
+        let return_cal = {'printedCost':printedCost.toFixed(2),'bookingFee':finalCost.toFixed(2)}
         return return_cal;
-    }
-
-    function booking_fee_calculator(total){
-        let feePercentage = 0.963;
-        let finalCost = ((parseFloat(total) +parseFloat(0.3))/parseFloat(0.963)) - parseFloat(total); 
-        return finalCost;
     }
 
 </script>  
