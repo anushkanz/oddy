@@ -75,7 +75,6 @@ class InstructorController extends Controller
         $user = Auth::user();
         if(Auth::check() && ($request->task == 'create')){
             if($request->location_selected == 'create_new'){
-                dd($request->all());
                 $validator = Validator::make($request->all(), [
                     'title' => 'required',
                     'description'  => 'required',

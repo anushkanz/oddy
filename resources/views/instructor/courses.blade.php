@@ -290,17 +290,16 @@
                     $("#location_name").prop("required", true);
                     $("#location_address").prop("required", true);
                     $("#location_city").prop("required", true);
-                    $("#location_country").prop("required", true);
+                    
                     
                     $("#location_name").val("");
                     $("#location_address").val("");
                     $("#location_city").val("");
-                    $("#location_country").val("");
+                    
 
                     $("#location_name").prop("readonly", false);
                     $("#location_address").prop("readonly", false);
                     $("#location_city").prop("readonly", false);
-                    $("#location_country").prop("readonly", false);
 
                 }else if( (selectedValue != 'select_address') && (selectedValue != 'create_new') ){
                     $.ajax({
