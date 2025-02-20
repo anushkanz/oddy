@@ -132,11 +132,16 @@
                 $("#seat_count").prop('max',selectedValue); 
                 $("#seat_count").val(1).prop("readonly", false);
             }
+            
         });
 
 
         $("#seat_count").change(function() { 
-            console.log($(this).val());  
+            let selectedValue = $(this).val();  
+            let max = selectedValue.attr('max');
+            if(selectedValue > max){
+                $("#seat_count").val(max);
+            }
         }); 
 
     });
