@@ -126,11 +126,15 @@
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
             console.log(selectedValue);
+            let seatCost = $('#seat_fee_selected').attr('data-fee'); 
+            $("#total_select").html(total_calculation(1,seatCost));
+            
             if(selectedValue == 0){
                 $("#seat_count").val(1).prop("readonly", true);
             }else{
                 $("#seat_count").prop('max',selectedValue); 
                 $("#seat_count").val(1).prop("readonly", false);
+                $("#total_select").html(total_calculation(selectedValue,seatCost));
             }
             
         });
@@ -147,16 +151,11 @@
                 });
                 $("#seat_count").val(max);
                 $("#seat_count_select").html(max);
+                $("#total_select").html(total_calculation(max,seatCost));
             }else{
                 $("#seat_count_select").html(selectedValue);
+                $("#total_select").html(total_calculation(selectedValue,seatCost));
             }
-
-            let feePercentage = 0.963;
-            let seatCost = $('#seat_fee_selected').attr('data-fee'); 
-            let totalCost = parseInt(seatCost) * parseInt(selectedValue);
-            let finalCost = ((parseInt(totalCost) + 0.3)/0.963) - parseInt(totalCost); 
-            let printedCost = parseInt(finalCost).toFixed(2);
-            $("#total_select").html(printedCost);
         }); 
 
     });
