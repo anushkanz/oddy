@@ -122,11 +122,12 @@
 </form>  
 <script type="text/javascript">
     $(function() {
+        let seatCost = $('#seat_fee_selected').data('fee'); 
         $("#seat_count").val(0).prop("readonly", true);
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
             console.log(selectedValue);
-            let seatCost = $('#seat_fee_selected').attr('data-fee'); 
+            
             $("#total_select").html(total_calculation(1,seatCost));
             
             if(selectedValue == 0){
@@ -161,9 +162,9 @@
     });
     function total_calculation(seat_count,seat_cost){
         let feePercentage = 0.963;
-        let totalCost = parseInt(seat_cost) * parseInt(seat_count);
-        let finalCost = ((parseInt(totalCost) + 0.3)/0.963) - parseInt(totalCost); 
-        let printedCost = parseInt(finalCost).toFixed(2);
+        let totalCost = parseFloat(seat_cost) * parseFloat(seat_count);
+        let finalCost = ((parseFloat(totalCost) +parseFloat(0.3))/parseFloat(0.963)) - parseFloat(totalCost); 
+        let printedCost = parseFloat(finalCost).toFixed(2);
         return printedCost;
     }
 </script>  
