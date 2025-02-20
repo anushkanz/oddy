@@ -126,19 +126,21 @@
         $("#seat_count").val(1).prop("readonly", true);
         $("#total_select").html(total_calculation(1,seatCost));
         $("#seat_count_select").html(1);
+        $("#booking_fee_select").html(booking_fee_calculator(total_calculation(1,seatCost)));
 
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
             console.log(selectedValue);
             
             $("#total_select").html(total_calculation(1,seatCost));
-            
+            $("#booking_fee_select").html(booking_fee_calculator(total_calculation(1,seatCost)));
             if(selectedValue == 'select_date'){
                 $("#seat_count").val(1).prop("readonly", true);
             }else{
                 $("#seat_count").prop('max',selectedValue); 
                 $("#seat_count").val(1).prop("readonly", false);
                 $("#total_select").html(total_calculation(selectedValue,seatCost));
+                $("#booking_fee_select").html(booking_fee_calculator(total_calculation(selectedValue,seatCost)));
             }
             
         });
@@ -156,9 +158,11 @@
                 $("#seat_count").val(1);
                 $("#seat_count_select").html(1);
                 $("#total_select").html(total_calculation(1,seatCost));
+                $("#booking_fee_select").html(booking_fee_calculator(total_calculation(1,seatCost)));
             }else{
                 $("#seat_count_select").html(selectedValue);
                 $("#total_select").html(total_calculation(selectedValue,seatCost));
+                $("#booking_fee_select").html(booking_fee_calculator(total_calculation(selectedValue,seatCost)));
             }
         }); 
 
