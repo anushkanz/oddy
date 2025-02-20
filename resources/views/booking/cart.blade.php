@@ -124,10 +124,11 @@
     $(function() {
         let seatCost = $('#seat_fee_selected').data('fee'); 
         $("#seat_count").val(1).prop("readonly", true);
-        $("#total_select").html(total_calculation(1,seatCost));
-        console.log(total_calculation(1,seatCost));
         $("#seat_count_select").html(1);
-        $("#booking_fee_select").html(booking_fee_calculator(total_calculation(1,seatCost)));
+        
+        let cost = total_calculation(1,seatCost);
+        $("#total_select").html(cost['printedCost']);
+        $("#booking_fee_select").html(cost['bookingFee']);
 
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
@@ -140,8 +141,12 @@
             }else{
                 $("#seat_count").prop('max',selectedValue); 
                 $("#seat_count").val(1).prop("readonly", false);
-                $("#total_select").html(total_calculation(selectedValue,seatCost));
-                $("#booking_fee_select").html(booking_fee_calculator(total_calculation(selectedValue,seatCost)));
+
+                let cost = total_calculation(selectedValue,seatCost);
+                $("#total_select").html(cost['printedCost']);
+                $("#booking_fee_select").html(cost['bookingFee']);
+
+
             }
         });
 
@@ -157,12 +162,14 @@
                 });
                 $("#seat_count").val(1);
                 $("#seat_count_select").html(1);
-                $("#total_select").html(total_calculation(1,seatCost));
-                $("#booking_fee_select").html(booking_fee_calculator(total_calculation(1,seatCost)));
+                let cost = total_calculation(1,seatCost);
+                $("#total_select").html(cost['printedCost']);
+                $("#booking_fee_select").html(cost['bookingFee']);
             }else{
                 $("#seat_count_select").html(selectedValue);
-                $("#total_select").html(total_calculation(selectedValue,seatCost));
-                $("#booking_fee_select").html(booking_fee_calculator(total_calculation(selectedValue,seatCost)));
+                let cost = total_calculation(selectedValue,seatCost);
+                $("#total_select").html(cost['printedCost']);
+                $("#booking_fee_select").html(cost['bookingFee']);
             }
         }); 
 
