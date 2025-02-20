@@ -165,7 +165,7 @@
         let totalCost = parseFloat(seat_cost) * parseFloat(seat_count);
         let finalCost = ((parseFloat(totalCost) +parseFloat(0.3))/parseFloat(0.963)) - parseFloat(totalCost); 
         let printedCost = parseFloat(finalCost).toFixed(2);
-        return printedCost;
+        return totalCost;
     }
 </script>  
 @endsection
