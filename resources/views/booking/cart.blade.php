@@ -54,6 +54,7 @@
                         <div class="field">
                             <div class="control">
                                 <select name="class_date_id" id="class_date_id" class="input" >
+                                <option data-seat="0" value="select_date">Select date</option>
                                     @php 
                                         foreach($course_dates as $dates) { 
                                             if($dates->max_capacity != 0){
@@ -123,6 +124,7 @@
     $(function() {
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-id'); 
+            console.log(selectedValue);
             $("#seat_count").prop('max',selectedValue); 
         });
     });
