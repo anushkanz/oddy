@@ -109,9 +109,19 @@
                 <select name="location_selected" id="location_selected">
                   <option value="select_address">Select Location</option>
                   <option value="create_new">Create new Location</option>
-                  @foreach($locations as $location)
-                    <option value="{{$location->_id}}">{{$location->name}}</option>
-                  @endforeach  
+                  @php
+                  foreach($locations as $location){
+                    if(isset($course->location->_id) &&  ($location->_id == $course->location->_id)){
+                  @endphp  
+                      <option value="{{$location->_id}}" selected="selected">{{$location->name}}</option>
+                  @php
+                    }else{
+                  @endphp  
+                      <option value="{{$location->_id}}">{{$location->name}}</option>
+                  @php       
+                    }
+                  }  
+                  @endphp 
                 </select>
                 <p class="help">You can select previous location</p>
               </div>
