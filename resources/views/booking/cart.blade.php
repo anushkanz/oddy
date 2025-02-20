@@ -125,7 +125,13 @@
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
             console.log(selectedValue);
-            $("#seat_count").prop('max',selectedValue); 
+            if(selectedValue == 0){
+                $("#seat_count").val(0).prop("readonly", true);
+            }else{
+                $("#seat_count").prop('max',selectedValue); 
+                $("#seat_count").val(1).prop("readonly", false);
+            }
+            
         });
     });
 </script>  
