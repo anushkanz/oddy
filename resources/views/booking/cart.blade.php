@@ -142,7 +142,6 @@
                 $("#total_select").html(total_calculation(selectedValue,seatCost));
                 $("#booking_fee_select").html(booking_fee_calculator(total_calculation(selectedValue,seatCost)));
             }
-            
         });
 
 
@@ -172,13 +171,13 @@
         let totalCost = parseFloat(seat_cost) * parseFloat(seat_count);
         let finalCost = ((parseFloat(totalCost) +parseFloat(0.3))/parseFloat(0.963)) - parseFloat(totalCost); 
         let printedCost = parseFloat(finalCost) +  parseFloat(totalCost);
-        return printedCost.toFixed(2);
+        return printedCost;
     }
 
     function booking_fee_calculator(total){
         let feePercentage = 0.963;
         let finalCost = ((parseFloat(total) +parseFloat(0.3))/parseFloat(0.963)) - parseFloat(total); 
-        return finalCost.toFixed(2);
+        return finalCost;
     }
 
 </script>  
