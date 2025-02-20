@@ -112,24 +112,12 @@ class InstructorController extends Controller
                     'description'  => 'required',
                     'price'=>'required',
                     'duration'=>'required',
-                    'dates' => ['required', 'array', 'min:1'],  // Ensure at least one date is provided
-                    'dates.*' => ['required', 'date'], // Validate each date as a valid date format
-                    'start_times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
-                    'start_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
-                    'end_times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
-                    'end_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
-                    'max_capacity' => ['required', 'array'],
-                    'max_capacity.*' => ['required',], 
                   ],
                   [
                     'title.required' => 'Your title is Required', 
                     'description.required' => 'Your description is Required', 
                     'price.required'=> 'Your cost per seat is Required', 
                     'duration.required'=> 'Your course duration is Required', 
-                    'dates.required'=> 'Your course dates is Required', 
-                    'start_times.required'=> 'Your course start times is Required', 
-                    'end_times.required'=> 'Your course end times is Required', 
-                    'max_capacity.required'=> 'Your max capacity is Required', 
                   ]
                 );
             }
@@ -216,7 +204,7 @@ class InstructorController extends Controller
             $course->title = strip_tags($request->title);
             $course->description = strip_tags($request->description);
             $course->category_id = $request->category;
-            $course->location_id = $request->selected_location;
+            $course->location_id = $location_id;
             $course->duration = $request->duration;
             $course->duration_type = $request->duration_type;
             $course->price = $request->price;
