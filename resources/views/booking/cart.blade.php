@@ -140,6 +140,11 @@
             let selectedValue = $(this).val();  
             let max = $(this).attr('max');
             if(selectedValue > max){
+                Swal.fire({
+                    title: "Seat count need to change",
+                    text: "We only have "+max+" seats, we are unable to book "+selectedValue+ " seats.",
+                    icon: "error"
+                });
                 $("#seat_count").val(max);
             }
         }); 
