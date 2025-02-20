@@ -100,8 +100,8 @@
                                         $payment_processing_fee =  (($booking->classes->price + 0.3)/0.963) - $booking->classes->price;
                                         $charge = round($booking->classes->price + $payment_processing_fee, 2);         
                                     @endphp
-                                <p>Booking fee : ${{round($payment_processing_fee,4)}}</p>
-                                <p>Booking fee : <span id="seat_count_select"></span></p>
+                                <p>Booking fee : <span id="booking_fee_select"></span>${{round($payment_processing_fee,4)}}</p>
+                                <p>Seats : <span id="seat_count_select"></span></p>
                                 <p>Total : ${{$charge}}
                                 
                             </div>
@@ -146,6 +146,9 @@
                     icon: "error"
                 });
                 $("#seat_count").val(max);
+                $("#seat_count_select").html(max);
+            }else{
+                $("#seat_count_select").html(selectedValue);
             }
         }); 
 
