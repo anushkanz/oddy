@@ -58,13 +58,23 @@
                                         foreach($course_dates as $dates) { 
                                             if($dates->max_capacity != 0){
                                     @endphp
-                                        <option value="{{$dates->_id}}">{{$dates->class_date}} {{$dates->start_at}} to {{$dates->end_at}} Seats : {{$dates->max_capacity}} left</option>
+                                        <option data-seat="{{$dates->max_capacity}}" value="{{$dates->_id}}">{{$dates->class_date}} {{$dates->start_at}} to {{$dates->end_at}} Seats : {{$dates->max_capacity}} left</option>
                                     @php } } @endphp    
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="field">
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input type="number" min="1" max="" id="seat_count" name="seat_count" class="input" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
                 
             </div>
         </div>
@@ -108,5 +118,13 @@
             </div>
         </div>
     </div>
-</form>    
+</form>  
+<script type="text/javascript">
+    $(function() {
+        $("#class_date_id").change(function () {
+            let selectedValue = $(this).find(':selected').attr('data-id'); 
+            $("#seat_count").prop('max',selectedValue); 
+        });
+    });
+</script>  
 @endsection
