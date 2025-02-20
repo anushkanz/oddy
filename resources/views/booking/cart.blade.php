@@ -54,9 +54,12 @@
                         <div class="field">
                             <div class="control">
                                 <select name="class_date_id" id="class_date_id" class="input" >
-                                    @php foreach($course_dates as $dates) { @endphp
-                                        <option value="{{$dates->_id}}">{{$dates->class_date}} {{$dates->start_at}} to {{$dates->end_at}} Seats : {{$dates->max_capacity}}</option>
-                                    @php } @endphp    
+                                    @php 
+                                        foreach($course_dates as $dates) { 
+                                            if($dates->max_capacity != 0){
+                                    @endphp
+                                        <option value="{{$dates->_id}}">{{$dates->class_date}} {{$dates->start_at}} to {{$dates->end_at}} Seats : {{$dates->max_capacity}} left</option>
+                                    @php } } @endphp    
                                 </select>
                             </div>
                         </div>
