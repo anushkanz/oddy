@@ -123,14 +123,15 @@
 <script type="text/javascript">
     $(function() {
         let seatCost = $('#seat_fee_selected').data('fee'); 
-        $("#seat_count").val(0).prop("readonly", true);
+        $("#seat_count").val(1).prop("readonly", true);
+
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
             console.log(selectedValue);
             
             $("#total_select").html(total_calculation(1,seatCost));
             
-            if(selectedValue == 0){
+            if(selectedValue == 'select_date'){
                 $("#seat_count").val(1).prop("readonly", true);
             }else{
                 $("#seat_count").prop('max',selectedValue); 
