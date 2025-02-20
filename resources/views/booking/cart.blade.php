@@ -67,13 +67,11 @@
                     </div>
                 </div>
                 <div class="field">
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input type="number" min="1" max="" id="seat_count" name="seat_count" class="input" required/>
-                            </div>
-                        </div>
+                    <label class="label">Seats</label>
+                    <div class="control">
+                        <input type="number" min="1" max="" id="seat_count" name="seat_count" class="input" required/>
                     </div>
+                    <p class="help">Required. Number of seats</p>
                 </div>
                
                 
@@ -122,6 +120,7 @@
 </form>  
 <script type="text/javascript">
     $(function() {
+        $("#seat_count").val(0).prop("readonly", true);
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
             console.log(selectedValue);
