@@ -152,9 +152,9 @@
                     text: "We only have "+max+" seats, we are unable to book "+selectedValue+ " seats.",
                     icon: "error"
                 });
-                $("#seat_count").val(max);
-                $("#seat_count_select").html(max);
-                $("#total_select").html(total_calculation(max,seatCost));
+                $("#seat_count").val(1);
+                $("#seat_count_select").html(1);
+                $("#total_select").html(total_calculation(1,seatCost));
             }else{
                 $("#seat_count_select").html(selectedValue);
                 $("#total_select").html(total_calculation(selectedValue,seatCost));
@@ -169,6 +169,6 @@
         let printedCost = parseFloat(finalCost).toFixed(2);
         return totalCost;
     }
-    
+
 </script>  
 @endsection
