@@ -75,6 +75,7 @@ class InstructorController extends Controller
         $user = Auth::user();
         if(Auth::check() && ($request->task == 'create')){
             if($request->location_selected == 'create_new'){
+                dd($request->all());
                 $validator = Validator::make($request->all(), [
                     'title' => 'required',
                     'description'  => 'required',
@@ -112,8 +113,14 @@ class InstructorController extends Controller
                     'description'  => 'required',
                     'price'=>'required',
                     'duration'=>'required',
-                    'dates'=>'required',
-                    'times'=>'required',
+                    'dates' => ['required', 'array', 'min:1'],  // Ensure at least one date is provided
+                    'dates.*' => ['required', 'date'], // Validate each date as a valid date format
+                    'start_times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
+                    'start_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
+                    'end_times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
+                    'end_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
+                    'max_capacity' => ['required', 'array'],
+                    'max_capacity.*' => ['required',], 
                   ],
                   [
                     'title.required' => 'Your title is Required', 
@@ -121,7 +128,9 @@ class InstructorController extends Controller
                     'price.required'=> 'Your cost per seat is Required', 
                     'duration.required'=> 'Your course duration is Required', 
                     'dates.required'=> 'Your course dates is Required', 
-                    'times.required'=> 'Your course times is Required', 
+                    'start_times.required'=> 'Your course start times is Required', 
+                    'end_times.required'=> 'Your course end times is Required', 
+                    'max_capacity.required'=> 'Your max capacity is Required', 
                   ]
                 );
             }
@@ -156,7 +165,7 @@ class InstructorController extends Controller
             }else{
                 $location_id = $request->selected_location;
             } 
-            dd($request->all());
+            
             //Set files array
             $location = 'courses';
             $files = $this->upload($request->file('file_upload'),$location,'true');
