@@ -172,7 +172,7 @@
         let totalCost = parseFloat(seat_cost) * parseFloat(seat_count);
         let finalCost = ((parseFloat(totalCost) +parseFloat(0.3))/parseFloat(0.963)) - parseFloat(totalCost); 
         let printedCost = parseFloat(finalCost) +  parseFloat(totalCost);
-        let return_cal = {'printedCost'=>printedCost,'bookingFee'=>finalCost}
+        let return_cal = {'printedCost':printedCost,'bookingFee':finalCost}
         return return_cal;
     }
 
