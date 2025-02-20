@@ -138,7 +138,7 @@
 
         $("#seat_count").change(function() { 
             let selectedValue = $(this).val();  
-            let max = selectedValue.attr('max');
+            let max = $(this).attr('max');
             if(selectedValue > max){
                 $("#seat_count").val(max);
             }
