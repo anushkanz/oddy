@@ -166,6 +166,7 @@
                 $("#total_select").html(cost['printedCost']);
                 $("#booking_fee_select").html(cost['bookingFee']);
             }else{
+                $("#seat_count").val(selectedValue);
                 $("#seat_count_select").html(selectedValue);
                 let cost = total_calculation(selectedValue,seatCost);
                 $("#total_select").html(cost['printedCost']);
