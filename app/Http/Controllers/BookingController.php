@@ -40,10 +40,6 @@ class BookingController extends Controller
 
         if(empty($class)){
             return redirect()->intended('booking/status/{$id}/noclass');
-        }else{
-            if($class->max_capacity == 0){
-                return redirect()->intended('booking/status/{$id}/fullbooked');
-            }
         }
         
         if(empty($user)){
