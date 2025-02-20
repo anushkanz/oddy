@@ -101,6 +101,7 @@
                                         $charge = round($booking->classes->price + $payment_processing_fee, 2);         
                                     @endphp
                                 <p>Booking fee : ${{round($payment_processing_fee,4)}}</p>
+                                <p>Booking fee : <span id="seat_count_select"></span></p>
                                 <p>Total : ${{$charge}}
                                 
                             </div>
@@ -131,8 +132,13 @@
                 $("#seat_count").prop('max',selectedValue); 
                 $("#seat_count").val(1).prop("readonly", false);
             }
-            
         });
+
+
+        $("#seat_count").change(function() { 
+            console.log($(this).val());  
+        }); 
+
     });
 </script>  
 @endsection
