@@ -172,8 +172,8 @@
         let totalCost = parseFloat(seat_cost) * parseFloat(seat_count);
         let finalCost = ((parseFloat(totalCost) +parseFloat(0.3))/parseFloat(0.963)) - parseFloat(totalCost); 
         let printedCost = parseFloat(finalCost) +  parseFloat(totalCost);
-        let return = {printedCost,printedCost}
-        return return;
+        let return_cal = {printedCost,printedCost}
+        return return_cal;
     }
 
     function booking_fee_calculator(total){
