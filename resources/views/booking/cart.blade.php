@@ -52,6 +52,7 @@
                 <div class="field">
                     <div class="field-body">
                         <div class="field">
+                        <label class="label">Select your class date</label>
                             <div class="control">
                                 <select name="class_date_id" id="class_date_id" class="input" >
                                 <option data-seat="0" value="select_date">Select date</option>
