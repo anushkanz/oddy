@@ -199,6 +199,31 @@ class InstructorController extends Controller
               ]
             );
 
+            /**
+            * Get locataion codinates / create location
+            */ 
+            if($request->location_selected == 'create_new'){
+                $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
+                $results = app("geocoder")
+                    ->doNotCache()
+                    ->geocode($address)
+                    ->get();
+                $coordinates = $results[0]->getCoordinates();
+
+                $location = Location::create([
+                    'user_id' => $user->_id,
+                    'name' => $request->location_name,
+                    'address' => $request->location_address,
+                    'city' => $request->location_city,
+                    'country' => $request->location_country,
+                    'latitude' => $coordinates->getLatitude(),
+                    'longitude' => $coordinates->getLongitude(),
+                ]);
+                $location_id = $location->_id;
+            }else{
+                $location_id = $request->selected_location;
+            } 
+            
             $course = Classes::where('_id',$request->id)->first();
             $course->instructor_id = $user->id;
             $course->title = strip_tags($request->title);
