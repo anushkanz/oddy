@@ -132,9 +132,10 @@
 
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
-            
-            $("#total_select").html(total_calculation(1,seatCost));
-            $("#booking_fee_select").html(booking_fee_calculator(total_calculation(1,seatCost)));
+            let cost = total_calculation(1,seatCost);
+            $("#total_select").html(cost['printedCost']);
+            $("#booking_fee_select").html(cost['bookingFee']);
+
             if(selectedValue == 'select_date'){
                 $("#seat_count").val(1).prop("readonly", true);
             }else{
