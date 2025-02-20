@@ -139,7 +139,7 @@
         $("#seat_count").change(function() { 
             let selectedValue = $(this).val();  
             let max = $(this).attr('max');
-            if(selectedValue > max){
+            if(parseInt(selectedValue) > parseInt(max)){
                 Swal.fire({
                     title: "Seat count need to change",
                     text: "We only have "+max+" seats, we are unable to book "+selectedValue+ " seats.",
