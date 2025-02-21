@@ -155,6 +155,7 @@ class BookingController extends Controller
             'confirmation_method' => 'manual', // Allow later confirmation
             'confirm' => true, // Automatically confirm
             'description' => $booking_description,
+            'return_url' => route('booking/status/'.$booking->_id.'/success'),
         ]);
 
         // $payment = Stripe\Charge::create ([
