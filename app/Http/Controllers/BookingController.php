@@ -155,7 +155,7 @@ class BookingController extends Controller
             'confirmation_method' => 'manual', // Allow later confirmation
             'confirm' => true, // Automatically confirm
             'description' => $booking_description,
-            'return_url' => route('booking/status/'.$booking->_id.'/success'),
+            'return_url' => route('student.booking.payment.success'),
         ]);
 
         // $payment = Stripe\Charge::create ([
@@ -189,7 +189,9 @@ class BookingController extends Controller
         }
         
     }
-
+    public function paymentStatus(){
+        dd('Payment Done');
+    }
     public function bookingStatus(String $id, String $status){
         $user = Auth::user();
         $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
