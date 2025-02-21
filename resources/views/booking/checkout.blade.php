@@ -7,7 +7,7 @@
         </h1>
     </div>
 </section>
-<form method="post" action="{{ route('student.booking.checkout.update') }}" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" role="form" id="payment-form" class="require-validation">
+<!-- <form method="post" action="{{ route('student.booking.checkout.update') }}" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" role="form" id="payment-form" class="require-validation">
     @csrf
     <input type='hidden' name='task' value="checkout"> 
     <input type='hidden' name='booking_id' value="{{$booking->_id}}"> 
@@ -170,7 +170,84 @@
         </div>
 
     </div>
-</form>
+</form> -->
+<form  role="form"  action="{{ route('student.booking.checkout.update') }}"  method="post"  class="require-validation common-form-z" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" id="payment-form">
+
+                        @csrf
+                        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div class='form-row row sm:col-span-3'>
+                            <div class='col-xs-12 form-group required '>
+                                <label class='control-label'>Amount</label> 
+                                <input class='form-control flex' type='text' name="amount">
+                            </div>
+                        </div>
+                        
+                        <div class='form-row row sm:col-span-3'>
+
+                            <div class='col-xs-12 form-group required '>
+
+                                <label class='control-label'>Name on Card</label> 
+                                <input class='form-control block' size='4' type='text' name="cardholderName">
+
+                            </div>
+
+                        </div>
+
+    
+
+                        <div class='form-row row sm:col-span-3'>
+                            <div class='col-xs-12 form-group card required'>
+                                <label class='control-label'>Card Number</label> 
+                                <input id="cardNumber" autocomplete='off' placeholder="XXXX XXXX XXXX XXXX" class='form-control card-number flex' maxlength="19"   name="cardNumber" type='text'>
+                            </div>
+                        </div>
+
+    
+
+                         
+                            <div class='sm:col-span-3'>
+                                <div class='col-xs-12 col-md-4 form-group cvc required'>
+    
+                                    <label class='control-label'>CVC</label> 
+                                    <input id="ccvNumber" autocomplete='off' class='form-control card-cvc flex' placeholder='ex. 311'  maxlength="3"  name="cvc" type='text'>
+    
+                                </div>
+                            </div>
+                            <div class='sm:col-span-3'>
+                                <div class='col-xs-12 col-md-4 form-group expiration required'>
+    
+                                    <label class='control-label'>Expiration Month</label> 
+                                    <input class='form-control card-expiry-month flex' placeholder='MM' size='2'  name="expMonth"
+    
+                                        type='text'>
+    
+                                </div>
+                            </div>
+                            <div class='sm:col-span-3'>
+                                <div class='col-xs-12 col-md-4 form-group expiration required'>
+    
+                                    <label class='control-label'>Expiration Year</label> 
+                                    <input class='form-control card-expiry-year flex' placeholder='YYYY' size='4'  name="expYear" type='text'>
+    
+                                </div>
+                            </div>
+                         
+
+                        <div class='form-row row col-span-full'>
+                            <div class='col-md-12 error form-group hidden alert alert-error'>
+                                <div class='alert-danger alert'>Please correct the errors and try again.</div>
+                            </div>
+                        </div>
+
+                        <div class="row  col-span-full">
+                            <div class="flex gap-x-6">
+                                <button class="mb-10 input-btn-red" type="submit">Pay Now </button>
+                            </div>
+                        </div>
+
+                            
+    </div>
+                    
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
 
