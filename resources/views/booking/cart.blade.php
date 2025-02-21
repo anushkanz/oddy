@@ -142,11 +142,9 @@
                 $("#seat_count").prop('max',selectedValue); 
                 $("#seat_count").val(1).prop("readonly", false);
 
-                let cost = total_calculation(selectedValue,seatCost);
+                let cost = total_calculation(1,seatCost);
                 $("#total_select").html(cost['printedCost']);
                 $("#booking_fee_select").html(cost['bookingFee']);
-
-
             }
         });
 
@@ -173,8 +171,8 @@
                 $("#booking_fee_select").html(cost['bookingFee']);
             }
         }); 
-
     });
+
     function total_calculation(seat_count,seat_cost){
         let feePercentage = parseFloat(0.963);
         let totalCost = parseFloat(seat_cost) * parseFloat(seat_count);
