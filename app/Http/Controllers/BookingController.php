@@ -113,12 +113,21 @@ class BookingController extends Controller
     public function checkout(String $id){
         $user = Auth::user();
         $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
-        return view('booking.checkout',compact('booking','user'));
+        $fee_percentage = 0.963; // Change this value to set the desired fee percentage
+        $seat_cost = $booking->classes->price * $booking->seat_count;
+        $payment_processing_fee =  (($seat_cost + 0.3)/0.963) - $seat_cost;
+        $charge = round($seat_cost+ $payment_processing_fee, 2);       
+        return view('booking.checkout',compact('booking','user','charge'));
     }
 
     public function updateCheckout(Request $request){
         $user = Auth::user();
         $booking =  Booking::where('_id', $request->booking_id)->where('user_id', $request->user_id)->firstOrFail();
+
+        $fee_percentage = 0.963; // Change this value to set the desired fee percentage
+        $seat_cost = $booking->classes->price * $booking->seat_count;
+        $payment_processing_fee =  (($seat_cost + 0.3)/0.963) - $seat_cost;
+        $charge = round($seat_cost+ $payment_processing_fee, 2);    
 
         $validator = Validator::make($request->all(), [
             'cardNumber' => 'required',
@@ -140,17 +149,11 @@ class BookingController extends Controller
         $stripe_key = Config::get('services.stripe');
         Stripe\Stripe::setApiKey($stripe_key['secret']);
 
-        
-
         //Transfering transaction fee to Student
-        $amount = $request->amount;
-        // $fee_percentage = 0.963; // Change this value to set the desired fee percentage
-        // $payment_processing_fee =  (($amount + 0.3)/0.963) - $amount;
-        // $charge = round($amount + $payment_processing_fee, 2);
 
         $booking_description = '#'.$booking->_id.' '.$booking->classes->title;
         $payment = Stripe\Charge::create ([
-            "amount" => $amount * 100,
+            "amount" => $charge * 100,
             "currency" => "nzd",
             "source" => $request->stripeToken,
             "description" => $booking_description, 
@@ -167,6 +170,14 @@ class BookingController extends Controller
             $payment_add->payment_method = "Stripe";
             $payment_add->save();
             $payment_id = $payment_add->id;
+
+            //Update booking
+            if($payment->statu == 'success'){
+                $booking->status = 1;
+            }
+            $booking->status = 0;
+            $booking->payment_id = $payment_id;
+            $booking->save();
 
             return redirect()->intended('booking/status/'.$id.'/success');   
         }

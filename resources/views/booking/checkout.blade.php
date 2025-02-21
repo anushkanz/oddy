@@ -94,13 +94,8 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                     @php 
-                                        $fee_percentage = 0.963; // Change this value to set the desired fee percentage
-                                        $payment_processing_fee =  (($booking->classes->price + 0.3)/0.963) - $booking->classes->price;
-                                        $charge = round($booking->classes->price + $payment_processing_fee, 2);         
-                                    @endphp
                                 <input type="text" autocomplete="on" name="amountShow" value="{{ $charge }}" class="input" required disabled>
-                                <input type="hidden" autocomplete="on" name="amount" value="{{ $charge }}" class="input" required>
+                                <input type="hidden" autocomplete="on" name="amount" value="{{ $charge }}" class="input">
                             </div>
                         </div>
                     </div>
