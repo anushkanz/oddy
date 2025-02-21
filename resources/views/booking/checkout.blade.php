@@ -115,7 +115,8 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input id="cardNumber" type="text" autocomplete="off" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" class="input card-number" maxlength="19" required>
+                                <input id="cardNumber" autocomplete="off" placeholder="XXXX XXXX XXXX XXXX" class="input card-number" maxlength="19" name="cardNumber" type="text">
+            
                             </div>
                             <p class="help">Required. XXXX XXXX XXXX XXXX</p>
                         </div>
