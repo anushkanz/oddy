@@ -178,7 +178,7 @@
         var stripe = Stripe("{{ config('services.stripe.key') }}"); // Your Stripe Publishable Key
         var elements = stripe.elements();
 
-        // Create Card Element
+        // Create a Card Element
         var card = elements.create("card", {
             hidePostalCode: true,
             style: {
@@ -186,18 +186,14 @@
                     fontSize: "16px",
                     color: "#32325d",
                     fontFamily: "Arial, sans-serif",
-                    "::placeholder": {
-                        color: "#aab7c4"
-                    }
+                    "::placeholder": { color: "#aab7c4" }
                 },
-                invalid: {
-                    color: "#fa755a"
-                }
+                invalid: { color: "#fa755a" }
             }
         });
 
-        // Mount Card Element
-        card.mount("#cardNumber");
+        // Mount the Card Element inside the div
+        card.mount("#card-element");
 
         var form = document.getElementById("payment-form");
         var submitButton = form.querySelector("button[type='submit']");
@@ -211,7 +207,7 @@
                 card: card,
                 billing_details: {
                     name: document.querySelector("input[name='cardholderName']").value,
-                    email: "{{ $user->email }}", // Pre-filled from Laravel
+                    email: "{{ $user->email }}",
                 }
             });
 
@@ -231,4 +227,5 @@
         });
     });
 </script>
+
 @endsection
