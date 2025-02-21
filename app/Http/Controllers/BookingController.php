@@ -180,7 +180,7 @@ class BookingController extends Controller
             $booking->payment_id = $payment_id;
             $booking->save();
 
-            return redirect()->intended('booking/status/'.$id.'/success');   
+            return redirect()->intended('booking/status/'.$booking->_id.'/success');   
         }
         
     }
