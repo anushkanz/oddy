@@ -139,7 +139,7 @@ class BookingController extends Controller
         ]);
         
         $input = $request->all();
-        dd($input);
+       
         if ($validator->fails()) {
             $error = $validator->errors()->all();
             //return redirect()->route('instructor.courses')->with('error','Unable to validate your data');
