@@ -55,7 +55,7 @@
                         <label class="label">Select your class date</label>
                             <div class="control">
                                 <select name="class_date_id" id="class_date_id" class="input" >
-                                <option data-seat="0" value="select_date">Select date</option>
+                                    <option data-seat="0" value="select_date">Select date</option>
                                     @php 
                                         foreach($course_dates as $dates) { 
                                             if($dates->max_capacity != 0){
@@ -152,10 +152,10 @@
         $("#seat_count").change(function() { 
             let selectedValue = $(this).val();  
             let max = $(this).attr('max');
-            if(parseInt(selectedValue) > parseInt(max)){
+            if(parseInt(selectedValue) > parseInt(max) || (parseInt(selectedValue) =< 0)){
                 Swal.fire({
                     title: "Seat count need to change",
-                    text: "We only have "+max+" seats, we are unable to book "+selectedValue+ " seats.",
+                    text: "We only have "+max+" seats, we are unable to book "+selectedValue+ " seats. Also seat count much me 1 or more",
                     icon: "error"
                 });
                 $("#seat_count").val(1);
