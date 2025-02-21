@@ -7,7 +7,7 @@
         </h1>
     </div>
 </section>
-<form method="POST" action="{{ route('student.booking.checkout.update') }}" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" role="form" class="require-validation">
+<form method="POST" action="{{ route('student.booking.checkout.update') }}" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" role="form" id="payment-form" class="require-validation">
     @csrf
     <input type='hidden' name='task' value="checkout"> 
     <input type='hidden' name='booking_id' value="{{$booking->_id}}"> 
@@ -115,7 +115,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input id="cardNumber" type="text" autocomplete="off" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" class="input" maxlength="19" required>
+                                <input id="cardNumber" type="text" autocomplete="off" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" class="input card-number" maxlength="19" required>
                             </div>
                             <p class="help">Required. XXXX XXXX XXXX XXXX</p>
                         </div>
@@ -126,7 +126,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input id="cvcNumber" type="text" autocomplete="off" name="cvc" placeholder="ex. 311" class="input" maxlength="3" required>
+                                <input id="ccvNumber" type="text" autocomplete="off" name="cvc" placeholder="ex. 311" class="input card-cvc" maxlength="3" required>
                             </div>
                             <p class="help">Required. ex. 311</p>
                         </div>
@@ -137,7 +137,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input type="text" autocomplete="off" name="expMonth" placeholder="MM" class="input" size='2' required>
+                                <input type="text" autocomplete="off" name="expMonth" placeholder="MM" class="input card-expiry-month" size='2' required>
                             </div>
                             <p class="help">Required.</p>
                         </div>
@@ -148,7 +148,7 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input type="text" autocomplete="off" name="expYear" placeholder="YYYY" class="input" size='4' required>
+                                <input type="text" autocomplete="off" name="expYear" placeholder="YYYY" class="input card-expiry-year" size='4' required>
                             </div>
                             <p class="help">Required.</p>
                         </div>
