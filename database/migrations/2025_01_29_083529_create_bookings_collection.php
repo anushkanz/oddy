@@ -30,6 +30,7 @@ return new class extends Migration
             // Booking details
             $collection->string('status');
             $collection->foreignId('class_date_id')->constrained('class_dates')->onDelete('cascade');
+            $collection->integer('seat_count');
             // Timestamps
             $collection->timestamps();
         });

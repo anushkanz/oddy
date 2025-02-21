@@ -155,7 +155,7 @@
             if(parseInt(selectedValue) > parseInt(max) || (parseInt(selectedValue) <= 0)){
                 Swal.fire({
                     title: "Seat count need to change",
-                    text: "We only have "+max+" seats, we are unable to book "+selectedValue+ " seats. Also seat count much me 1 or more",
+                    text: "We only have "+max+" seats, we are unable to book "+selectedValue+ " seats. Also seat count must be 1 or more",
                     icon: "error"
                 });
                 $("#seat_count").val(1);

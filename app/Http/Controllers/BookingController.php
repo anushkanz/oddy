@@ -53,6 +53,7 @@ class BookingController extends Controller
             'class_id'=> $id,
             'payment_id' => '',
             'status'=> 0,
+            'seat_count'=> 1,
             'class_date_id'  => '',
         ]);
 
@@ -72,6 +73,7 @@ class BookingController extends Controller
         $booking_id = $request->booking_id;
         $user_id = $request->user_id;
         $class_date_id = $request->class_date_id;
+        $seat_count = $request->seat_count;
 
         $request->validate([
             'class_date_id' => 'required',
@@ -94,6 +96,7 @@ class BookingController extends Controller
         
         if(!empty($booking) && ($booking->status == 0)){
             $booking-> class_date_id = $class_date_id;
+            $booking-> seat_count = $seat_count;
             $booking->update();
         }
 
