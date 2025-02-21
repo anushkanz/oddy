@@ -173,8 +173,10 @@ class BookingController extends Controller
             //Update booking
             if($paymentIntent->status == 'succeeded'){
                 $booking->status = 1;
+            }else{
+                $booking->status = 0;
             }
-            $booking->status = 0;
+ 
             $booking->payment_id = $payment_id;
             $booking->save();
 
