@@ -142,17 +142,26 @@ class BookingController extends Controller
         }
         
         $stripe_key = Config::get('services.stripe');
-        Stripe\Stripe::setApiKey($stripe_key['secret']);
-
+        //Stripe\Stripe::setApiKey($stripe_key['secret']);
+        Stripe::setApiKey($stripe_key['secret']); 
         //Transfering transaction fee to Student
 
-        $booking_description = '#'.$booking->_id.' '.$booking->classes->title;
-        $payment = Stripe\Charge::create ([
-            "amount" => $charge * 100,
-            "currency" => "nzd",
-            "source" => $request->payment_method_id, //Stripe ID
-            "description" => $booking_description, 
+        $booking_description = 'Payment for Booking ID #'.$booking->_id.' '.$booking->classes->title;
+        $paymentIntent = PaymentIntent::create([
+            'amount' => intval($charge * 100), // Convert to cents
+            'currency' => 'nzd',
+            'payment_method' => $request->payment_method_id,
+            'confirmation_method' => 'manual', // Allow later confirmation
+            'confirm' => true, // Automatically confirm
+            'description' => $booking_description,
         ]);
+
+        // $payment = Stripe\Charge::create ([
+        //     "amount" => $charge * 100,
+        //     "currency" => "nzd",
+        //     "source" => $request->payment_method_id, //Stripe ID
+        //     "description" => $booking_description, 
+        // ]);
 
         //If payment get result then base on return save and send message
         if($payment->id){
@@ -161,7 +170,7 @@ class BookingController extends Controller
             $payment_add->transaction_id = $payment->id;
             $payment_add->status = $payment->status;
             $payment_add->amount = $amount;
-            $payment_add->transaction_return = json_encode($payment);
+            $payment_add->transaction_return = json_encode($paymentIntent);
             $payment_add->payment_method = "Stripe";
             $payment_add->save();
             $payment_id = $payment_add->id;
