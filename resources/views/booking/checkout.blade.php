@@ -123,39 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="field">
-                <label class="label">CVC</label>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input id="ccvNumber" type="text" autocomplete="off" name="cvc" placeholder="ex. 311" class="input card-cvc" maxlength="3" required>
-                            </div>
-                            <p class="help">Required. ex. 311</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                <label class="label">Expiration Month</label>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" autocomplete="off" name="expMonth" placeholder="MM" class="input card-expiry-month" size='2' required>
-                            </div>
-                            <p class="help">Required.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                <label class="label">Expiration Year</label>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" autocomplete="off" name="expYear" placeholder="YYYY" class="input card-expiry-year" size='4' required>
-                            </div>
-                            <p class="help">Required.</p>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="field error hidden alert alert-error">
                     <div class="label alert-danger alert">Please correct the errors and try again.</div>
                 </div>

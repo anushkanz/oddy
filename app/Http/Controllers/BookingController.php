@@ -130,12 +130,7 @@ class BookingController extends Controller
         $charge = round($seat_cost+ $payment_processing_fee, 2);    
 
         $validator = Validator::make($request->all(), [
-            'cardNumber' => 'required',
             'cardholderName' => 'required',
-            'expMonth' => 'required',
-            'expYear' => 'required',
-            'cvc' => 'required',
-            'amount' => 'required',
         ]);
         
         $input = $request->all();
