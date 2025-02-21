@@ -21,7 +21,8 @@ use Mail;
 use Validator;
 use Hash;
 use Session;
-use Stripe;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
 use Config;
 
 class BookingController extends Controller
