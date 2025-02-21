@@ -158,6 +158,7 @@ class BookingController extends Controller
             'return_url' => route('student.booking.payment.success'),
         ]);
 
+        dd($paymentIntent);
         // $payment = Stripe\Charge::create ([
         //     "amount" => $charge * 100,
         //     "currency" => "nzd",
