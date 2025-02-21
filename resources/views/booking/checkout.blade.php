@@ -173,124 +173,62 @@
     </div>
 </form>
 <script src="https://js.stripe.com/v3/"></script>
-<script type="text/javascript">
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var stripe = Stripe("{{ config('services.stripe.key') }}"); // Your Stripe Publishable Key
+        var elements = stripe.elements();
 
-$(function() {
-    var  key = @php echo config('services.stripe.key')  @endphp
-    var stripe = Stripe(key);
-    var elements = stripe.elements();
-    var card = elements.create("card");
-    card.mount("#cardNumber");
-
-    document.getElementById("payment-form").addEventListener("submit", async function (event) {
-        event.preventDefault();
-        const { paymentMethod, error } = await stripe.createPaymentMethod({
-            type: "card",
-            card: card,
+        // Create Card Element
+        var card = elements.create("card", {
+            hidePostalCode: true,
+            style: {
+                base: {
+                    fontSize: "16px",
+                    color: "#32325d",
+                    fontFamily: "Arial, sans-serif",
+                    "::placeholder": {
+                        color: "#aab7c4"
+                    }
+                },
+                invalid: {
+                    color: "#fa755a"
+                }
+            }
         });
 
-        if (error) {
-            console.error(error);
-        } else {
-            document.getElementById("payment-method-id").value = paymentMethod.id;
-            document.getElementById("payment-form").submit();
-        }
-    });    /*------------------------------------------
-    --------------------------------------------
-    Form Format
-    --------------------------------------------
-    --------------------------------------------*/
-    // Handle Card Number update
-    const inputCardNumber = document.getElementById("cardNumber");
-    inputCardNumber.addEventListener("input", (event) => {
-      //   Remove all non-numeric characters from the input
-      const input = event.target.value.replace(/\D/g, "");
-    
-      // Add a space after every 4 digits
-      let formattedInput = "";
-      for (let i = 0; i < input.length; i++) {
-        if (i % 4 === 0 && i > 0) {
-          formattedInput += " ";
-        }
-        formattedInput += input[i];
-      }
-    
-      inputCardNumber.value = formattedInput;
-      imageCardNumber.innerHTML = formattedInput;
+        // Mount Card Element
+        card.mount("#cardNumber");
+
+        var form = document.getElementById("payment-form");
+        var submitButton = form.querySelector("button[type='submit']");
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            submitButton.disabled = true; // Prevent multiple submissions
+
+            const { paymentMethod, error } = await stripe.createPaymentMethod({
+                type: "card",
+                card: card,
+                billing_details: {
+                    name: document.querySelector("input[name='cardholderName']").value,
+                    email: "{{ $user->email }}", // Pre-filled from Laravel
+                }
+            });
+
+            if (error) {
+                alert(error.message);
+                submitButton.disabled = false; // Re-enable button on error
+            } else {
+                // Append payment method ID to the form and submit
+                var hiddenInput = document.createElement("input");
+                hiddenInput.setAttribute("type", "hidden");
+                hiddenInput.setAttribute("name", "payment_method_id");
+                hiddenInput.setAttribute("value", paymentMethod.id);
+                form.appendChild(hiddenInput);
+
+                form.submit();
+            }
+        });
     });
-    
-    // Handle CCV update
-    const inputCCVNumber = document.getElementById("ccvNumber");
-    
-    inputCCVNumber.addEventListener("input", (event) => {
-      // Remove all non-numeric characters from the input
-      const input = event.target.value.replace(/\D/g, "");
-      inputCCVNumber.value = input;
-      //imageCCVNumber.innerHTML = input;
-    });
-
-    /*------------------------------------------
-    --------------------------------------------
-    Stripe Payment Code
-    --------------------------------------------
-    --------------------------------------------*/
-
-    // var $form = $(".require-validation");
-    // $('form.require-validation').bind('submit', function(e) {
-    //     var $form = $(".require-validation"),
-    //     inputSelector = ['input[type=email]', 'input[type=password]','input[type=text]', 'input[type=file]','textarea'].join(', '),
-
-    //     $inputs = $form.find('.required').find(inputSelector),
-    //     $errorMessage = $form.find('div.error'),
-    //     valid = true;
-    //     $errorMessage.addClass('hidden');
-
-    //     $('.has-error').removeClass('has-error');
-    //     $inputs.each(function(i, el) {
-    //         var $input = $(el);
-    //         if ($input.val() === '') {
-    //             $input.parent().addClass('has-error');
-    //             $errorMessage.removeClass('hidden');
-    //             e.preventDefault();
-    //         }
-    //     });
-     
-    //     if (!$form.data('cc-on-file')) {
-    //         e.preventDefault();
-    //         Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-    //         Stripe.createToken({
-    //             number: $('.card-number').val(),
-    //             cvc: $('.card-cvc').val(),
-    //             exp_month: $('.card-expiry-month').val(),
-    //             exp_year: $('.card-expiry-year').val()
-    //         }, stripeResponseHandler);
-    //     }
-    // });
-
-    /*------------------------------------------
-    --------------------------------------------
-    Stripe Response Handler
-    --------------------------------------------
-    --------------------------------------------*/
-    // function stripeResponseHandler(status, response) {
-    //     if (response.error) {
-    //         $('.error')
-    //             .removeClass('hidden')
-    //             .find('.alert')
-    //             .text(response.error.message);
-    //     } else {
-    //         /* token contains id, last4, and card type */
-    //         var token = response['id'];
-    //         $form.find('input[type=text]').empty();
-    //         $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-    //         $form.get(0).submit();
-    //     }
-    // }
-    
- 
-});
-
-
-
 </script>
 @endsection

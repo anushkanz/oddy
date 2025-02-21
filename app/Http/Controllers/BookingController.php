@@ -155,7 +155,7 @@ class BookingController extends Controller
         $payment = Stripe\Charge::create ([
             "amount" => $charge * 100,
             "currency" => "nzd",
-            "source" => $request->stripeToken,
+            "source" => $request->payment_method_id, //Stripe ID
             "description" => $booking_description, 
         ]);
 
