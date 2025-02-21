@@ -16,6 +16,7 @@ class Booking extends Model
         'payment_id',
         'status',
         'class_date_id',
+        'seat_count'
     ];
 
     // Timestamps
