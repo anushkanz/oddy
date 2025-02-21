@@ -167,19 +167,19 @@ class BookingController extends Controller
         // ]);
 
         //If payment get result then base on return save and send message
-        if($payment->id){
+        if($paymentIntent->id){
             $payment_add = new Payment();
             $payment_add->booking_id = $booking->_id;
-            $payment_add->transaction_id = $payment->id;
-            $payment_add->status = $payment->status;
-            $payment_add->amount = $amount;
+            $payment_add->transaction_id = $paymentIntent->id;
+            $payment_add->status = $paymentIntent->status;
+            $payment_add->amount = $charge;
             $payment_add->transaction_return = json_encode($paymentIntent);
             $payment_add->payment_method = "Stripe";
             $payment_add->save();
             $payment_id = $payment_add->id;
 
             //Update booking
-            if($payment->statu == 'success'){
+            if($payment->statu == 'succeeded'){
                 $booking->status = 1;
             }
             $booking->status = 0;
