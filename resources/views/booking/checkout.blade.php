@@ -7,7 +7,7 @@
         </h1>
     </div>
 </section>
-<form method="POST" action="{{ route('student.booking.checkout.update') }}" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" role="form" id="payment-form" class="require-validation">
+<form method="post" action="{{ route('student.booking.checkout.update') }}" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" role="form" id="payment-form" class="require-validation">
     @csrf
     <input type='hidden' name='task' value="checkout"> 
     <input type='hidden' name='booking_id' value="{{$booking->_id}}"> 
@@ -155,8 +155,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="field error">
-                    <div class="label">Please correct the errors and try again.</div>
+                <div class="field error hidden alert alert-error">
+                    <div class="label alert-danger alert">Please correct the errors and try again.</div>
                 </div>
                 <hr>
                 <div class="field">
