@@ -33,13 +33,15 @@
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
-                      <select name="rating">
-                            <option value="1">1 <i class="fa-solid fa-star"></i></option>
-                            <option value="2">2 <i class="fa-solid fa-star"></i></option>
-                            <option value="3">3 <i class="fa-solid fa-star"></i></option>
-                            <option value="4">4 <i class="fa-solid fa-star"></i></option>
-                            <option value="5">5 <i class="fa-solid fa-star"></i></option>
-                      </select>
+                        <div class="select">
+                            <select name="rating">
+                                <option value="1">1 <i class="fa-solid fa-star"></i></option>
+                                <option value="2">2 <i class="fa-solid fa-star"></i></option>
+                                <option value="3">3 <i class="fa-solid fa-star"></i></option>
+                                <option value="4">4 <i class="fa-solid fa-star"></i></option>
+                                <option value="5">5 <i class="fa-solid fa-star"></i></option>
+                            </select>
+                        </div>
                     </div>
                     <p class="help">Required. Rating</p>
                   </div>
@@ -51,7 +53,7 @@
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
-                        <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+                        <textarea id="comment" placeholder="Tel us about your experience" class="textarea" name="comment" rows="4" cols="50"></textarea>
                     </div>
                     <p class="help">Required. Comment</p>
                   </div>
