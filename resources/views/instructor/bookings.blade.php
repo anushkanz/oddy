@@ -39,9 +39,17 @@
               <td class="image-cell"></td>
               <td data-label="Name" class="--name">{{ isset($item->user->name) ? $item->user->name : '' }}</td>
               <td data-label="Title" class="--title">{{ isset($item->classes->title) ? $item->classes->title : '' }}</td>
-              <td data-label="Category" class="--category">{{ isset($item->payment->_id) ? $item->payment->_id : '' }}</td>
-              <td data-label="Status" class="--status">{{ isset($item->status) ? $item->status : '' }}</td>
-              <td data-label="date" class="--date">{{ isset($item->booking_date) ? $item->booking_date : '' }}</td>
+              <td data-label="Payment" class="--category">{{ isset($item->payment->_id) ? $item->payment->_id : '' }}</td>
+              <td data-label="Status" class="--status">
+                @php 
+                  if($booking->status == 1){
+                      echo 'Successfull booked';
+                  }else{
+                      echo 'Unsuccessfull';
+                  }
+                @endphp
+              </td>
+              <td data-label="date" class="--date">{{ isset($item->created_at) ? $item->created_at : '' }}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <a href="{{ route('student.booking.payment.pdf',$item->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
