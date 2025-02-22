@@ -23,7 +23,6 @@
             <th></th>
             <th>Name</th>
             <th>Course</th>
-            <th>Payment Id</th>
             <th>Status</th>
             <th>Class Date</th>
             <th>Seat Count</th>
@@ -41,7 +40,6 @@
               <td class="image-cell"></td>
               <td data-label="Name" class="--name">{{ isset($item->user->name) ? $item->user->name : '' }}</td>
               <td data-label="Title" class="--title">{{ isset($item->classes->title) ? $item->classes->title : '' }}</td>
-              <td data-label="Payment" class="--category">{{ isset($item->payment->_id) ? $item->payment->_id : '' }}</td>
               <td data-label="Status" class="--status">
                 @php 
                   if($item->status == 1){
