@@ -124,5 +124,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('booking/status/{id}/{status}', [BookingController::class, 'bookingStatus'])->name('student.booking.status'); //$id is booking_id
     Route::get('booking/payment/success', [BookingController::class, 'paymentStatus'])->name('student.booking.payment.success'); //This is for payment return only not using
 
+    Route::get('booking/payment/generate-pdf/{id}', [BookingController::class, 'generatePDF'])->name('student.booking.payment.pdf'); 
 
 });

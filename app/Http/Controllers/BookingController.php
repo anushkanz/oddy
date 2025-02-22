@@ -24,6 +24,7 @@ use Session;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use Config;
+use PDF;
 
 class BookingController extends Controller
 {
@@ -198,5 +199,21 @@ class BookingController extends Controller
         }
 
         return view('booking.status',compact('booking','user','status','payment'));
+    }
+
+    public function generatePDF(String $id){
+        $user = Auth::user();
+        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
+        $payment = '';
+
+        if($booking->status){
+            $payment = Payment::where('booking_id', $id)->firstOrFail();
+        }
+
+        $data = ['booking' => $booking,'user'=>$user,'payment'=>$payment];
+        $pdf = PDF::loadView('booking.pdf', $data);
+        $file = $booking->_id.'.pdf';
+        return $pdf->download($file);
+
     }
 }

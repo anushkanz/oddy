@@ -120,8 +120,7 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <p>All infromation we have emailed to {{$user->email}}, If you  have any problem with this, please contact our support service with your booking id #{{$booking->_id}}.</p>
-                            <p><i class="fa-solid fa-download"></i><a href="{{ route('student.booking.payment.pdf',$booking->_id) }}">Download Report</a></p>
+                            All infromation we have emailed to {{$user->email}}, If you  have any problem with this, please contact our support service with your booking id #{{$booking->_id}}.
                         </div>
                     </div>
                 </div>
