@@ -58,7 +58,11 @@
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
-                        <textarea id="comment" placeholder="Tel us about your experience" class="textarea" name="comment" rows="4" cols="50"></textarea>
+                        <textarea id="comment" placeholder="Tel us about your experience" class="textarea" name="comment" rows="4" cols="50">
+                            @php if(!empty($review->comment)){ @endphp
+                                {{$review->comment}}
+                            @php } @endphp
+                        </textarea>
                     </div>
                     <p class="help">Required. Comment</p>
                   </div>
