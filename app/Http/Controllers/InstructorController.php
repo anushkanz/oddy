@@ -457,7 +457,7 @@ class InstructorController extends Controller
                 );
                 if ($validator->fails()) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('instructor.account')->with('error','Unable to validate your data');
+                    return redirect()->route('instructor.account')->with('error-account','Unable to validate your data');
                 }
                 $files = '';
                 if($request->hasFile('file_upload')){
@@ -475,7 +475,7 @@ class InstructorController extends Controller
                     $currentUser->phone = $request->phone;
                     $currentUser->photo_gallery = $files;
                     $currentUser->save();
-                    return redirect()->route('instructor.account')->with('success','Account updated successfully');
+                    return redirect()->route('instructor.account')->with('success-account','Account updated successfully');
                 }
             }elseif($request->task == 'password'){
                 $inputs = [
