@@ -183,7 +183,7 @@ class BookingController extends Controller
             return redirect()->intended('booking/status/'.$booking->_id.'/success');   
         }
     }
-    
+
     public function paymentStatus(){
         dd('Payment Done');
     }
@@ -194,7 +194,7 @@ class BookingController extends Controller
         $payment = '';
 
         if($booking->status){
-            $payment = Payment::where('_id', $booking->_id)->firstOrFail();
+            $payment = Payment::where('booking_id', $id)->firstOrFail();
         }
 
         return view('booking.status',compact('booking','user','status','payment'));
