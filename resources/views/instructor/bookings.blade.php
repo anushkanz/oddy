@@ -33,18 +33,18 @@
           @php
           if(!empty($bookings)){
             foreach($bookings as $key => $booking){
-              dd($booking);
+              foreach($booking  as $item){
           @endphp
             <tr>
               <td class="image-cell"></td>
-              <td data-label="Name" class="--name">{{ isset($booking->user->name) ? $booking->user->name : '' }}</td>
-              <td data-label="Title" class="--title">{{ isset($booking->classes->title) ? $booking->classes->title : '' }}</td>
-              <td data-label="Category" class="--category">{{ isset($booking->payment->_id) ? $booking->payment->_id : '' }}</td>
-              <td data-label="Status" class="--status">{{ isset($booking->status) ? $booking->status : '' }}</td>
-              <td data-label="date" class="--date">{{ isset($booking->booking_date) ? $booking->booking_date : '' }}</td>
+              <td data-label="Name" class="--name">{{ isset($item->user->name) ? $item->user->name : '' }}</td>
+              <td data-label="Title" class="--title">{{ isset($item->classes->title) ? $item->classes->title : '' }}</td>
+              <td data-label="Category" class="--category">{{ isset($item->payment->_id) ? $item->payment->_id : '' }}</td>
+              <td data-label="Status" class="--status">{{ isset($item->status) ? $item->status : '' }}</td>
+              <td data-label="date" class="--date">{{ isset($item->booking_date) ? $item->booking_date : '' }}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{ route('student.booking.payment.pdf',$booking->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                  <a href="{{ route('student.booking.payment.pdf',$item->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
                     <span class="icon">
                       <i class="fa-solid fa-download"></i>
                     </span>
@@ -53,7 +53,7 @@
               </td>
             </tr>
           @php
-            }}
+            }}}
           @endphp
           </tbody>
         </table>
