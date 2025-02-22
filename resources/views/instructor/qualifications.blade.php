@@ -8,7 +8,6 @@
     <h1 class="title">
       Qualifications
     </h1>
-    <button class="button light">Button</button>
   </div>
 </section>
 
