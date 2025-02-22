@@ -94,7 +94,6 @@ class StudentController extends Controller
                 $user = Auth::user();
                 $booking = Booking::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
                 return view('student.review', compact('booking','user'));
-
             } catch(\Exception $exception) {
                 return redirect()->route('student.error')->with('error-page','Unable to find your request');
             }    
@@ -110,12 +109,10 @@ class StudentController extends Controller
         if(Auth::check()){
             $user = Auth::user();
                 $validator = Validator::make($request->all(), [
-                    'class_id' => 'required',
                     'rating'  => 'required',
                     'comment'=>'required'
                   ],
                   [
-                    'class_id.required' => 'Your class is Required', 
                     'rating.required' => 'Your rating is Required', 
                     'comment.required'=> 'Your comment is Required', 
                   ]
@@ -128,12 +125,12 @@ class StudentController extends Controller
                 if($request->task == 'update'){
                     $review = Review::find($request->id);
                     //Get receiver_id id from course
-                    $course = Classes::find($request->class_id);
+                    $course = Classes::find($request->course);
                     if($review)
                     {
-                        $review->receiver_id = $course->_id;
+                        $review->receiver_id = $request->receiver_id;
                         $review->reviewer_id = $user->_id;
-                        $review->class_id = $request->class_id;
+                        $review->class_id = $request->course;
                         $review->rating = $request->rating;
                         $review->comment = $request->comment;
                         $review->save();
@@ -141,9 +138,9 @@ class StudentController extends Controller
                     }
                 }else{
                     Review::create([
-                        'receiver_id' => $course->_id,
+                        'receiver_id' => $request->receiver_id,
                         'reviewer_id' => $user->_id,
-                        'class_id' => $request->class_id,
+                        'class_id' => $request->course,
                         'rating' => $request->rating,
                         'comment' => $request->comment
                     ]);
