@@ -95,7 +95,7 @@
                 </div>
             </div>
             <div class="field">
-            <label class="label">Payment Status/label>
+            <label class="label">Payment Status</label>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
