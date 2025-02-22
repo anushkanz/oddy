@@ -134,9 +134,10 @@ class AdministratorController extends Controller
     public function course(string $id)
     {
       if(Auth::check()){
-        $course = Classes::find($id);
+        $course = Classes::where('_id',$id)->firstOrFail();
         $user = Auth::user();
-        return view('administrator.course', compact('course','user'));
+        $classdates = ClassDate::where('class_id',$id)->get(); 
+        return view('administrator.course', compact('course','user','classdates'));
       }
     }
 
