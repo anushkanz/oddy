@@ -80,7 +80,7 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-            $review = Review::find($id);
+            $review = Review::where('_id', $id)->where('reviewer_id', $user->_id)->firstOrFail();
             $booking = Booking::where('user_id', $user->_id)->where('class_id', $review->class_id)->firstOrFail();
             return view('student.review', compact('review','user','booking'));
         }
