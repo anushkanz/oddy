@@ -33,7 +33,12 @@ class StudentController extends Controller
             $user = Auth::user();
             $bookings = Booking::where('user_id',$user->_id)->where('status',1)->get();
             $reviews = Review::where('reviewer_id',$user->_id)->get();
-            return view('student.dashboard',compact('user','bookings','reviews'));
+            $payments = '';
+            foreach($bookings as $booking){
+                $payment = Payment::where('booking_id',$booking->_id)->firstOrFail();
+                $payments += $payment->amount;
+            }
+            return view('student.dashboard',compact('user','bookings','reviews','payments'));
         }
     }
 
