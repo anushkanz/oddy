@@ -330,6 +330,10 @@ class InstructorController extends Controller
                         $bookings[$course->_id] = $booking;
                     }
                 }
+
+                foreach($bookings as $key => $booking){
+                    print_r($booking->user->name);
+                }
             }
             return view('instructor.bookings', compact('bookings','user')); 
         }
