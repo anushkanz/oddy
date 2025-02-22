@@ -33,6 +33,7 @@
           @php
           if(!empty($bookings)){
             foreach($bookings as $key => $booking){
+              dd($booking);
           @endphp
             <tr>
               <td class="image-cell"></td>
