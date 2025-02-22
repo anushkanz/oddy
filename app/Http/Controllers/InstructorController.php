@@ -761,4 +761,8 @@ class InstructorController extends Controller
             return redirect()->route('instructor.qualifications')->with('success-qualifications','Created new qualification.');
         }
     }
+
+    public function error(){
+        return view('error.error'); 
+    }
 }

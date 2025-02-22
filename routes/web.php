@@ -97,6 +97,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('instructor/qualification/ajaxqualification', [InstructorController::class, 'ajaxQualificationDelete'])->name('instructor.qualificationdelete.ajax');
     Route::post('instructor/qualification', [InstructorController::class, 'updateQualification'])->name('instructor.qualification.update');
 
+    Route::get('instructor/error', [InstructorController::class, 'error'])->name('instructor.error');
     /**
      * Studuent
      **/
@@ -115,6 +116,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('student/account/', [StudentController::class, 'account'])->name('student.account'); 
     Route::post('student/account', [StudentController::class, 'updateAccount'])->name('student.account.update');
 
+    Route::get('student/error', [StudentController::class, 'error'])->name('student.error');
     
     
     Route::get('booking/addtocart/{id}', [BookingController::class, 'booking'])->name('student.booking.start'); //$id is product_id

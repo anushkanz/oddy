@@ -95,7 +95,7 @@ class StudentController extends Controller
                 $booking = Booking::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
                 return view('student.review', compact('review','user'));
             } catch(\Exception $exception) {
-                return redirect()->route('error.error')->with('error-page','Unable to find your request');
+                return redirect()->route('student.error')->with('error-page','Unable to find your request');
             }    
         }
     }
@@ -285,6 +285,10 @@ class StudentController extends Controller
         }
 
         return json_encode($arr);
+    }
+
+    public function error(){
+        return view('error.error'); 
     }
 }
  
