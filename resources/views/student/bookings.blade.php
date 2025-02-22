@@ -51,7 +51,7 @@
               <td data-label="date" class="--date">{{$booking->created_at}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{ route('student.booking.payment.pdf',$booking->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                  <a href="{{ route('student.review.create',$booking->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
                     <span class="icon">
                       <i class="fa-solid fa-comment"></i>
                     </span>
