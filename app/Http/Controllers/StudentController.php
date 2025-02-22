@@ -42,10 +42,8 @@ class StudentController extends Controller
     {
         if(Auth::check()){
             $user = Auth::user();
-    
             $bookings =  Booking::where('user_id', $user->_id)->get();
             return view('student.bookings',compact('bookings','user'));
-            
         } 
     }
 
@@ -93,7 +91,13 @@ class StudentController extends Controller
             try {
                 $user = Auth::user();
                 $booking = Booking::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
-                return view('student.review', compact('booking','user'));
+                $review = Review::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
+                if(!empty($review)){
+                    return redirect()->route('student.review',$booking_id);
+                }else{
+                    return view('student.review.create', compact('booking','user'));
+                }
+                
             } catch(\Exception $exception) {
                 return redirect()->route('student.error')->with('error-page','Unable to find your request');
             }    

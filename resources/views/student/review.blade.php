@@ -29,7 +29,7 @@
             <input type='hidden' name='receiver_id' value="{{$booking->classes->instructor->_id}}"> 
               @csrf
               <div class="field">
-                <label class="label">Name</label>
+                <label class="label">Rating</label>
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
