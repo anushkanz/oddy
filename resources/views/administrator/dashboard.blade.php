@@ -8,7 +8,6 @@
     <h1 class="title">
       Dashboard
     </h1>
-    <button class="button light">Button</button>
   </div>
 </section>
 <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
@@ -17,10 +16,10 @@
           <div class="flex items-center justify-between">
             <div class="widget-label">
               <h3>
-                Clients
+                Total Course
               </h3>
               <h1>
-                512
+              {{count($classes)}}
               </h1>
             </div>
             <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
@@ -32,10 +31,10 @@
           <div class="flex items-center justify-between">
             <div class="widget-label">
               <h3>
-                Sales
+                Total Bookings
               </h3>
               <h1>
-                $7,770
+                {{count($bookings)}}
               </h1>
             </div>
             <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
@@ -48,10 +47,10 @@
           <div class="flex items-center justify-between">
             <div class="widget-label">
               <h3>
-                Performance
+                Total Revenue
               </h3>
               <h1>
-                256%
+              {{$payments}}
               </h1>
             </div>
             <span class="icon widget-icon text-red-500"><i class="mdi mdi-finance mdi-48px"></i></span>

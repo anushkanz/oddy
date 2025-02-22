@@ -28,10 +28,20 @@ class AdministratorController extends Controller
      */
     public function dashboard()
     {
-      if(Auth::check()){
+      try {
         $user = Auth::user();
-        return view('administrator.dashboard',compact('user'));
-      }
+        $bookings = Booking::all();
+        $classes = Classes::all();
+
+        $payments = 0;
+        foreach($bookings as $booking){
+            $payment = Payment::where('booking_id',$booking->_id)->firstOrFail();
+            $payments += $payment->amount;
+        }
+        return view('administrator.dashboard',compact('user','classes','bookings','payments'));
+    } catch(\Exception $exception) {
+        return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+    }  
     }
 
     /**
