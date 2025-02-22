@@ -17,7 +17,7 @@
         <header class="card-header">
           <p class="card-header-title">
             <span class="icon"><i class="fa-regular fa-user"></i></span>
-            Create Review for {{$review->classes->title}} by {{$booking->classes->instructor->name}}.
+            Create Review for {{$review->classes->title}} by {{$review->classes->instructor->name}}.
           </p>
         </header>
         <div class="card-content">
