@@ -427,8 +427,7 @@ class InstructorController extends Controller
         try {
             $user = Auth::user();
             $review = Review::where('_id', $id)->where('receiver_id', $user->_id)->firstOrFail();
-            $booking = Booking::where('user_id', $user->_id)->where('class_id', $review->class_id)->firstOrFail();
-            return view('instructor.review', compact('review','user','booking'));
+            return view('instructor.review', compact('review','user'));
         } catch(\Exception $exception) {
             return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
         }
