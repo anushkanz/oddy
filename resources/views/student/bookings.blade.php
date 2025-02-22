@@ -23,7 +23,7 @@
             <th></th>
             <th>Name</th>
             <th>Course</th>
-            <th>Payment Id</th>
+            <th>Seats</th>
             <th>Status</th>
             <th>Date</th>
             <th></th>
@@ -37,7 +37,7 @@
               <td class="image-cell"></td>
               <td data-label="Name" class="--name">{{$booking->user->name}}</td>
               <td data-label="Title" class="--title">{{$booking->classes->title}}</td>
-              <td data-label="Category" class="--Seats">{{$booking->seat_count}}</td>
+              <td data-label="Seats" class="--seats">{{$booking->seat_count}}</td>
               <td data-label="Status" class="--status">
                 @php 
                   if($booking->status == 1){
@@ -50,8 +50,10 @@
               <td data-label="date" class="--date">{{$booking->created_at}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{ route('student.booking',[$booking->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-                    <span class="icon"><i class="fa-regular fa-eye"></i></span>
+                  <a href="{{ route('student.booking.payment.pdf',$booking->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                    <span class="icon">
+                      <i class="fa-solid fa-download"></i>
+                    </span>
                   </a>
                 </div>
               </td>
