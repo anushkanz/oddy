@@ -31,8 +31,12 @@ class InstructorController extends Controller
         if(Auth::check()){
             try {
                 $user = Auth::user();
-                $bookings = Booking::where('user_id',$user->_id)->where('status',1)->get();
                 $courses = Classes::where('instructor_id',$user->_id)->get();
+                $coursesId = array();
+                foreach($courses as $course){
+                    $coursesId[] = $course->_id;
+                }
+                $bookings = Booking::whereIn('class_id',$coursesId)->where('status',1)->get();
                 $payments = 0;
                 foreach($bookings as $booking){
                     if($booking->classes->instructor_id == $user->_i){
