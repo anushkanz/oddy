@@ -93,7 +93,8 @@ class StudentController extends Controller
             try {
                 $user = Auth::user();
                 $booking = Booking::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
-                return view('student.review', compact('review','user'));
+                return view('student.review', compact('booking','user'));
+
             } catch(\Exception $exception) {
                 return redirect()->route('student.error')->with('error-page','Unable to find your request');
             }    
