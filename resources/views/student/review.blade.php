@@ -22,32 +22,31 @@
         </header>
         <div class="card-content">
           <form method="POST" action="{{ route('student.review.update') }}">
-            {{request();}}
             <input type='hidden' name='task' value="create"> 
             <input type='hidden' name='id' value="{{$user->_id}}"> 
             <input type='hidden' name='booking' value="{{$booking->_id}}"> 
             <input type='hidden' name='course' value="{{$booking->classes->_id}}"> 
             <input type='hidden' name='receiver_id' value="{{$booking->classes->instructor->_id}}"> 
               @csrf
-              <div class="field">
-                <label class="label">Rating</label>
-                <div class="field-body">
-                  <div class="field">
-                    <div class="control">
-                        <div class="select">
-                            <select name="rating">
-                                <option value="1">1 <i class="fa-solid fa-star"></i></option>
-                                <option value="2">2 <i class="fa-solid fa-star"></i></option>
-                                <option value="3">3 <i class="fa-solid fa-star"></i></option>
-                                <option value="4">4 <i class="fa-solid fa-star"></i></option>
-                                <option value="5">5 <i class="fa-solid fa-star"></i></option>
-                            </select>
+                <div class="field">
+                    <label class="label">Rating</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <div class="select">
+                                    <select name="rating">
+                                        <option value="1">1 <i class="fa-solid fa-star"></i></option>
+                                        <option value="2">2 <i class="fa-solid fa-star"></i></option>
+                                        <option value="3">3 <i class="fa-solid fa-star"></i></option>
+                                        <option value="4">4 <i class="fa-solid fa-star"></i></option>
+                                        <option value="5">5 <i class="fa-solid fa-star"></i></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="help">Required. Rating</p>
                         </div>
                     </div>
-                    <p class="help">Required. Rating</p>
-                  </div>
                 </div>
-              </div>
              
               <div class="field">
                 <label class="label">Comment</label>

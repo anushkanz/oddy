@@ -82,13 +82,15 @@ class StudentController extends Controller
             $user = Auth::user();
             $review = Review::where('_id', $id)->where('reviewer_id', $user->_id)->firstOrFail();
             $booking = Booking::where('user_id', $user->_id)->where('class_id', $review->class_id)->firstOrFail();
-            return view('student.review', compact('review','user','booking'));
+            $edit = true;
+            return view('student.review', compact('review','user','booking','edit'));
         }
     }
 
     public function reviewCreate(string $booking_id)
     {
         if(Auth::check()){
+            $edit = false;
             try {
                 $user = Auth::user();
                 $booking = Booking::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
@@ -96,7 +98,7 @@ class StudentController extends Controller
                 if(!empty($review)){
                     return redirect()->route('student.review.edit',$review->_id);
                 }else{
-                    return view('student.review.create', compact('booking','user'));
+                    return view('student.review.create', compact('booking','user','edit'));
                 }
             } catch(\Exception $exception) {
                 return redirect()->route('student.error')->with('error-page','Unable to find your request');
