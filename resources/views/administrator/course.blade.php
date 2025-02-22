@@ -3,87 +3,158 @@
 @section('title', 'Home Page')
 
 @section('content')
-<div class="card has-table">
-      <header class="card-header">
-        <p class="card-header-title">
-          <span class="icon"><i class="fa-solid fa-bookmark"></i></span>
-          Bookings
-        </p>
-        <a href="#" class="card-header-icon">
-          <span class="icon"><i class="mdi mdi-reload"></i></span>
-        </a>
-      </header>
-      <div class="card-content">
-        <table id="courses">
-          <thead>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Course</th>
-            <th>Seats</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th></th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody>
-          @php
-            foreach($bookings as $booking){
-          @endphp
-            <tr>
-              <td class="image-cell"></td>
-              <td data-label="Name" class="--name">{{$booking->user->name}}</td>
-              <td data-label="Title" class="--title">{{$booking->classes->title}}</td>
-              <td data-label="Seats" class="--seats">{{$booking->seat_count}}</td>
-              <td data-label="Status" class="--status">
-                @php 
-                  if($booking->status == 1){
-                      echo 'Successfull booked';
-                  }else{
-                      echo 'Unsuccessfull';
-                  }
-                @endphp
-              </td>
-              <td data-label="date" class="--date">{{$booking->created_at}}</td>
-              <td class="actions-cell">
-                <div class="buttons right nowrap">
-                  <a href="{{ route('student.review.create',$booking->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-                    <span class="icon">
-                      <i class="fa-solid fa-comment"></i>
-                    </span>
-                  </a>
+
+
+<section class="section main-section">
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon"><i class="fa-solid fa-house"></i></span>
+            Course Details
+          </p>
+        </header>
+          <div class="card-content">
+                <div class="field">
+                  <label class="label">Title</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" autocomplete="on" name="title" value="{{ isset($course->title) ? $course->title : '' }}" class="input" disabled>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </td>
-              <td class="actions-cell">
-                <div class="buttons right nowrap">
-                  <a href="{{ route('student.booking.payment.pdf',$booking->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-                    <span class="icon">
-                    <i class="fa-solid fa-file-pdf"></i>
-                    </span>
-                  </a>
+                <div class="field">
+                  <label class="label">Category</label>
+                  <div class="control">
+                    <div class="select">
+                      <input type="text" autocomplete="on" name="title" value="{{ isset($course->category->name) ? $course->category->name : '' }}" class="input" disabled>
+                    </div>
+                  </div>
                 </div>
-              </td>
-            </tr>
-          @php
-            }
-          @endphp
-          </tbody>
-        </table>
-        
+                <div class="field">
+                  <label class="label">Description</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <textarea type="text" rows="4" cols="50" autocomplete="on" name="description" value="" class="input" disabled>
+                       {{ isset($course->description) ? strip_tags($course->description) : '' }}
+                        </textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Cost per Seat</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" autocomplete="on" name="price" value="{{ isset($course->price) ? $course->price : '' }}" class="input" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Course Level</label>
+                    <div class="control">
+                      <input type="text" autocomplete="on" name="level" value="{{ isset($course->level) ? $course->level : '' }}" class="input" disabled>
+                    </div>
+                </div>
+                <div class="field">
+                  <label class="label">Course Images</label>
+                  <div class="field-body">
+                    <div class="field file">
+                      <label class="upload control">
+                        
+                      </label>
+                    </div>
+                  </div>
+                </div>
+          </div>
+      </div>
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+            Location Details
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="field">
+            <label class="label">Location Name</label>
+            <div class="control">
+              <input type="text" autocomplete="on" id="location_name" name="location_name" value="{{ isset($course->location->name) ? $course->location->name : '' }}" class="input" required disabled>
+            </div>
+          </div>
+   
+          <div class="field">
+            <label class="label">Address</label>
+            <div class="control">
+            <input type="text" autocomplete="on" id="location_address" name="location_address" value="{{ isset($course->location->address) ? $course->location->address : '' }}" class="input" disabled>
+            </div>
+          </div>
+     
+          <div class="field">
+            <label class="label">City</label>
+            <div class="control">
+            <input type="text" autocomplete="on" id="location_city"  name="location_city" value="{{ isset($course->location->city) ? $course->location->city : '' }}" class="input" disabled>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Country</label>
+            <div class="control">
+            <input type="text" autocomplete="on" id="location_country" name="location_country" readonly value="NZ" class="input" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
+            Date / Time Details
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="field">
+            <label class="label">Duration</label>
+            <div class="control">
+              <input type="text" autocomplete="on" name="duration" value="{{ isset($course->duration) ? $course->duration : '' }}" class="input" disabled>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Duration Type</label>
+            <div class="control">
+              <input type="text" autocomplete="on" name="duration_type" value="{{ isset($course->duration_type) ? $course->duration_type : '' }}" class="input" disabled>
+            </div>
+          </div>
+        <div class="field">
+            <label class="label">Date and Time </label>
+            <p class="help">You can delete previously added date and time</p>
+            <div class="control">
+                <div id="fieldsUpdateContainer">
+                    <ul>
+                        @foreach($classdates as $dates)
+                            <li>
+                                <p><i class="fa-regular fa-calendar-days"></i>{{$dates->class_date}}</p>
+                                <p><i class="fa-regular fa-clock"></i>{{$dates->start_at}}</p>
+                                <p><i class="fa-solid fa-clock"></i>{{$dates->end_at}}</p>
+                                <p><i class="fa-solid fa-chair"></i>{{$dates->max_capacity}}</p>
+                            </li>
+                        @endforeach    
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
       </div>
     </div>
-    <script type="text/javascript">
+</section>
 
-      $(function() {
-          $('#courses').DataTable( {
-              paging: true,
-              responsive: true,
-              pageLength: 10
-          } );
-          
-      });
 
-</script>
-
+ 
+    
 @endsection
