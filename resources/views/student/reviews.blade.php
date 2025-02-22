@@ -38,7 +38,7 @@
               <td data-label="Status" class="--status">{{$review->rating}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{ route('student.review',[$review->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                  <a href="{{ route('student.review.edit',[$review->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
                     <span class="icon"><i class="fa-regular fa-eye"></i></span>
                   </a>
                 </div>

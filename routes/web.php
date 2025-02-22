@@ -109,7 +109,7 @@ Route::group(['middleware' => 'auth'], function () {
  
 
     Route::get('student/reviews', [StudentController::class, 'reviews'])->name('student.reviews');
-    Route::get('student/review/{id}', [StudentController::class, 'review'])->name('student.review');
+    Route::get('student/review-edit/{id}', [StudentController::class, 'review'])->name('student.review.edit');
     Route::get('student/review-create/{booking_id}', [StudentController::class, 'reviewCreate'])->name('student.review.create');
     Route::post('student/review', [StudentController::class, 'updateReviews'])->name('student.review.update');
 
