@@ -41,7 +41,7 @@
           <div class="flex items-center justify-between">
             <div class="widget-label">
               <h3>
-                Earnings
+                Total Earnings
               </h3>
               <h1>
                 ${{$payments}}

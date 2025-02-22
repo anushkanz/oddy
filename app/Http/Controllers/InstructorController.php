@@ -41,13 +41,12 @@ class InstructorController extends Controller
                 foreach($bookings as $booking){
                     if($booking->classes->instructor_id == $user->_id){
                         $payment = Payment::where('booking_id',$booking->_id)->firstOrFail();
-                        $payments += $payment->amount;
+                        $payments += $payment->amount; //Need to remove commission
                     }
                 }
                 return view('instructor.dashboard',compact('user','courses','bookings','payments'));
-
             } catch(\Exception $exception) {
-                return redirect()->route('student.error')->with('error-page','Unable to find your request');
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
             }    
         }
     }
@@ -58,13 +57,15 @@ class InstructorController extends Controller
     public function courses()
     {
         if(Auth::check()){
-            
-            $user = Auth::user();
-            $courses = Classes::where('instructor_id',$user->_id)->get();
-            $categories = Category::all();    
-            $locations = Location::where('user_id',$user->_id)->get();    
-            return view('instructor.courses', compact('courses','user','categories','locations')); 
-        
+            try {
+                $user = Auth::user();
+                $courses = Classes::where('instructor_id',$user->_id)->get();
+                $categories = Category::all();    
+                $locations = Location::where('user_id',$user->_id)->get();    
+                return view('instructor.courses', compact('courses','user','categories','locations')); 
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+            }
         }
     }
 
@@ -74,14 +75,18 @@ class InstructorController extends Controller
     public function course(string $id)
     {
         if(Auth::check()){
-            $user = Auth::user();
-            $course = Classes::where('instructor_id',$user->_id)
-                        ->where('_id',$id)
-                        ->firstOrFail();
-            $categories = Category::all();   
-            $locations = Location::where('user_id',$user->_id)->get();  
-            $classdates = ClassDate::where('class_id',$id)->get();   
-            return view('instructor.course', compact('course','user','categories','locations','classdates'));
+            try {
+                $user = Auth::user();
+                $course = Classes::where('instructor_id',$user->_id)
+                            ->where('_id',$id)
+                            ->firstOrFail();
+                $categories = Category::all();   
+                $locations = Location::where('user_id',$user->_id)->get();  
+                $classdates = ClassDate::where('class_id',$id)->get();      
+                return view('instructor.course', compact('course','user','categories','locations','classdates'));
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+            }
         }
     }
 
@@ -92,185 +97,197 @@ class InstructorController extends Controller
     {
         $user = Auth::user();
         if(Auth::check() && ($request->task == 'create')){
-            if($request->location_selected == 'create_new'){
-                $validator = Validator::make($request->all(), [
-                    'title' => 'required',
-                    'description'  => 'required',
-                    'price'=>'required',
-                    'location_name'=> 'required',
-                    'location_address'=>'required',
-                    'location_city'=>'required',
-                    'duration'=>'required',
-                    'dates' => ['required', 'array', 'min:1'],  // Ensure at least one date is provided
-                    'dates.*' => ['required', 'date'], // Validate each date as a valid date format
-                    'start_times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
-                    'start_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
-                    'end_times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
-                    'end_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
-                    'max_capacity' => ['required', 'array'],
-                    'max_capacity.*' => ['required',], 
-                  ],
-                  [
-                    'title.required' => 'Your title is Required', 
-                    'description.required' => 'Your description is Required', 
-                    'price.required'=> 'Your cost per seat is Required', 
-                    'location_name.required'=> 'Your location name is Required', 
-                    'location_address.required'=> 'Your address is Required', 
-                    'location_city.required'=> 'Your city is Required', 
-                    'duration.required'=> 'Your course duration is Required', 
-                    'dates.required'=> 'Your course dates is Required', 
-                    'start_times.required'=> 'Your course start times is Required', 
-                    'end_times.required'=> 'Your course end times is Required', 
-                    'max_capacity.required'=> 'Your max capacity is Required', 
-                  ]
-                );
-            }else{
-                $validator = Validator::make($request->all(), [
-                    'title' => 'required',
-                    'description'  => 'required',
-                    'price'=>'required',
-                    'duration'=>'required',
-                  ],
-                  [
-                    'title.required' => 'Your title is Required', 
-                    'description.required' => 'Your description is Required', 
-                    'price.required'=> 'Your cost per seat is Required', 
-                    'duration.required'=> 'Your course duration is Required', 
-                  ]
-                );
+            try {
+                if($request->location_selected == 'create_new'){
+                    $validator = Validator::make($request->all(), [
+                        'title' => 'required',
+                        'description'  => 'required',
+                        'price'=>'required',
+                        'location_name'=> 'required',
+                        'location_address'=>'required',
+                        'location_city'=>'required',
+                        'duration'=>'required',
+                        'dates' => ['required', 'array', 'min:1'],  // Ensure at least one date is provided
+                        'dates.*' => ['required', 'date'], // Validate each date as a valid date format
+                        'start_times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
+                        'start_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
+                        'end_times' => ['required', 'array', 'min:1'], // Ensure at least one time is provided
+                        'end_times.*' => ['required', 'date_format:H:i'], // Validate each time as a valid time format (24-hour format)
+                        'max_capacity' => ['required', 'array'],
+                        'max_capacity.*' => ['required',], 
+                      ],
+                      [
+                        'title.required' => 'Your title is Required', 
+                        'description.required' => 'Your description is Required', 
+                        'price.required'=> 'Your cost per seat is Required', 
+                        'location_name.required'=> 'Your location name is Required', 
+                        'location_address.required'=> 'Your address is Required', 
+                        'location_city.required'=> 'Your city is Required', 
+                        'duration.required'=> 'Your course duration is Required', 
+                        'dates.required'=> 'Your course dates is Required', 
+                        'start_times.required'=> 'Your course start times is Required', 
+                        'end_times.required'=> 'Your course end times is Required', 
+                        'max_capacity.required'=> 'Your max capacity is Required', 
+                      ]
+                    );
+                }else{
+                    $validator = Validator::make($request->all(), [
+                        'title' => 'required',
+                        'description'  => 'required',
+                        'price'=>'required',
+                        'duration'=>'required',
+                      ],
+                      [
+                        'title.required' => 'Your title is Required', 
+                        'description.required' => 'Your description is Required', 
+                        'price.required'=> 'Your cost per seat is Required', 
+                        'duration.required'=> 'Your course duration is Required', 
+                      ]
+                    );
+                }
+    
+                if ($validator->fails()) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('instructor.courses')->with('error-course','Unable to validate your data');
+                }
+    
+                /**
+                * Get locataion codinates / create location
+                */ 
+                if($request->location_selected == 'create_new'){
+                    $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
+                    $results = app("geocoder")
+                        ->doNotCache()
+                        ->geocode($address)
+                        ->get();
+                    $coordinates = $results[0]->getCoordinates();
+    
+                    $location = Location::create([
+                        'user_id' => $user->_id,
+                        'name' => $request->location_name,
+                        'address' => $request->location_address,
+                        'city' => $request->location_city,
+                        'country' => $request->location_country,
+                        'latitude' => $coordinates->getLatitude(),
+                        'longitude' => $coordinates->getLongitude(),
+                    ]);
+                    $location_id = $location->_id;
+                }else{
+                    $location_id = $request->selected_location;
+                } 
+                
+                //Set files array
+                $location = 'courses';
+                $files = $this->upload($request->file('file_upload'),$location,'true');
+    
+                //Create Course
+                $course = new Classes();
+                $course->instructor_id = $user->id;
+                $course->title = strip_tags($request->title);
+                $course->description = strip_tags($request->description);
+                $course->category_id = $request->category;
+                $course->location_id = $location_id;
+                $course->duration = $request->duration;
+                $course->duration_type = $request->duration_type;
+                $course->price = $request->price;
+                $course->level = $request->course_level;
+                $course->photo_gallery = $files;
+                $course->save();
+    
+                //Adding course dates and times
+                foreach($request->dates as $key => $value){
+                    $date_times = new ClassDate();
+                    $date_times->class_id = $course->_id;
+                    $date_times->class_date = $value;
+                    $date_times->start_at = $request->start_times[$key];
+                    $date_times->end_at = $request->end_times[$key];
+                    $date_times->max_capacity = $request->max_capacity[$key];
+                    $date_times->save();
+                }
+    
+                return redirect()->route('instructor.courses')->with('success-course','New Course added');
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
             }
-
-            if ($validator->fails()) {
-                $error = $validator->errors()->all();
-                return redirect()->route('instructor.courses')->with('error-course','Unable to validate your data');
-            }
-
-            /**
-            * Get locataion codinates / create location
-            */ 
-            if($request->location_selected == 'create_new'){
-                $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
-                $results = app("geocoder")
-                    ->doNotCache()
-                    ->geocode($address)
-                    ->get();
-                $coordinates = $results[0]->getCoordinates();
-
-                $location = Location::create([
-                    'user_id' => $user->_id,
-                    'name' => $request->location_name,
-                    'address' => $request->location_address,
-                    'city' => $request->location_city,
-                    'country' => $request->location_country,
-                    'latitude' => $coordinates->getLatitude(),
-                    'longitude' => $coordinates->getLongitude(),
-                ]);
-                $location_id = $location->_id;
-            }else{
-                $location_id = $request->selected_location;
-            } 
-            
-            //Set files array
-            $location = 'courses';
-            $files = $this->upload($request->file('file_upload'),$location,'true');
-
-            //Create Course
-            $course = new Classes();
-            $course->instructor_id = $user->id;
-            $course->title = strip_tags($request->title);
-            $course->description = strip_tags($request->description);
-            $course->category_id = $request->category;
-            $course->location_id = $location_id;
-            $course->duration = $request->duration;
-            $course->duration_type = $request->duration_type;
-            $course->price = $request->price;
-            $course->level = $request->course_level;
-            $course->photo_gallery = $files;
-            $course->save();
-
-            //Adding course dates and times
-            foreach($request->dates as $key => $value){
-                $date_times = new ClassDate();
-                $date_times->class_id = $course->_id;
-                $date_times->class_date = $value;
-                $date_times->start_at = $request->start_times[$key];
-                $date_times->end_at = $request->end_times[$key];
-                $date_times->max_capacity = $request->max_capacity[$key];
-                $date_times->save();
-            }
-
-            return redirect()->route('instructor.courses')->with('success-course','New Course added');
         }elseif($request->task == 'update'){
-            $validator = Validator::make($request->all(), [
-                'title' => 'required',
-                'description'  => 'required',
-                'price'=>'required',
-                'selected_location'=> 'required',
-              ],
-              [
-                'title.required' => 'Your title is Required', 
-                'description.required' => 'Your description is Required', 
-                'price.required'=> 'Your cost per seat is Required', 
-                'selected_location.required'=> 'Your location is Required', 
-
-              ]
-            );
-
-            if ($validator->fails()) {
-                $error = $validator->errors()->all();
-                return redirect()->route('instructor.courses')->with('error-course','Unable to validate your data');
+            try {
+                $validator = Validator::make($request->all(), [
+                    'title' => 'required',
+                    'description'  => 'required',
+                    'price'=>'required',
+                    'selected_location'=> 'required',
+                  ],
+                  [
+                    'title.required' => 'Your title is Required', 
+                    'description.required' => 'Your description is Required', 
+                    'price.required'=> 'Your cost per seat is Required', 
+                    'selected_location.required'=> 'Your location is Required', 
+    
+                  ]
+                );
+    
+                if ($validator->fails()) {
+                    $error = $validator->errors()->all();
+                    return redirect()->route('instructor.courses')->with('error-course','Unable to validate your data');
+                }
+    
+    
+                /**
+                * Get locataion codinates / create location
+                */ 
+                if($request->location_selected == 'create_new'){
+                    $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
+                    $results = app("geocoder")
+                        ->doNotCache()
+                        ->geocode($address)
+                        ->get();
+                    $coordinates = $results[0]->getCoordinates();
+    
+                    $location = Location::create([
+                        'user_id' => $user->_id,
+                        'name' => $request->location_name,
+                        'address' => $request->location_address,
+                        'city' => $request->location_city,
+                        'country' => $request->location_country,
+                        'latitude' => $coordinates->getLatitude(),
+                        'longitude' => $coordinates->getLongitude(),
+                    ]);
+                    $location_id = $location->_id;
+                }else{
+                    $location_id = $request->selected_location;
+                } 
+    
+                //Adding course dates and times
+                if(!empty($request->dates)){
+                    foreach($request->dates as $key => $value){
+                        $date_times = new ClassDate();
+                        $date_times->class_id = $request->id;
+                        $date_times->class_date = $value;
+                        $date_times->start_at = $request->start_times[$key];
+                        $date_times->end_at = $request->end_times[$key];
+                        $date_times->max_capacity = $request->max_capacity[$key];
+                        $date_times->save();
+                    }
+                }
+                
+    
+                $course = Classes::where('_id',$request->id)->first();
+                $course->instructor_id = $user->id;
+                $course->title = strip_tags($request->title);
+                $course->description = strip_tags($request->description);
+                $course->category_id = $request->category;
+                $course->location_id = $location_id;
+                $course->duration = $request->duration;
+                $course->duration_type = $request->duration_type;
+                $course->price = $request->price;
+                $course->level = $request->course_level;
+                $course->save();
+    
+                return redirect()->route('instructor.courses')->with('success-course','New Course updated');
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
             }
-
-
-            /**
-            * Get locataion codinates / create location
-            */ 
-            if($request->location_selected == 'create_new'){
-                $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
-                $results = app("geocoder")
-                    ->doNotCache()
-                    ->geocode($address)
-                    ->get();
-                $coordinates = $results[0]->getCoordinates();
-
-                $location = Location::create([
-                    'user_id' => $user->_id,
-                    'name' => $request->location_name,
-                    'address' => $request->location_address,
-                    'city' => $request->location_city,
-                    'country' => $request->location_country,
-                    'latitude' => $coordinates->getLatitude(),
-                    'longitude' => $coordinates->getLongitude(),
-                ]);
-                $location_id = $location->_id;
-            }else{
-                $location_id = $request->selected_location;
-            } 
-
-            //Adding course dates and times
-            foreach($request->dates as $key => $value){
-                $date_times = new ClassDate();
-                $date_times->class_id = $request->id;
-                $date_times->class_date = $value;
-                $date_times->start_at = $request->start_times[$key];
-                $date_times->end_at = $request->end_times[$key];
-                $date_times->max_capacity = $request->max_capacity[$key];
-                $date_times->save();
-            }
-
-            $course = Classes::where('_id',$request->id)->first();
-            $course->instructor_id = $user->id;
-            $course->title = strip_tags($request->title);
-            $course->description = strip_tags($request->description);
-            $course->category_id = $request->category;
-            $course->location_id = $location_id;
-            $course->duration = $request->duration;
-            $course->duration_type = $request->duration_type;
-            $course->price = $request->price;
-            $course->level = $request->course_level;
-            $course->save();
-
-            return redirect()->route('instructor.courses')->with('success-course','New Course updated');
+            
         }elseif($request->task == 'update_images'){
             //Set files array
             $location = 'courses';
@@ -344,18 +361,22 @@ class InstructorController extends Controller
     public function bookings()
     {
         if(Auth::check()){
-            $user = Auth::user();
-            $bookings = array();
-            $courses = Classes::where('instructor_id',$user->_id)->get();
-            if($courses != null){
-                foreach($courses as $course){
-                    $booking = Booking::where('class_id',$course->_id)->get();
-                    if(!$booking->isEmpty()){
-                        $bookings[$course->_id] = $booking;
+            try {
+                $user = Auth::user();
+                $bookings = array();
+                $courses = Classes::where('instructor_id',$user->_id)->get();
+                if($courses != null){
+                    foreach($courses as $course){
+                        $booking = Booking::where('class_id',$course->_id)->get();
+                        if(!$booking->isEmpty()){
+                            $bookings[$course->_id] = $booking;
+                        }
                     }
                 }
-            }
-            return view('instructor.bookings', compact('bookings','user')); 
+                return view('instructor.bookings', compact('bookings','user')); 
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+            } 
         }
     }
 
@@ -365,15 +386,19 @@ class InstructorController extends Controller
     public function booking(string $id)
     {
         if(Auth::check()){
-            $user = Auth::user();
-            $booking = Booking::find($id);
-            if($booking != null){
-                $course = Classes::find($booking->class_id);
-                if($course != null){
-                    return view('instructor.booking', compact('booking','user'));
+            try {
+                $user = Auth::user();
+                $booking = Booking::find($id);
+                if($booking != null){
+                    $course = Classes::find($booking->class_id);
+                    if($course != null){
+                        return view('instructor.booking', compact('booking','user'));
+                    }
                 }
-            }
-            return redirect("instructor.bookings")->withSuccess('Trust me this is not belongs to you');
+                return redirect("instructor.bookings")->withSuccess('Trust me this is not belongs to you');
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+            } 
         }
     }
 
@@ -383,10 +408,14 @@ class InstructorController extends Controller
     public function reviews()
     {
         if(Auth::check()){
-            $user = Auth::user();
-            $reviewer =  Review::where('reviewer_id', $user->_id)->get();
-            $receiver =  Review::where('receiver_id', $user->_id)->get();
-            return view('instructor.reviews',compact('reviewer','receiver','user'));
+            try {
+                $user = Auth::user();
+                $reviewer =  Review::where('reviewer_id', $user->_id)->get();
+                $receiver =  Review::where('receiver_id', $user->_id)->get();
+                return view('instructor.reviews',compact('reviewer','receiver','user'));
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+            } 
         } 
     }
 
@@ -422,30 +451,38 @@ class InstructorController extends Controller
                 }
       
                 if($request->task == 'update'){
-                    $review = Review::find($request->id);
-                    //Get receiver_id id from course
-                    $course = Classes::find($request->class_id);
-                    if($review)
-                    {
-                        $review->receiver_id = $course->_id;
-                        $review->reviewer_id = $user->_id;
-                        $review->class_id = $request->class_id;
-                        $review->rating = $request->rating;
-                        $review->comment = $request->comment;
-                        $review->save();
-                        return redirect()->route('instructor.reviews')->with('success','Review updated successfully');
-                    }
+                    
+                    try {
+                        $review = Review::find($request->id);
+                        //Get receiver_id id from course
+                        $course = Classes::find($request->class_id);
+                        if($review)
+                        {
+                            $review->receiver_id = $course->_id;
+                            $review->reviewer_id = $user->_id;
+                            $review->class_id = $request->class_id;
+                            $review->rating = $request->rating;
+                            $review->comment = $request->comment;
+                            $review->save();
+                            return redirect()->route('instructor.reviews')->with('success','Review updated successfully');
+                        }
+                    } catch(\Exception $exception) {
+                        return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+                    }  
                 }else{
-                    Review::create([
-                        'receiver_id' => $course->_id,
-                        'reviewer_id' => $user->_id,
-                        'class_id' => $request->class_id,
-                        'rating' => $request->rating,
-                        'comment' => $request->comment
-                    ]);
-                    return redirect()->route('instructor.reviews')->with('success','Review created successfully');
+                    try {
+                        Review::create([
+                            'receiver_id' => $course->_id,
+                            'reviewer_id' => $user->_id,
+                            'class_id' => $request->class_id,
+                            'rating' => $request->rating,
+                            'comment' => $request->comment
+                        ]);
+                        return redirect()->route('instructor.reviews')->with('success','Review created successfully');
+                    } catch(\Exception $exception) {
+                        return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+                    } 
                 }
-            
         }
     }
 
@@ -455,8 +492,12 @@ class InstructorController extends Controller
     public function account()
     {
         if(Auth::check()){
-            $user = Auth::user();
-            return view('instructor.account',compact('user'));  
+            try {
+                $user = Auth::user();
+                return view('instructor.account',compact('user')); 
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+            }  
         } 
     }
 
@@ -468,69 +509,78 @@ class InstructorController extends Controller
       if(Auth::check()){
         $user = Auth::user();
             if($request->task == 'details'){
-                  $validator = Validator::make($request->all(), [
-                    'name' => 'required',
-                    'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
-                    'phone'=>'required'
-                  ],
-                  [
-                    'name.required' => 'Your First Name is Required', 
-                    'email.required' => 'Your Email is Required', 
-                    'phone.required'=> 'Your phone number is Required', 
-                  ]
-                );
-                if ($validator->fails()) {
-                    $error = $validator->errors()->all();
-                    return redirect()->route('instructor.account')->with('error-account','Unable to validate your data');
-                }
-                $files = '';
-                if($request->hasFile('file_upload')){
-                    //Set files array
-                    $location = 'users';
-                    $files = $this->upload($request->file('file_upload'),$location,'true');
-                }
-                
-                
-                $currentUser = User::find($request->id);
-                if($currentUser)
-                {
-                    $currentUser->name = $request->name;
-                    $currentUser->email = $request->email;
-                    $currentUser->phone = $request->phone;
-                    $currentUser->photo_gallery = $files;
-                    $currentUser->save();
-                    return redirect()->route('instructor.account')->with('success-account','Account updated successfully');
-                }
-            }elseif($request->task == 'password'){
-                $inputs = [
-                    'old_password'          => $request->password_current,
-                    'password'              => $request->password,
-                    'password_confirmation' => $request->password_confirmation,
-                ];
-                $rules = [
-                    'password_current'    => 'required',
-                    'password_confirmation' => 'required',
-                    'password' => [
-                        'required',
-                        'confirmed',
-                        'string',
-                        'min:10',             // must be at least 10 characters in length
-                        'regex:/[a-z]/',      // must contain at least one lowercase letter
-                        'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                        'regex:/[0-9]/',      // must contain at least one digit
-                        'regex:/[@$!%*#?&]/', // must contain a special character
-                    ],
-                ];
-                $validator = Validator::make( $inputs, $rules );
-                if ( $validator->fails() ) {
-                    $error = $validator->errors()->all();
-                    return redirect()->route('instructor.account')->with('error-password','Unable to validate your data');
-                }else{
+                try {
+                    $validator = Validator::make($request->all(), [
+                        'name' => 'required',
+                        'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
+                        'phone'=>'required'
+                      ],
+                      [
+                        'name.required' => 'Your First Name is Required', 
+                        'email.required' => 'Your Email is Required', 
+                        'phone.required'=> 'Your phone number is Required', 
+                      ]
+                    );
+                    if ($validator->fails()) {
+                        $error = $validator->errors()->all();
+                        return redirect()->route('instructor.account')->with('error-account','Unable to validate your data');
+                    }
+                    $files = '';
+                    if($request->hasFile('file_upload')){
+                        //Set files array
+                        $location = 'users';
+                        $files = $this->upload($request->file('file_upload'),$location,'true');
+                    }
+                    
+                    
                     $currentUser = User::find($request->id);
-                    $currentUser->password = \Hash::make($password);
-                    $currentUser->update(); //or $currentUser->save();
-                    return redirect()->route('instructor.account')->with('success-password','Account updated successfully');
-                }
+                    if($currentUser)
+                    {
+                        $currentUser->name = $request->name;
+                        $currentUser->email = $request->email;
+                        $currentUser->phone = $request->phone;
+                        $currentUser->photo_gallery = $files;
+                        $currentUser->save();
+                        return redirect()->route('instructor.account')->with('success-account','Account updated successfully');
+                    }
+                } catch(\Exception $exception) {
+                    return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+                } 
+            }elseif($request->task == 'password'){
+                try {
+                    $inputs = [
+                        'old_password'          => $request->password_current,
+                        'password'              => $request->password,
+                        'password_confirmation' => $request->password_confirmation,
+                    ];
+                    $rules = [
+                        'password_current'    => 'required',
+                        'password_confirmation' => 'required',
+                        'password' => [
+                            'required',
+                            'confirmed',
+                            'string',
+                            'min:10',             // must be at least 10 characters in length
+                            'regex:/[a-z]/',      // must contain at least one lowercase letter
+                            'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                            'regex:/[0-9]/',      // must contain at least one digit
+                            'regex:/[@$!%*#?&]/', // must contain a special character
+                        ],
+                    ];
+                    $validator = Validator::make( $inputs, $rules );
+                    if ( $validator->fails() ) {
+                        $error = $validator->errors()->all();
+                        return redirect()->route('instructor.account')->with('error-password','Unable to validate your data');
+                    }else{
+                        $currentUser = User::find($request->id);
+                        $currentUser->password = \Hash::make($password);
+                        $currentUser->update(); //or $currentUser->save();
+                        return redirect()->route('instructor.account')->with('success-password','Account updated successfully');
+                    }
+                } catch(\Exception $exception) {
+                    return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+                } 
+                
             }
         }
     } 
@@ -538,9 +588,13 @@ class InstructorController extends Controller
     public function location(string $id)
     {
         if(Auth::check()){
-            $user = Auth::user();
-            $location =  Location::where('user_id', $user->_id)->where('_id', $id)->firstOrFail();
-            return view('instructor.location',compact('location','user'));
+            try {
+                $user = Auth::user();
+                $location =  Location::where('user_id', $user->_id)->where('_id', $id)->firstOrFail();
+                return view('instructor.location',compact('location','user'));
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+            } 
         } 
     }
 
@@ -548,61 +602,69 @@ class InstructorController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             if($request->task == 'create'){
-                $validator = Validator::make($request->all(), [
-                    'location_name'=> 'required',
-                    'location_address'=>'required',
-                    'location_city'=>'required',
-                  ],
-                  [
-                    'location_name.required'=> 'Your location name is Required', 
-                    'location_address.required'=> 'Your address is Required', 
-                    'location_city.required'=> 'Your city is Required', 
-                  ]
-                );
-                if ($validator->fails()) {
-                    $error = $validator->errors()->all();
-                    return redirect()->route('instructor.locations')->with('error-location','Unable to validate your data');
-                }
-
-                $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
-                $results = app("geocoder")
-                    ->doNotCache()
-                    ->geocode($address)
-                    ->get();
-                $coordinates = $results[0]->getCoordinates();
-
-                $location = Location::create([
-                    'user_id' => $user->_id,
-                    'name' => $request->location_name,
-                    'address' => $request->location_address,
-                    'city' => $request->location_city,
-                    'country' => $request->location_country,
-                    'latitude' => $coordinates->getLatitude(),
-                    'longitude' => $coordinates->getLongitude(),
-                ]);
-                return redirect()->route('instructor.locations')->with('success-location','Created new location.');
+                try {
+                    $validator = Validator::make($request->all(), [
+                        'location_name'=> 'required',
+                        'location_address'=>'required',
+                        'location_city'=>'required',
+                      ],
+                      [
+                        'location_name.required'=> 'Your location name is Required', 
+                        'location_address.required'=> 'Your address is Required', 
+                        'location_city.required'=> 'Your city is Required', 
+                      ]
+                    );
+                    if ($validator->fails()) {
+                        $error = $validator->errors()->all();
+                        return redirect()->route('instructor.locations')->with('error-location','Unable to validate your data');
+                    }
+    
+                    $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
+                    $results = app("geocoder")
+                        ->doNotCache()
+                        ->geocode($address)
+                        ->get();
+                    $coordinates = $results[0]->getCoordinates();
+    
+                    $location = Location::create([
+                        'user_id' => $user->_id,
+                        'name' => $request->location_name,
+                        'address' => $request->location_address,
+                        'city' => $request->location_city,
+                        'country' => $request->location_country,
+                        'latitude' => $coordinates->getLatitude(),
+                        'longitude' => $coordinates->getLongitude(),
+                    ]);
+                    return redirect()->route('instructor.locations')->with('success-location','Created new location.');
+                } catch(\Exception $exception) {
+                    return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+                } 
             }else{
-                $validator = Validator::make($request->all(), [
-                    'location_name'=> 'required',
-                    'location_address'=>'required',
-                    'location_city'=>'required',
-                  ],
-                  [
-                    'location_name.required'=> 'Your location name is Required', 
-                    'location_address.required'=> 'Your address is Required', 
-                    'location_city.required'=> 'Your city is Required', 
-                  ]
-                );
-                if ($validator->fails()) {
-                    $error = $validator->errors()->all();
-                    return redirect()->route('instructor.locations')->with('error-location','Unable to validate your data');
-                }
-                $location =  Location::where('user_id', $user->_id)->where('_id', $request->id)->first();
-                $location->name = $request->location_name;
-                $location->address = $request->location_address;
-                $location->city = $request->location_city;
-                $location->save();
-                return redirect()->route('instructor.locations')->with('success-location','Update location');
+                try {
+                    $validator = Validator::make($request->all(), [
+                        'location_name'=> 'required',
+                        'location_address'=>'required',
+                        'location_city'=>'required',
+                      ],
+                      [
+                        'location_name.required'=> 'Your location name is Required', 
+                        'location_address.required'=> 'Your address is Required', 
+                        'location_city.required'=> 'Your city is Required', 
+                      ]
+                    );
+                    if ($validator->fails()) {
+                        $error = $validator->errors()->all();
+                        return redirect()->route('instructor.locations')->with('error-location','Unable to validate your data');
+                    }
+                    $location =  Location::where('user_id', $user->_id)->where('_id', $request->id)->first();
+                    $location->name = $request->location_name;
+                    $location->address = $request->location_address;
+                    $location->city = $request->location_city;
+                    $location->save();
+                    return redirect()->route('instructor.locations')->with('success-location','Update location');
+                } catch(\Exception $exception) {
+                    return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+                } 
             }
         }        
     }
@@ -613,9 +675,13 @@ class InstructorController extends Controller
     public function locations()
     {
         if(Auth::check()){
-            $user = Auth::user();
-            $locations =  Location::where('user_id', $user->_id)->get();
-            return view('instructor.locations',compact('locations','user'));
+            try {
+                $user = Auth::user();
+                $locations =  Location::where('user_id', $user->_id)->get();
+                return view('instructor.locations',compact('locations','user'));
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+            } 
         } 
     }
 
@@ -660,35 +726,45 @@ class InstructorController extends Controller
      */
     public function courseImage(string $id){
         if(Auth::check()){
-            $user = Auth::user();
-            $course_images = Classes::where('instructor_id',$user->_id)
-                        ->where('_id',$id)
-                        ->firstOrFail();
-         
-            return view('instructor.image',compact('course_images','user'));           
+            try {
+                $user = Auth::user();
+                $course_images = Classes::where('instructor_id',$user->_id)
+                            ->where('_id',$id)
+                            ->firstOrFail();
+             
+                return view('instructor.image',compact('course_images','user')); 
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+            }           
         }
+
     }
 
     public function courseImageUpdate(Request $request)
     {
         if(Auth::check()){
-            $user = Auth::user();
-            //Set files array
-            $location = 'courses';
-            $files = $this->upload($request->file('file_upload'),$location,'true');
-            $file_decode = json_decode($files,true);
+              
+            try {
+                $user = Auth::user();
+                //Set files array
+                $location = 'courses';
+                $files = $this->upload($request->file('file_upload'),$location,'true');
+                $file_decode = json_decode($files,true);
 
-            $course_images = Classes::where('user_id', $user->_id)
-                        ->where('_id', $id)
-                        ->firstOrFail()->toArray();
+                $course_images = Classes::where('user_id', $user->_id)
+                            ->where('_id', $id)
+                            ->firstOrFail()->toArray();
 
-            if(!empty($course_images->photo_gallery)){
-                $course_images_updates = array_merge($file_decode, $course_images->photo_gallery);
-                $course_images->photo_gallery = json_encode($course_images_updates);
-                $course_images->save();
-            }  
-                      
-            return redirect()->route('instructor/course', ['id' => $course_images->_id])->with('message', 'Images saved correctly!!!');      
+                if(!empty($course_images->photo_gallery)){
+                    $course_images_updates = array_merge($file_decode, $course_images->photo_gallery);
+                    $course_images->photo_gallery = json_encode($course_images_updates);
+                    $course_images->save();
+                }  
+                        
+                return redirect()->route('instructor/course', ['id' => $course_images->_id])->with('message', 'Images saved correctly!!!'); 
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+            }    
         }
     }
 
@@ -723,9 +799,13 @@ class InstructorController extends Controller
 
 
     public function qualifications(){
-        $user = Auth::user();
-        $qualifications = InstructorQualification::where('instructor_id', $user->_id)->get();
-        return view('instructor.qualifications',compact('qualifications','user'));      
+        try {
+            $user = Auth::user();
+            $qualifications = InstructorQualification::where('instructor_id', $user->_id)->get();
+            return view('instructor.qualifications',compact('qualifications','user'));  
+        } catch(\Exception $exception) {
+            return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+        }    
     }
 
     public function ajaxQualificationDelete(Request $request){
@@ -744,7 +824,8 @@ class InstructorController extends Controller
 
     public function updateQualification(Request $request){
         if($request->task == 'create'){
-            $user = Auth::user();
+            try {
+                $user = Auth::user();
 
             $validator = Validator::make($request->all(), [
                 'title'=> 'required',
@@ -777,6 +858,9 @@ class InstructorController extends Controller
             $qulification->save();
             
             return redirect()->route('instructor.qualifications')->with('success-qualifications','Created new qualification.');
+            } catch(\Exception $exception) {
+                return redirect()->route('instructor.error')->with('error-page','Unable to find your request');
+            }
         }
     }
 
