@@ -9,10 +9,10 @@
           <div class="flex items-center justify-between">
             <div class="widget-label">
               <h3>
-                Clients
+                Booking
               </h3>
               <h1>
-                512
+                {{count($booking)}}
               </h1>
             </div>
             <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
@@ -40,10 +40,10 @@
           <div class="flex items-center justify-between">
             <div class="widget-label">
               <h3>
-                Performance
+                Reviews
               </h3>
               <h1>
-                256%
+                {{count($reviews)}}
               </h1>
             </div>
             <span class="icon widget-icon text-red-500"><i class="mdi mdi-finance mdi-48px"></i></span>

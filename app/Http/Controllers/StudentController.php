@@ -31,7 +31,9 @@ class StudentController extends Controller
 
         if(Auth::check()){
             $user = Auth::user();
-            return view('student.dashboard',compact('user'));
+            $bookings = Booking::where('user_id',$user->_id)->where('status',1)->get();
+            $reviews = Review::where('reviewer_id',$user->_id)->get();
+            return view('student.dashboard',compact('user','bookings','reviews'));
         }
     }
 
