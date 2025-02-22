@@ -39,7 +39,7 @@ class InstructorController extends Controller
                 $bookings = Booking::whereIn('class_id',$coursesId)->where('status',1)->get();
                 $payments = 0;
                 foreach($bookings as $booking){
-                    if($booking->classes->instructor_id == $user->_i){
+                    if($booking->classes->instructor_id == $user->_id){
                         $payment = Payment::where('booking_id',$booking->_id)->firstOrFail();
                         $payments += $payment->amount;
                     }
