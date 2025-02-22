@@ -331,6 +331,8 @@ class InstructorController extends Controller
                     }
                 }
             }
+
+            dd($bookings);
             return view('instructor.bookings', compact('bookings','user')); 
         }
     }
