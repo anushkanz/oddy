@@ -43,8 +43,10 @@
               <td data-label="date" class="--date">{{ isset($booking->booking_date) ? $booking->booking_date : '' }}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{ route('instructor.booking',[$booking->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-                    <span class="icon"><i class="fa-regular fa-eye"></i></span>
+                  <a href="{{ route('student.booking.payment.pdf',$booking->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                    <span class="icon">
+                      <i class="fa-solid fa-download"></i>
+                    </span>
                   </a>
                 </div>
               </td>

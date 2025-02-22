@@ -211,7 +211,7 @@ class BookingController extends Controller
         }
 
         $data = ['booking' => $booking,'user'=>$user,'payment'=>$payment];
-        $pdf = PDF::loadView('booking.pdf', $data);
+        $pdf = PDF::loadView('pdf.booking-pdf', $data);
         $file = $booking->_id.'.pdf';
         return $pdf->download($file);
 
