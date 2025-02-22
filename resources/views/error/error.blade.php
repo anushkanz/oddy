@@ -3,13 +3,12 @@
 <section class="is-hero-bar">
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <h1 class="title">
-      Profile
+      Error
     </h1>
-    <button class="button light">Button</button>
   </div>
 </section>
 <section class="section main-section">
-    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
+    <div class="grid grid-cols-1 lg:grid-cols-1 mb-6">
         <div class="card">
             <header class="card-header">
             <p class="card-header-title">
