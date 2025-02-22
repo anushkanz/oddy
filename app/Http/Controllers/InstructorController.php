@@ -326,7 +326,7 @@ class InstructorController extends Controller
             if($courses != null){
                 foreach($courses as $course){
                     $booking = Booking::where('class_id',$course->_id)->get();
-                    if(!empty($booking)){
+                    if(!$booking->isEmpty()){
                         $bookings[$course->_id] = $booking;
                     }
                 }
