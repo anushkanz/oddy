@@ -337,6 +337,7 @@ class InstructorController extends Controller
                     }
                 }
             }
+            die;
             return view('instructor.bookings', compact('bookings','user')); 
         }
     }
