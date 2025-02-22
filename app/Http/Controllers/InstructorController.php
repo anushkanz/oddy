@@ -426,7 +426,7 @@ class InstructorController extends Controller
     {
         try {
             $user = Auth::user();
-            $review = Review::where('_id', $id)->where('reviewer_id', $user->_id)->firstOrFail();
+            $review = Review::where('_id', $id)->where('receiver_id', $user->_id)->firstOrFail();
             $booking = Booking::where('user_id', $user->_id)->where('class_id', $review->class_id)->firstOrFail();
             return view('instructor.review', compact('review','user','booking'));
         } catch(\Exception $exception) {
