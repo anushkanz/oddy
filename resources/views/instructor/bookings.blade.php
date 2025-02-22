@@ -27,7 +27,7 @@
             <th>Status</th>
             <th>Class Date</th>
             <th>Seat Count</th>
-            <th>Date</th>
+            <th>Created Date</th>
             <th></th>
           </tr>
           </thead>
@@ -53,6 +53,7 @@
               </td>
               <td data-label="Class date" class="--clssdate">{{ isset($item->classdate->class_date) ? $item->classdate->class_date : '' }} / {{ isset($item->classdate->start_at) ? $item->classdate->start_at : '' }}</td>   
               <td data-label="Seat Count" class="--seatcount">{{ isset($item->seat_count) ? $item->seat_count : '' }}</td>
+              <td data-label="Created date" class="--seatcount">{{ isset($item->created_at) ? $item->created_at : '' }}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <a href="{{ route('student.booking.payment.pdf',$item->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
