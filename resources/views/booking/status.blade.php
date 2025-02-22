@@ -115,6 +115,16 @@
                 </div>
             </div>
             <hr>
+            <div class="field">
+            <label class="label">Details</label>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            All infromation we have emailed to {{$user->email}}, If you  have any problem with this, please contact our support service with your booking id #{{$booking->_id}}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
