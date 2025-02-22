@@ -81,7 +81,7 @@ class StudentController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             $review = Review::where('_id', $id)->where('reviewer_id', $user->_id)->firstOrFail();
-            dd($review);
+  
             $booking = Booking::where('user_id', $user->_id)->where('class_id', $review->class_id)->firstOrFail();
             return view('student.review', compact('review','user','booking'));
         }
@@ -95,7 +95,7 @@ class StudentController extends Controller
                 $booking = Booking::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
                 $review = Review::where('reviewer_id', $user->_id)->where('class_id', $booking->class_id)->firstOrFail();
                 if(!empty($review)){
-                    return redirect()->route('student.review',$booking_id);
+                    return redirect()->route('student.review',$review->_id);
                 }else{
                     return view('student.review.create', compact('booking','user'));
                 }
