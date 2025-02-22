@@ -31,7 +31,7 @@
           </thead>
           <tbody>
           @php
-          if(!empty($booking)){
+          if(!empty($bookings)){
             foreach($bookings as $key => $booking){
           @endphp
             <tr>
