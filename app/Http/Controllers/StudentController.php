@@ -91,7 +91,7 @@ class StudentController extends Controller
             try {
                 $user = Auth::user();
                 $booking = Booking::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
-                $review = Review::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
+                $review = Review::where('reviewer_id', $user->_id)->where('class_id', $booking->class_id)->firstOrFail();
                 if(!empty($review)){
                     return redirect()->route('student.review',$booking_id);
                 }else{
