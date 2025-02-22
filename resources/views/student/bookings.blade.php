@@ -27,6 +27,7 @@
             <th>Status</th>
             <th>Date</th>
             <th></th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -52,7 +53,16 @@
                 <div class="buttons right nowrap">
                   <a href="{{ route('student.booking.payment.pdf',$booking->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
                     <span class="icon">
-                      <i class="fa-solid fa-download"></i>
+                      <i class="fa-solid fa-comment"></i>
+                    </span>
+                  </a>
+                </div>
+              </td>
+              <td class="actions-cell">
+                <div class="buttons right nowrap">
+                  <a href="{{ route('student.booking.payment.pdf',$booking->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                    <span class="icon">
+                    <i class="fa-solid fa-file-pdf"></i>
                     </span>
                   </a>
                 </div>

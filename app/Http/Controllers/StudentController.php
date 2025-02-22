@@ -84,10 +84,23 @@ class StudentController extends Controller
             $user = Auth::user();
             $review = Review::find($id);
             return view('student.review', compact('review','user'));
-            
         }
     }
 
+    public function reviewCreate(string $booking_id)
+    {
+        if(Auth::check()){
+            $user = Auth::user();
+            $booking = Booking::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
+            if (!$booking->isEmpty()) {
+                return view('student.review', compact('review','user'));
+            }else{
+                return redirect()->route('error.error')->with('error-page','Unable to find your request');
+            }
+        }
+    }
+
+    
     /**
      * Update Reviews function
      */
@@ -108,7 +121,7 @@ class StudentController extends Controller
                 );
                 if ($validator->fails()) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('student.account')->with('error','Unable to validate your data');
+                    return redirect()->route('student.reviews')->with('error-review','Unable to validate your data');
                 }
       
                 if($request->task == 'update'){
@@ -123,7 +136,7 @@ class StudentController extends Controller
                         $review->rating = $request->rating;
                         $review->comment = $request->comment;
                         $review->save();
-                        return redirect()->route('student.reviews')->with('success','Review updated successfully');
+                        return redirect()->route('student.reviews')->with('success-review','Review updated successfully');
                     }
                 }else{
                     Review::create([
@@ -133,7 +146,7 @@ class StudentController extends Controller
                         'rating' => $request->rating,
                         'comment' => $request->comment
                     ]);
-                    return redirect()->route('student.reviews')->with('success','Review created successfully');
+                    return redirect()->route('student.reviews')->with('success-review','Review created successfully');
                 }
             
         }
@@ -171,7 +184,7 @@ class StudentController extends Controller
                 );
                 if ($validator->fails()) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('student.account')->with('error','Unable to validate your data');
+                    return redirect()->route('student.account')->with('error-account','Unable to validate your data');
                 }
 
                 $files = '';
@@ -189,7 +202,7 @@ class StudentController extends Controller
                     $currentUser->phone = $request->phone;
                     $currentUser->photo_gallery = $files;
                     $currentUser->save();
-                    return redirect()->route('student.account')->with('success','Account updated successfully');
+                    return redirect()->route('student.account')->with('success-account','Account updated successfully');
                 }
             }elseif($request->task == 'password'){
                 $inputs = [
@@ -214,12 +227,12 @@ class StudentController extends Controller
                 $validator = Validator::make( $inputs, $rules );
                 if ( $validator->fails() ) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('student.account')->with('error','Unable to validate your data');
+                    return redirect()->route('student.account')->with('error-password','Unable to validate your data');
                 }else{
                     $currentUser = User::find($request->id);
                     $currentUser->password = \Hash::make($password);
                     $currentUser->update(); //or $currentUser->save();
-                    return redirect()->route('student.account')->with('success','Account updated successfully');
+                    return redirect()->route('student.account')->with('success-password','Account updated successfully');
                 }
             }
         }
