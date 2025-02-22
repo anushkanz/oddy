@@ -142,7 +142,7 @@ class StudentController extends Controller
                         $review->save();
                         return redirect()->route('student.reviews')->with('success-review','Review updated successfully');
                     }
-                }else{
+                }else if($request->task == 'update'){
                     Review::create([
                         'receiver_id' => $request->receiver_id,
                         'reviewer_id' => $user->_id,

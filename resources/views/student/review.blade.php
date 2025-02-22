@@ -22,8 +22,12 @@
         </header>
         <div class="card-content">
           <form method="POST" action="{{ route('student.review.update') }}">
-            {{$edit}}
-            <input type='hidden' name='task' value="create"> 
+            @php if($edit){ @endphp
+                <input type='hidden' name='task' value="update"> 
+            @php }else{  @endphp
+                <input type='hidden' name='task' value="create"> 
+            @php }  @endphp
+            
             <input type='hidden' name='id' value="{{$user->_id}}"> 
             <input type='hidden' name='booking' value="{{$booking->_id}}"> 
             <input type='hidden' name='course' value="{{$booking->classes->_id}}"> 
