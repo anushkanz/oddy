@@ -92,6 +92,7 @@ class StudentController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             $booking = Booking::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
+            dd($booking);
             if (!$booking->isEmpty()) {
                 return view('student.review', compact('review','user'));
             }else{
