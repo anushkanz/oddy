@@ -68,6 +68,29 @@
                 </button>
                 </div>
             </div>
+            <!--Display error/success/warnning-->
+          @if(session('error-qualifications'))
+            <div class="notification red">
+              <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+                <div>
+                  <span class="icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                  <b> {{session('error-qualifications')}}</b>
+                </div>
+                <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+              </div>
+            </div>
+          @endif
+          @if(session('success-qualifications'))
+            <div class="notification green">
+              <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+                <div>
+                  <span class="icon"><i class="fa-solid fa-check"></i></span>
+                  <b> {{session('success-qualifications')}}</b>
+                </div>
+                <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+              </div>
+            </div>
+          @endif
         </form>
       </div>
     </div>

@@ -124,8 +124,7 @@ class InstructorController extends Controller
 
             if ($validator->fails()) {
                 $error = $validator->errors()->all();
-                //return redirect()->route('instructor.courses')->with('error','Unable to validate your data');
-                return back()->withErrors($validator)->withInput();
+                return redirect()->route('instructor.courses')->with('error-course','Unable to validate your data');
             }
 
             /**
@@ -182,7 +181,7 @@ class InstructorController extends Controller
                 $date_times->save();
             }
 
-            return redirect()->route('instructor.courses')->with('success','New Course updated.');
+            return redirect()->route('instructor.courses')->with('success-course','New Course added');
         }elseif($request->task == 'update'){
             $validator = Validator::make($request->all(), [
                 'title' => 'required',
@@ -198,6 +197,12 @@ class InstructorController extends Controller
 
               ]
             );
+
+            if ($validator->fails()) {
+                $error = $validator->errors()->all();
+                return redirect()->route('instructor.courses')->with('error-course','Unable to validate your data');
+            }
+
 
             /**
             * Get locataion codinates / create location
@@ -246,7 +251,8 @@ class InstructorController extends Controller
             $course->price = $request->price;
             $course->level = $request->course_level;
             $course->save();
-            return redirect()->route('instructor.courses')->with('success','New Course updated.');
+
+            return redirect()->route('instructor.courses')->with('success-course','New Course updated');
         }elseif($request->task == 'update_images'){
             //Set files array
             $location = 'courses';
@@ -261,7 +267,7 @@ class InstructorController extends Controller
                 $course_images->photo_gallery = json_encode($gallery);
                 $course_images->save();
             }
-            return redirect()->route('instructor.courses')->with('success','New Course updated.');
+            return redirect()->route('instructor.courses')->with('success-course','Update course images');
         }   
     }
 
@@ -500,12 +506,12 @@ class InstructorController extends Controller
                 $validator = Validator::make( $inputs, $rules );
                 if ( $validator->fails() ) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('instructor.account')->with('error','Unable to validate your data');
+                    return redirect()->route('instructor.account')->with('error-password','Unable to validate your data');
                 }else{
                     $currentUser = User::find($request->id);
                     $currentUser->password = \Hash::make($password);
                     $currentUser->update(); //or $currentUser->save();
-                    return redirect()->route('instructor.account')->with('success','Account updated successfully');
+                    return redirect()->route('instructor.account')->with('success-password','Account updated successfully');
                 }
             }
         }
@@ -537,7 +543,7 @@ class InstructorController extends Controller
                 );
                 if ($validator->fails()) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('instructor.locations')->with('error','Unable to validate your data');
+                    return redirect()->route('instructor.locations')->with('error-location','Unable to validate your data');
                 }
 
                 $address = $request->location_address.' '.$request->location_city.' '.$request->location_country;
@@ -556,7 +562,7 @@ class InstructorController extends Controller
                     'latitude' => $coordinates->getLatitude(),
                     'longitude' => $coordinates->getLongitude(),
                 ]);
-                return redirect()->route('instructor.locations')->with('success','Created new location.');
+                return redirect()->route('instructor.locations')->with('success-location','Created new location.');
             }else{
                 $validator = Validator::make($request->all(), [
                     'location_name'=> 'required',
@@ -571,14 +577,14 @@ class InstructorController extends Controller
                 );
                 if ($validator->fails()) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('instructor.locations')->with('error','Unable to validate your data');
+                    return redirect()->route('instructor.locations')->with('error-location','Unable to validate your data');
                 }
                 $location =  Location::where('user_id', $user->_id)->where('_id', $request->id)->first();
                 $location->name = $request->location_name;
                 $location->address = $request->location_address;
                 $location->city = $request->location_city;
                 $location->save();
-                return redirect()->route('instructor.locations')->with('success','Update location');
+                return redirect()->route('instructor.locations')->with('success-location','Update location');
             }
         }        
     }
@@ -721,6 +727,22 @@ class InstructorController extends Controller
     public function updateQualification(Request $request){
         if($request->task == 'create'){
             $user = Auth::user();
+
+            $validator = Validator::make($request->all(), [
+                'title'=> 'required',
+                'description'=>'required',
+              ],
+              [
+                'title.required'=> 'Your name is Required', 
+                'description.required'=> 'Your description is Required', 
+              ]
+            );
+            if ($validator->fails()) {
+                $error = $validator->errors()->all();
+                return redirect()->route('instructor.qualifications')->with('error-qualifications','Unable to validate your data');
+            }
+
+
             $qulification = new InstructorQualification();
             $qulification->instructor_id = $user->_id;
             $qulification->title = $request->title;
@@ -736,7 +758,7 @@ class InstructorController extends Controller
             $qulification->photo_gallery = $files;
             $qulification->save();
             
-            return redirect()->route('instructor.qualifications')->with('success','Created new qualification.');
+            return redirect()->route('instructor.qualifications')->with('success-qualifications','Created new qualification.');
         }
     }
 }
