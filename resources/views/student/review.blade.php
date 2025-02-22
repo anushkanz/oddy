@@ -13,6 +13,29 @@
 
 <section class="section main-section">
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
+        <!--Display error/success/warnning-->
+      @if(session('error-review'))
+        <div class="notification red">
+          <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+            <div>
+              <span class="icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+              <b> {{session('error-review')}}</b>
+            </div>
+            <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+          </div>
+        </div>
+      @endif
+      @if(session('success-review'))
+        <div class="notification green">
+          <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+            <div>
+              <span class="icon"><i class="fa-solid fa-check"></i></span>
+              <b> {{session('success-review')}}</b>
+            </div>
+            <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+          </div>
+        </div>
+      @endif
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">
