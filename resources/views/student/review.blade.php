@@ -40,11 +40,11 @@
                             <div class="control">
                                 <div class="select">
                                     <select name="rating">
-                                        <option value="1">1 <i class="fa-solid fa-star"></i></option>
-                                        <option value="2">2 <i class="fa-solid fa-star"></i></option>
-                                        <option value="3">3 <i class="fa-solid fa-star"></i></option>
-                                        <option value="4">4 <i class="fa-solid fa-star"></i></option>
-                                        <option value="5">5 <i class="fa-solid fa-star"></i></option>
+                                        <option value="1" @php ( !empty($review->rating) == 1 ? 'selected="selected' : '' ) @endphp > 1 <i class="fa-solid fa-star"></i></option>
+                                        <option value="2" @php ( !empty($review->rating) == 2 ? 'selected="selected' : '' ) @endphp>2 <i class="fa-solid fa-star"></i></option>
+                                        <option value="3" @php ( !empty($review->rating) == 3 ? 'selected="selected' : '' ) @endphp>3 <i class="fa-solid fa-star"></i></option>
+                                        <option value="4" @php ( !empty($review->rating) == 4 ? 'selected="selected' : '' ) @endphp>4 <i class="fa-solid fa-star"></i></option>
+                                        <option value="5" @php ( !empty($review->rating) == 5 ? 'selected="selected' : '' ) @endphp>5 <i class="fa-solid fa-star"></i></option>
                                     </select>
                                 </div>
                             </div>
