@@ -61,16 +61,6 @@
                       <input type="text" autocomplete="on" name="level" value="{{ isset($course->level) ? $course->level : '' }}" class="input" disabled>
                     </div>
                 </div>
-                <div class="field">
-                  <label class="label">Course Images</label>
-                  <div class="field-body">
-                    <div class="field file">
-                      <label class="upload control">
-                        
-                      </label>
-                    </div>
-                  </div>
-                </div>
           </div>
       </div>
       <div class="card">
@@ -110,6 +100,21 @@
         </div>
       </div>
 
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+            Course Image Details
+          </p>
+        </header>
+        <div class="card-content">
+            @foreach(json_decode($course->photo_gallery,true) as $imges)
+              <div class="image">
+                <img src="{{$imges['path']}}">
+              </div>
+            @endforeach 
+        </div>
+      </div>
 
       <div class="card">
         <header class="card-header">
