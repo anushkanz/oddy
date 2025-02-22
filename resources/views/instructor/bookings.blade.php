@@ -42,7 +42,7 @@
               <td data-label="Payment" class="--category">{{ isset($item->payment->_id) ? $item->payment->_id : '' }}</td>
               <td data-label="Status" class="--status">
                 @php 
-                  if($booking->status == 1){
+                  if($item->status == 1){
                       echo 'Successfull booked';
                   }else{
                       echo 'Unsuccessfull';
