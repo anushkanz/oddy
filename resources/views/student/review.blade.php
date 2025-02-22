@@ -24,11 +24,13 @@
           <form method="POST" action="{{ route('student.review.update') }}">
             @php if($edit){ @endphp
                 <input type='hidden' name='task' value="update"> 
+                <input type='hidden' name='id' value="{{$review->_id}}"> 
             @php }else{  @endphp
                 <input type='hidden' name='task' value="create"> 
+                <input type='hidden' name='id' value="{{$user->_id}}"> 
             @php }  @endphp
             
-            <input type='hidden' name='id' value="{{$user->_id}}"> 
+            
             <input type='hidden' name='booking' value="{{$booking->_id}}"> 
             <input type='hidden' name='course' value="{{$booking->classes->_id}}"> 
             <input type='hidden' name='receiver_id' value="{{$booking->classes->instructor->_id}}"> 
