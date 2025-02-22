@@ -10,10 +10,10 @@
           <div class="flex items-center justify-between">
             <div class="widget-label">
               <h3>
-                Clients
+                Courses
               </h3>
               <h1>
-                512
+                {{count($courses)}}
               </h1>
             </div>
             <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
@@ -25,10 +25,10 @@
           <div class="flex items-center justify-between">
             <div class="widget-label">
               <h3>
-                Sales
+                Bookings
               </h3>
               <h1>
-                $7,770
+              {{count($bookings)}}
               </h1>
             </div>
             <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
@@ -41,10 +41,10 @@
           <div class="flex items-center justify-between">
             <div class="widget-label">
               <h3>
-                Performance
+                Earnings
               </h3>
               <h1>
-                256%
+                ${{$payments}}
               </h1>
             </div>
             <span class="icon widget-icon text-red-500"><i class="mdi mdi-finance mdi-48px"></i></span>
@@ -80,26 +80,6 @@
       </div>
     </div>
 
-    <div class="notification blue">
-      <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
-        <div>
-          <span class="icon"><i class="mdi mdi-buffer"></i></span>
-          <b>Responsive table</b>
-        </div>
-        <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
-      </div>
-    </div>
-
-    <div class="card has-table">
-      <header class="card-header">
-        <p class="card-header-title">
-          <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-          Clients
-        </p>
-        <a href="#" class="card-header-icon">
-          <span class="icon"><i class="mdi mdi-reload"></i></span>
-        </a>
-      </header>
-    </div>
+    
 
 @endsection

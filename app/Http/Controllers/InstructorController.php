@@ -29,9 +29,23 @@ class InstructorController extends Controller
     public function dashboard()
     {
         if(Auth::check()){
-            $user = Auth::user();
-            return view('instructor.dashboard',compact('user'));
-        } 
+            try {
+                $user = Auth::user();
+                $bookings = Booking::where('user_id',$user->_id)->where('status',1)->get();
+                $courses = Classes::where('instructor_id',$user->_id)->get();
+                $payments = 0;
+                foreach($bookings as $booking){
+                    if($booking->classes->instructor_id == $user->_i){
+                        $payment = Payment::where('booking_id',$booking->_id)->firstOrFail();
+                        $payments += $payment->amount;
+                    }
+                }
+                return view('instructor.dashboard',compact('user','courses','bookings','payments'));
+
+            } catch(\Exception $exception) {
+                return redirect()->route('student.error')->with('error-page','Unable to find your request');
+            }    
+        }
     }
 
     /**
