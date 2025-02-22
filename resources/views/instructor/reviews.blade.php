@@ -56,12 +56,11 @@
             <tr>
               <td class="image-cell"></td>
               <td data-label="Name" class="--name">{{$review->receiver->name}}</td>
-              <td data-label="Title" class="--title">{{$review->reviewer->title}}</td>
               <td data-label="Category" class="--category">{{$review->classes->title}}</td>
               <td data-label="Status" class="--status">{{$review->rating}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{ route('administrator.review',[$review->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                  <a href="{{ route('instructor.review',[$review->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
                     <span class="icon"><i class="fa-regular fa-eye"></i></span>
                   </a>
                 </div>
@@ -103,13 +102,12 @@
           @endphp
             <tr>
               <td class="image-cell"></td>
-              <td data-label="Receiver" class="--receiver">{{$review->receiver->name}}</td>
               <td data-label="Reviewer" class="--reviewer">{{$review->reviewer->name}}</td>
               <td data-label="Course" class="--course">{{$review->classes->title}}</td>
               <td data-label="Status" class="--status">{{$review->rating}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{ route('administrator.review',[$review->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                  <a href="{{ route('instructor.review',[$review->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
                     <span class="icon"><i class="fa-regular fa-eye"></i></span>
                   </a>
                 </div>
