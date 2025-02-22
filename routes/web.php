@@ -122,8 +122,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('booking/checkout/{id}', [BookingController::class, 'checkout'])->name('student.booking.checkout'); //$id is booking_id
     Route::post('booking/checkout', [BookingController::class, 'updateCheckout'])->name('student.booking.checkout.update');
     Route::get('booking/status/{id}/{status}', [BookingController::class, 'bookingStatus'])->name('student.booking.status'); //$id is booking_id
-    Route::get('booking/payment/success', [BookingController::class, 'paymentStatus'])->name('student.booking.payment.success'); //$id is booking_id
-
+    Route::get('booking/payment/success', [BookingController::class, 'paymentStatus'])->name('student.booking.payment.success'); //This is for payment return only not using
 
 
 });
