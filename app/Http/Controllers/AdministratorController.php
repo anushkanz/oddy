@@ -29,19 +29,19 @@ class AdministratorController extends Controller
     public function dashboard()
     {
       try {
-        $user = Auth::user();
-        $bookings = Booking::all();
-        $classes = Classes::all();
+          $user = Auth::user();
+          $bookings = Booking::all();
+          $classes = Classes::all();
 
-        $payments = 0;
-        foreach($bookings as $booking){
-            $payment = Payment::where('booking_id',$booking->_id)->firstOrFail();
-            $payments += $payment->amount;
-        }
-        return view('administrator.dashboard',compact('user','classes','bookings','payments'));
-    } catch(\Exception $exception) {
-        return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
-    }  
+          $payments = 0;
+          foreach($bookings as $booking){
+              $payment = Payment::where('booking_id',$booking->_id)->firstOrFail();
+              $payments += $payment->amount;
+          }
+          return view('administrator.dashboard',compact('user','classes','bookings','payments'));
+      } catch(\Exception $exception) {
+          return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+      }  
     }
 
     /**
@@ -258,10 +258,17 @@ class AdministratorController extends Controller
     public function booking(string $id)
     {
       if(Auth::check()){
-        $booking = Booking::find($id);
-        $user = Auth::user();
-        return view('administrator.booking', compact('booking','user'));
-      }
+        try {
+            $booking = Booking::where('_id',$id)->firstOrFail();
+            $course = Classes::where('_id',$booking->class_id)->firstOrFail();
+            $classdates = ClassDate::where('class_id',$booking->class_id)->firstOrFail();
+            $user = Auth::user();
+
+            return view('administrator.booking', compact('booking','user','course','classdates'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+        } 
+      }   
     }
     
     /**
