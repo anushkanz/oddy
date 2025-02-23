@@ -100,7 +100,7 @@
                   </div>
                 </div>
                 <div class="field">
-                  <label class="label">Description</label>
+                  <label class="label">Stripe Return</label>
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
