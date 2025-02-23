@@ -57,7 +57,7 @@
                 <hr>
                 <div class="field">
                     <div class="control">
-                    <a href="submit" class="button green">Submit</a>
+                    <a href="{{route('administrator.payment'),$booking->payment->_id}}" class="button green">See Full Payment</a>
                     </div>
                 </div>
           </div>
