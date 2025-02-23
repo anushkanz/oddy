@@ -104,7 +104,7 @@
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
-                        {{ json_decode($payment->transaction_return,true)  }}
+                        @php print_r(json_decode($payment->transaction_return,true)); @endphp
                       </div>
                     </div>
                   </div>
