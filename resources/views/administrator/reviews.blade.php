@@ -16,12 +16,12 @@
         </a>
       </header>
       <div class="card-content">
-        <table id="courses">
+        <table id="reviews">
           <thead>
           <tr>
             <th></th>
-            <th>Receiver</th>
             <th>Reviewer</th>
+            <th>Receiver</th>
             <th>Course</th>
             <th>Ratings</th>
             <th></th>
@@ -33,9 +33,9 @@
           @endphp
             <tr>
               <td class="image-cell"></td>
-              <td data-label="Name" class="--name">{{$review->review->name}}</td>
-              <td data-label="Title" class="--title">{{$review->classes->title}}</td>
-              <td data-label="Category" class="--category">{{$review->rating}}</td>
+              <td data-label="Reviewer" class="--name">{{$review->reviewer->name}}</td>
+              <td data-label="Receiver" class="--title">{{$review->receiver->name}}</td>
+              <td data-label="Course" class="--category">{{$review->classes->title}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <a href="{{ route('administrator.review',[$review->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
@@ -55,7 +55,7 @@
     <script type="text/javascript">
 
       $(function() {
-          $('#courses').DataTable( {
+          $('#reviews').DataTable( {
               paging: true,
               responsive: true,
               pageLength: 10

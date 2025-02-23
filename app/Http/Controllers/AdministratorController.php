@@ -289,9 +289,13 @@ class AdministratorController extends Controller
     public function reviews()
     {
       if(Auth::check()){
+        try {
           $reviews =  Review::all();
           $user = Auth::user();
           return view('administrator.reviews',compact('reviews','user'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+        } 
       } 
     }
 
@@ -301,9 +305,13 @@ class AdministratorController extends Controller
     public function review(string $id)
     {
       if(Auth::check()){
-          $user = Auth::user();
-          $review = Review::find($id);
-          return view('administrator.review', compact('review','user'));
+          try {
+            $user = Auth::user();
+            $review = Review::find($id);
+            return view('administrator.review', compact('review','user'));
+          } catch(\Exception $exception) {
+              return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+          } 
         
       }
     }

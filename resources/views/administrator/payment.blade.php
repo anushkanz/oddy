@@ -107,7 +107,7 @@
                         @php 
                             echo '<pre>';    
                                 print_r(json_decode($payment->transaction_return,true));
-                            echo '<pre>';
+                            echo '</pre>';
                         @endphp
                       </div>
                     </div>
