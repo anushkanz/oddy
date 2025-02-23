@@ -155,21 +155,7 @@
         </div>
       </div>
 
-      <div class="card">
-        <header class="card-header">
-          <p class="card-header-title">
-            <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
-            Course Image Details
-          </p>
-        </header>
-        <div class="card-content">
-            @foreach(json_decode($course->photo_gallery,true) as $imges)
-              <div class="image">
-                <img src="{{$imges['path']}}">
-              </div>
-            @endforeach 
-        </div>
-      </div>
+      
 
       <div class="card">
         <header class="card-header">
@@ -208,6 +194,21 @@
                 </div>
             </div>
         </div>
+        </div>
+      </div>
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+            Course Image Details
+          </p>
+        </header>
+        <div class="card-content">
+            @foreach(json_decode($course->photo_gallery,true) as $imges)
+              <div class="image">
+                <img src="{{$imges['path']}}">
+              </div>
+            @endforeach 
         </div>
       </div>
     </div>
