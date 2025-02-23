@@ -261,7 +261,7 @@ class AdministratorController extends Controller
         try {
             $booking = Booking::where('_id',$id)->firstOrFail();
             $course = Classes::where('_id',$booking->class_id)->firstOrFail();
-            $classdates = ClassDate::where('class_id',$booking->class_id)->firstOrFail();
+            $classdates = ClassDate::where('class_id',$booking->class_id)->get();
             $user = Auth::user();
 
             return view('administrator.booking', compact('booking','user','course','classdates'));
