@@ -41,7 +41,7 @@ class AdministratorController extends Controller
           }
           return view('administrator.dashboard',compact('user','classes','bookings','payments'));
       } catch(\Exception $exception) {
-          return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+          return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
       }  
     }
 
@@ -56,7 +56,7 @@ class AdministratorController extends Controller
           $user = Auth::user();
           return view('administrator.categories', compact('categories','user'));
         } catch(\Exception $exception) {
-            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
         } 
       }
     }
@@ -72,7 +72,7 @@ class AdministratorController extends Controller
           $user = Auth::user();
           return view('administrator.category', compact('category','user'));
         } catch(\Exception $exception) {
-            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
         } 
       }
     }
@@ -123,7 +123,7 @@ class AdministratorController extends Controller
             return redirect()->route('administrator.categories')->with('success','Category created successfully');
           }
         } catch(\Exception $exception) {
-            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
         } 
         
       }
@@ -140,7 +140,7 @@ class AdministratorController extends Controller
           $user = Auth::user();
           return view('administrator.courses', compact('courses','user')); 
         } catch(\Exception $exception) {
-            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
         } 
       }
     }
@@ -157,7 +157,7 @@ class AdministratorController extends Controller
           $classdates = ClassDate::where('class_id',$id)->get(); 
           return view('administrator.course', compact('course','user','classdates'));
         } catch(\Exception $exception) {
-            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
         } 
       }
     }
@@ -181,7 +181,7 @@ class AdministratorController extends Controller
           $user = Auth::user();
           return view('administrator.payments',compact('payments','user'));
         } catch(\Exception $exception) {
-            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
         } 
       } 
     }
@@ -201,7 +201,7 @@ class AdministratorController extends Controller
 
             return view('administrator.payment', compact('booking','user','course','classdates','payment'));
         } catch(\Exception $exception) {
-            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
         } 
       } 
     }
@@ -226,7 +226,7 @@ class AdministratorController extends Controller
           $user = Auth::user();
           return view('administrator.members',compact('members','user'));
         } catch(\Exception $exception) {
-            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
         } 
       } 
     }
@@ -242,7 +242,7 @@ class AdministratorController extends Controller
           $user = Auth::user();
           return view('administrator.member', compact('member','user'));
         } catch(\Exception $exception) {
-            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
         } 
       } 
     }
@@ -296,7 +296,7 @@ class AdministratorController extends Controller
             $user = Auth::user();
             return view('administrator.bookings',compact('bookings','user'));
           } catch(\Exception $exception) {
-              return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+              return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
           } 
       } 
       
@@ -316,7 +316,7 @@ class AdministratorController extends Controller
 
             return view('administrator.booking', compact('booking','user','course','classdates'));
         } catch(\Exception $exception) {
-            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
         } 
       }   
     }
@@ -332,7 +332,7 @@ class AdministratorController extends Controller
           $user = Auth::user();
           return view('administrator.reviews',compact('reviews','user'));
         } catch(\Exception $exception) {
-            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
         } 
       } 
     }
@@ -348,7 +348,7 @@ class AdministratorController extends Controller
             $review = Review::find($id);
             return view('administrator.review', compact('review','user'));
           } catch(\Exception $exception) {
-              return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+              return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
           } 
         
       }
@@ -413,7 +413,7 @@ class AdministratorController extends Controller
             $user = Auth::user();
             return view('administrator.account',compact('user'));
           } catch(\Exception $exception) {
-              return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+              return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
           } 
       } 
     }
