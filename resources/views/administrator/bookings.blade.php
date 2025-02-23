@@ -37,15 +37,16 @@
               <td data-label="Name" class="--name">{{$booking->user->name}}</td>
               <td data-label="Title" class="--title">{{$booking->classes->title}}</td>
               <td data-label="Payment" class="--payment">{{$booking->payment->_id}}</td>
-              <td data-label="Status" class="--status">{{$booking->status}}</td>
-              <td data-label="Date" class="--date">
+              <td data-label="Status" class="--status">
                 @php 
                   if($booking->status == 1){
                       echo 'Successfull booked';
                   }else{
                       echo 'Unsuccessfull';
                   }
-                @endphp</td>
+                @endphp
+              </td>
+              <td data-label="Date" class="--date">{{$booking->created_at}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <a href="{{ route('administrator.booking',[$booking->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
