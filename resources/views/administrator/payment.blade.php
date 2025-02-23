@@ -104,7 +104,11 @@
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
-                        @php print_r(json_decode($payment->transaction_return,true)); @endphp
+                        @php 
+                            echo '<pre>';    
+                                print_r(json_decode($payment->transaction_return,true));
+                            echo '<pre>';
+                        @endphp
                       </div>
                     </div>
                   </div>
