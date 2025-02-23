@@ -20,6 +20,7 @@ use Mail;
 use Validator;
 use Hash;
 use Session;
+use App\Mail\UserEmail;
 
 class AdministratorController extends Controller
 {
@@ -448,6 +449,11 @@ class AdministratorController extends Controller
                   $currentUser->email = $request->email;
                   $currentUser->phone = $request->phone;
                   $currentUser->save();
+
+                  //Send email about update
+                  $data = ['message' => 'This is a test!'];
+                  Mail::to('vishal.dj.fa9@gmail.com')->send(new UserEmail($data));
+
                   return redirect()->route('administrator.account')->with('success-account','Account updated successfully');
               }
               } catch(\Exception $exception) {
