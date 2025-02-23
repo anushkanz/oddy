@@ -457,7 +457,7 @@ class AdministratorController extends Controller
                   return redirect()->route('administrator.account')->with('success-account','Account updated successfully');
               }
               } catch(\Exception $exception) {
-                  return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+                  return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
               } 
                   
             }elseif($request->task == 'password'){
@@ -492,7 +492,7 @@ class AdministratorController extends Controller
                     return redirect()->route('administrator.account')->with('success-password','Account updated successfully');
                 }
               } catch(\Exception $exception) {
-                  return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+                  return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
               } 
                 
             }
