@@ -174,7 +174,7 @@ class AdministratorController extends Controller
             $classdates = ClassDate::where('class_id',$booking->class_id)->get();
             $user = Auth::user();
 
-            return view('administrator.booking', compact('booking','user','course','classdates','payment'));
+            return view('administrator.payment', compact('booking','user','course','classdates','payment'));
         } catch(\Exception $exception) {
             return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
         } 
