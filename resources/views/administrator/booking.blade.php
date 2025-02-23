@@ -13,6 +13,64 @@
         </header>
           <div class="card-content">
                 <div class="field">
+                  <label class="label">Name</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" autocomplete="on" name="title" value="{{ isset($booking->user->name) ? $booking->user->name: '' }}" class="input" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Date</label>
+                  <div class="control">
+                    <div class="select">
+                      <input type="text" autocomplete="on" name="title" value="{{ $booking->classdate->class_date}} / {{ $booking->classdate->start_at}}" class="input" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Seats</label>
+                  <div class="control">
+                    <div class="select">
+                      <input type="text" autocomplete="on" name="title" value="{{ $booking->seat_count}}" class="input" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Total</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" autocomplete="on" name="price" value="{{ $booking->payment->amount }}" class="input" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Status</label>
+                    <div class="control">
+                      <input type="text" autocomplete="on" name="level" value="{{ $booking->status }}" class="input" disabled>
+                    </div>
+                </div>
+                <hr>
+                <div class="field">
+                    <div class="control">
+                    <a href="submit" class="button green">Submit</a>
+                    </div>
+                </div>
+          </div>
+      </div>
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon"><i class="fa-solid fa-house"></i></span>
+            Course Details
+          </p>
+        </header>
+          <div class="card-content">
+                <div class="field">
                   <label class="label">Course Title</label>
                   <div class="field-body">
                     <div class="field">
