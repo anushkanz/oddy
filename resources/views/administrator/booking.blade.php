@@ -51,13 +51,22 @@
                 <div class="field">
                   <label class="label">Status</label>
                     <div class="control">
-                      <input type="text" autocomplete="on" name="level" value="{{ $booking->status }}" class="input" disabled>
+                    @php 
+                    $status = '';
+                    if($booking->status == 1){
+                        $status = 'Successfull booked';
+                    }else{
+                        $status = 'Unsuccessfull';
+                    }
+                    @endphp
+                      <input type="text" autocomplete="on" name="level" value="{{ $status }}" class="input" disabled>
                     </div>
                 </div>
+                
                 <hr>
                 <div class="field">
                     <div class="control">
-                    <a href="{{route('administrator.payment',[$booking->payment->_id])}}" class="button green">See Full Payment</a>
+                    <a href="{{route('administrator.payment',[$booking->payment->_id])}}" class="button green" target="_blank">See Full Payment</a>
                     </div>
                 </div>
           </div>
@@ -105,7 +114,7 @@
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
-                        <input type="text" autocomplete="on" name="price" value="{{ isset($course->price) ? $course->price : '' }}" class="input" disabled>
+                        <input type="text" autocomplete="on" name="price" value="${{ isset($course->price) ? $course->price : '' }}" class="input" disabled>
                       </div>
                     </div>
                   </div>

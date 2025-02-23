@@ -166,7 +166,19 @@ class AdministratorController extends Controller
      */
     public function payment(string $id)
     {
+      if(Auth::check()){
+        try {
+            $payment = Payment::where('_id',$id)->firstOrFail();
+            $booking = Booking::where('_id',$payment->booking_id)->firstOrFail();
+            $course = Classes::where('_id',$booking->class_id)->firstOrFail();
+            $classdates = ClassDate::where('class_id',$booking->class_id)->get();
+            $user = Auth::user();
 
+            return view('administrator.booking', compact('booking','user','course','classdates','payment'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page','Unable to find your request');
+        } 
+      } 
     }
 
     /**
