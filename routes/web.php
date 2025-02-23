@@ -61,6 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('administrator/account/', [AdministratorController::class, 'account'])->name('administrator.account'); 
     Route::post('administrator/account', [AdministratorController::class, 'updateAccount'])->name('administrator.account.update');
 
+    Route::get('administrator/error', [StudentController::class, 'error'])->name('administrator.error');
+
     /**
      * Instructor
      **/
