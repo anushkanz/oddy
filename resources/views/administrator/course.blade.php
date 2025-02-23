@@ -4,7 +4,6 @@
 
 @section('content')
 
-
 <section class="section main-section">
   <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
       <div class="card">
@@ -138,7 +137,6 @@
           </div>
         <div class="field">
             <label class="label">Date and Time </label>
-            <p class="help">You can delete previously added date and time</p>
             <div class="control">
                 <div id="fieldsUpdateContainer">
                     <ul>
