@@ -40,7 +40,7 @@
               <td data-label="Status" class="--status">{{$booking->status}}</td>
               <td data-label="Date" class="--date">
                 @php 
-                  if($item->status == 1){
+                  if($booking->status == 1){
                       echo 'Successfull booked';
                   }else{
                       echo 'Unsuccessfull';
