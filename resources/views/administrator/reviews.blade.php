@@ -36,6 +36,7 @@
               <td data-label="Reviewer" class="--name">{{$review->reviewer->name}}</td>
               <td data-label="Receiver" class="--title">{{$review->receiver->name}}</td>
               <td data-label="Course" class="--category">{{$review->classes->title}}</td>
+              <td data-label="Ratings" class="--category">{{$review->rating}} Stars</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <a href="{{ route('administrator.review',[$review->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
