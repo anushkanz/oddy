@@ -99,7 +99,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('instructor/qualification/ajaxqualification', [InstructorController::class, 'ajaxQualificationDelete'])->name('instructor.qualificationdelete.ajax');
     Route::post('instructor/qualification', [InstructorController::class, 'updateQualification'])->name('instructor.qualification.update');
 
-    Route::get('booking/payment/generate-pdf/{id}', [BookingController::class, 'generatePDF'])->name('instructor.booking.payment.pdf'); 
+    Route::get('booking/payment/generate-pdf/{id}', [InstructorController::class, 'generatePDF'])->name('instructor.booking.payment.pdf'); 
 
     Route::get('instructor/error', [InstructorController::class, 'error'])->name('instructor.error');
     /**
