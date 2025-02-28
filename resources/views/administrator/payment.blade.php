@@ -48,6 +48,32 @@
                     </div>
                   </div>
                 </div>
+                @php
+                $fee = ($booking->payment->amount * 0.0375)+0.30;
+                //10% admin commission
+                $commission = ($booking->payment->amount - $fee)*0.1;
+                @endphp
+
+                <div class="field">
+                  <label class="label">Stripe Fee</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" autocomplete="on" name="stripefee" value="{{ $fee }}" class="input" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Administrative commission</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" autocomplete="on" name="administrativecommission" value="{{ $commission }}" class="input" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="field">
                   <label class="label">Status</label>
                     <div class="control">
