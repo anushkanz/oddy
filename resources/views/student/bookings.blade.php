@@ -23,9 +23,10 @@
             <th></th>
             <th>Name</th>
             <th>Course</th>
-            <th>Payment Id</th>
+            <th>Seats</th>
             <th>Status</th>
             <th>Date</th>
+            <th></th>
             <th></th>
           </tr>
           </thead>
@@ -37,13 +38,32 @@
               <td class="image-cell"></td>
               <td data-label="Name" class="--name">{{$booking->user->name}}</td>
               <td data-label="Title" class="--title">{{$booking->classes->title}}</td>
-              <td data-label="Category" class="--category">{{$booking->payment->_id}}</td>
-              <td data-label="Status" class="--status">{{$booking->status}}</td>
-              <td data-label="date" class="--date">{{$booking->booking_date}}</td>
+              <td data-label="Seats" class="--seats">{{$booking->seat_count}}</td>
+              <td data-label="Status" class="--status">
+                @php 
+                  if($booking->status == 1){
+                      echo 'Successfull booked';
+                  }else{
+                      echo 'Unsuccessfull';
+                  }
+                @endphp
+              </td>
+              <td data-label="date" class="--date">{{$booking->created_at}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{ route('student.booking',[$booking->_id]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-                    <span class="icon"><i class="fa-regular fa-eye"></i></span>
+                  <a href="{{ route('student.review.create',$booking->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                    <span class="icon">
+                      <i class="fa-solid fa-comment"></i>
+                    </span>
+                  </a>
+                </div>
+              </td>
+              <td class="actions-cell">
+                <div class="buttons right nowrap">
+                  <a href="{{ route('student.booking.payment.pdf',$booking->_id) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                    <span class="icon">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    </span>
                   </a>
                 </div>
               </td>

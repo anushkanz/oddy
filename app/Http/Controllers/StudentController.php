@@ -28,10 +28,20 @@ class StudentController extends Controller
      */
     public function dashboard()
     {
-
         if(Auth::check()){
-            $user = Auth::user();
-            return view('student.dashboard',compact('user'));
+            try {
+                $user = Auth::user();
+                $bookings = Booking::where('user_id',$user->_id)->where('status',1)->get();
+                $reviews = Review::where('reviewer_id',$user->_id)->get();
+                $payments = 0;
+                foreach($bookings as $booking){
+                    $payment = Payment::where('booking_id',$booking->_id)->firstOrFail();
+                    $payments += $payment->amount;
+                }
+                return view('student.dashboard',compact('user','bookings','reviews','payments'));
+            } catch(\Exception $exception) {
+                return redirect()->route('student.error')->with('error-page','Unable to find your request');
+            }    
         }
     }
 
@@ -40,13 +50,13 @@ class StudentController extends Controller
      */
     public function bookings()
     {
-        if(Auth::check()){
+        try {
             $user = Auth::user();
-    
             $bookings =  Booking::where('user_id', $user->_id)->get();
             return view('student.bookings',compact('bookings','user'));
-            
-        } 
+        } catch(\Exception $exception) {
+            return redirect()->route('student.error')->with('error-page','Unable to find your request');
+        }
     }
 
     /**
@@ -54,11 +64,12 @@ class StudentController extends Controller
      */
     public function booking(string $id)
     {
-        if(Auth::check()){
+        try {
             $user = Auth::user();
             $booking = Booking::find($id);
             return view('student.booking', compact('booking','user'));
-            
+        } catch(\Exception $exception) {
+            return redirect()->route('student.error')->with('error-page','Unable to find your request');
         }
     }
 
@@ -67,12 +78,13 @@ class StudentController extends Controller
      */
     public function reviews()
     {
-        if(Auth::check()){
+        try {
             $user = Auth::user();
             $reviews =  Review::where('reviewer_id', $user->_id)->get();
             return view('student.reviews',compact('reviews','user'));
-        
-        } 
+        } catch(\Exception $exception) {
+            return redirect()->route('student.error')->with('error-page','Unable to find your request');
+        }
     }
 
     /**
@@ -80,14 +92,37 @@ class StudentController extends Controller
      */
     public function review(string $id)
     {
-        if(Auth::check()){
+        try {
             $user = Auth::user();
-            $review = Review::find($id);
-            return view('student.review', compact('review','user'));
-            
+            $review = Review::where('_id', $id)->where('reviewer_id', $user->_id)->firstOrFail();
+            $booking = Booking::where('user_id', $user->_id)->where('class_id', $review->class_id)->firstOrFail();
+            $edit = true;
+            return view('student.review', compact('review','user','booking','edit'));
+        } catch(\Exception $exception) {
+            return redirect()->route('student.error')->with('error-page','Unable to find your request');
         }
     }
 
+    public function reviewCreate(string $booking_id)
+    {
+        if(Auth::check()){
+            $edit = false;
+            try {
+                $user = Auth::user();
+                $booking = Booking::where('user_id', $user->_id)->where('_id', $booking_id)->firstOrFail();
+                $review = Review::where('reviewer_id', $user->_id)->where('class_id', $booking->class_id)->firstOrFail();
+                if(!empty($review)){
+                    return redirect()->route('student.review.edit',$review->_id);
+                }else{
+                    return view('student.review.create', compact('booking','user','edit'));
+                }
+            } catch(\Exception $exception) {
+                return redirect()->route('student.error')->with('error-page','Unable to find your request');
+            }    
+        }
+    }
+
+    
     /**
      * Update Reviews function
      */
@@ -96,44 +131,50 @@ class StudentController extends Controller
         if(Auth::check()){
             $user = Auth::user();
                 $validator = Validator::make($request->all(), [
-                    'class_id' => 'required',
                     'rating'  => 'required',
                     'comment'=>'required'
                   ],
                   [
-                    'class_id.required' => 'Your class is Required', 
                     'rating.required' => 'Your rating is Required', 
                     'comment.required'=> 'Your comment is Required', 
                   ]
                 );
                 if ($validator->fails()) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('student.account')->with('error','Unable to validate your data');
+                    return redirect()->route('student.reviews')->with('error-review','Unable to validate your data');
                 }
       
                 if($request->task == 'update'){
-                    $review = Review::find($request->id);
-                    //Get receiver_id id from course
-                    $course = Classes::find($request->class_id);
-                    if($review)
-                    {
-                        $review->receiver_id = $course->_id;
-                        $review->reviewer_id = $user->_id;
-                        $review->class_id = $request->class_id;
-                        $review->rating = $request->rating;
-                        $review->comment = $request->comment;
-                        $review->save();
-                        return redirect()->route('student.reviews')->with('success','Review updated successfully');
+                    try {
+                        $review = Review::find($request->id);
+                        //Get receiver_id id from course
+                        $course = Classes::find($request->course);
+                        if($review)
+                        {
+                            $review->receiver_id = $request->receiver_id;
+                            $review->reviewer_id = $user->_id;
+                            $review->class_id = $request->course;
+                            $review->rating = $request->rating;
+                            $review->comment = $request->comment;
+                            $review->save();
+                            return redirect()->route('student.reviews')->with('success-review','Review updated successfully');
+                        }
+                    } catch(\Exception $exception) {
+                        return redirect()->route('student.error')->with('error-page','Unable to find your request');
                     }
-                }else{
-                    Review::create([
-                        'receiver_id' => $course->_id,
-                        'reviewer_id' => $user->_id,
-                        'class_id' => $request->class_id,
-                        'rating' => $request->rating,
-                        'comment' => $request->comment
-                    ]);
-                    return redirect()->route('student.reviews')->with('success','Review created successfully');
+                }else if($request->task == 'update'){
+                    try {
+                        Review::create([
+                            'receiver_id' => $request->receiver_id,
+                            'reviewer_id' => $user->_id,
+                            'class_id' => $request->course,
+                            'rating' => $request->rating,
+                            'comment' => $request->comment
+                        ]);
+                        return redirect()->route('student.reviews')->with('success-review','Review created successfully');
+                    } catch(\Exception $exception) {
+                        return redirect()->route('student.error')->with('error-page','Unable to find your request');
+                    }
                 }
             
         }
@@ -145,8 +186,12 @@ class StudentController extends Controller
     public function account()
     {
         if(Auth::check()){
-            $user = Auth::user();
-            return view('student.account',compact('user'));
+            try {
+                $user = Auth::user();
+                return view('student.account',compact('user'));
+            } catch(\Exception $exception) {
+                return redirect()->route('student.error')->with('error-page','Unable to find your request');
+            }
         } 
     }
 
@@ -171,7 +216,7 @@ class StudentController extends Controller
                 );
                 if ($validator->fails()) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('student.account')->with('error','Unable to validate your data');
+                    return redirect()->route('student.account')->with('error-account','Unable to validate your data');
                 }
 
                 $files = '';
@@ -189,7 +234,7 @@ class StudentController extends Controller
                     $currentUser->phone = $request->phone;
                     $currentUser->photo_gallery = $files;
                     $currentUser->save();
-                    return redirect()->route('student.account')->with('success','Account updated successfully');
+                    return redirect()->route('student.account')->with('success-account','Account updated successfully');
                 }
             }elseif($request->task == 'password'){
                 $inputs = [
@@ -214,12 +259,12 @@ class StudentController extends Controller
                 $validator = Validator::make( $inputs, $rules );
                 if ( $validator->fails() ) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('student.account')->with('error','Unable to validate your data');
+                    return redirect()->route('student.account')->with('error-password','Unable to validate your data');
                 }else{
                     $currentUser = User::find($request->id);
                     $currentUser->password = \Hash::make($password);
                     $currentUser->update(); //or $currentUser->save();
-                    return redirect()->route('student.account')->with('success','Account updated successfully');
+                    return redirect()->route('student.account')->with('success-password','Account updated successfully');
                 }
             }
         }
@@ -272,6 +317,10 @@ class StudentController extends Controller
         }
 
         return json_encode($arr);
+    }
+
+    public function error(){
+        return view('error.error'); 
     }
 }
  

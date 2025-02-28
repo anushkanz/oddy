@@ -52,9 +52,10 @@
                 <div class="field">
                     <div class="field-body">
                         <div class="field">
+                        <label class="label">Select your class date</label>
                             <div class="control">
                                 <select name="class_date_id" id="class_date_id" class="input" >
-                                <option data-seat="0" value="select_date">Select date</option>
+                                    <option data-seat="0" value="select_date">Select date</option>
                                     @php 
                                         foreach($course_dates as $dates) { 
                                             if($dates->max_capacity != 0){
@@ -67,13 +68,11 @@
                     </div>
                 </div>
                 <div class="field">
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input type="number" min="1" max="" id="seat_count" name="seat_count" class="input" required/>
-                            </div>
-                        </div>
+                    <label class="label">Seats</label>
+                    <div class="control">
+                        <input type="number" min="1" max="" id="seat_count" name="seat_count" class="input" required/>
                     </div>
+                    <p class="help">Required. Number of seats</p>
                 </div>
                
                 
@@ -95,14 +94,15 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <p>Course fee : ${{$booking->classes->price}}</p>
+                                <p>Course fee : <span id="seat_fee_selected" data-fee="{{$booking->classes->price}}"></span>${{$booking->classes->price}}</p>
                                     @php 
                                         $fee_percentage = 0.963; // Change this value to set the desired fee percentage
                                         $payment_processing_fee =  (($booking->classes->price + 0.3)/0.963) - $booking->classes->price;
                                         $charge = round($booking->classes->price + $payment_processing_fee, 2);         
                                     @endphp
-                                <p>Booking fee : ${{round($payment_processing_fee,4)}}</p>
-                                <p>Total : ${{$charge}}
+                                <p>Booking fee : $<span id="booking_fee_select"></span></p>
+                                <p>Seats : <span id="seat_count_select" data-seat=""></span></p>
+                                <p>Total :  <span id="total_select"></span></p>
                                 
                             </div>
                         </div>
@@ -122,17 +122,65 @@
 </form>  
 <script type="text/javascript">
     $(function() {
+        let seatCost = $('#seat_fee_selected').data('fee'); 
+        $("#seat_count").val(1).prop("readonly", true);
+        $("#seat_count_select").html(1);
+        
+        let cost = total_calculation(1,seatCost);
+        $("#total_select").html(cost['printedCost']);
+        $("#booking_fee_select").html(cost['bookingFee']);
+
         $("#class_date_id").change(function () {
             let selectedValue = $(this).find(':selected').attr('data-seat'); 
-            console.log(selectedValue);
-            if(selectedValue == 0){
-                $("#seat_count").val(0).prop("readonly", true);
+            let cost = total_calculation(1,seatCost);
+            $("#total_select").html(cost['printedCost']);
+            $("#booking_fee_select").html(cost['bookingFee']);
+
+            if(selectedValue == 'select_date'){
+                $("#seat_count").val(1).prop("readonly", true);
             }else{
                 $("#seat_count").prop('max',selectedValue); 
                 $("#seat_count").val(1).prop("readonly", false);
+
+                let cost = total_calculation(1,seatCost);
+                $("#total_select").html(cost['printedCost']);
+                $("#booking_fee_select").html(cost['bookingFee']);
             }
-            
         });
+
+
+        $("#seat_count").change(function() { 
+            let selectedValue = $(this).val();  
+            let max = $(this).attr('max');
+            if(parseInt(selectedValue) > parseInt(max) || (parseInt(selectedValue) <= 0)){
+                Swal.fire({
+                    title: "Seat count need to change",
+                    text: "We only have "+max+" seats, we are unable to book "+selectedValue+ " seats. Also seat count must be 1 or more",
+                    icon: "error"
+                });
+                $("#seat_count").val(1);
+                $("#seat_count_select").html(1);
+                let cost = total_calculation(1,seatCost);
+                $("#total_select").html(cost['printedCost']);
+                $("#booking_fee_select").html(cost['bookingFee']);
+            }else{
+
+                $("#seat_count_select").html(selectedValue);
+                let cost = total_calculation(selectedValue,seatCost);
+                $("#total_select").html(cost['printedCost']);
+                $("#booking_fee_select").html(cost['bookingFee']);
+            }
+        }); 
     });
+
+    function total_calculation(seat_count,seat_cost){
+        let feePercentage = parseFloat(0.963);
+        let totalCost = parseFloat(seat_cost) * parseFloat(seat_count);
+        let finalCost = ((parseFloat(totalCost) +parseFloat(0.3))/parseFloat(0.963)) - parseFloat(totalCost); 
+        let printedCost = parseFloat(finalCost) +  parseFloat(totalCost);
+        let return_cal = {'printedCost':printedCost.toFixed(2),'bookingFee':finalCost.toFixed(2)}
+        return return_cal;
+    }
+
 </script>  
 @endsection

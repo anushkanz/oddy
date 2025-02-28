@@ -84,6 +84,29 @@
                   </button>
                 </div>
               </div>
+              <!--Display error/success/warnning-->
+              @if(session('error-account'))
+                <div class="notification red">
+                  <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+                    <div>
+                      <span class="icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                      <b> {{session('error-account')}}</b>
+                    </div>
+                    <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+                  </div>
+                </div>
+              @endif
+              @if(session('success-account'))
+                <div class="notification green">
+                  <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+                    <div>
+                      <span class="icon"><i class="fa-solid fa-check"></i></span>
+                      <b> {{session('success-account')}}</b>
+                    </div>
+                    <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+                  </div>
+                </div>
+              @endif
             </form>
         </div>
       </div>
@@ -171,6 +194,29 @@
               </button>
             </div>
           </div>
+          <!--Display error/success/warnning-->
+          @if(session('error-password'))
+                <div class="notification red">
+                  <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+                    <div>
+                      <span class="icon"><i class="fa-solid fa-circle-exclamation"></i></span>
+                      <b> {{session('error-password')}}</b>
+                    </div>
+                    <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+                  </div>
+                </div>
+              @endif
+              @if(session('success-password'))
+                <div class="notification green">
+                  <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+                    <div>
+                      <span class="icon"><i class="fa-solid fa-check"></i></span>
+                      <b> {{session('success-password')}}</b>
+                    </div>
+                    <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+                  </div>
+                </div>
+              @endif
         </form>
       </div>
     </div>

@@ -7,11 +7,12 @@
         </h1>
     </div>
 </section>
-<form method="POST" action="{{ route('student.booking.checkout.update') }}" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" role="form" class="require-validation">
+<form method="post" action="{{ route('student.booking.checkout.update') }}" data-cc-on-file="false" data-stripe-publishable-key="{{  config('services.stripe.key')  }}" role="form" id="payment-form" class="require-validation">
     @csrf
     <input type='hidden' name='task' value="checkout"> 
     <input type='hidden' name='booking_id' value="{{$booking->_id}}"> 
     <input type='hidden' name='user_id' value="{{$user->_id}}"> 
+    <input type='hidden' name='stripeToken' id="payment-method-id" value=""/>
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
         <div class="card">
             <div class="card-content">
@@ -94,13 +95,8 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                     @php 
-                                        $fee_percentage = 0.963; // Change this value to set the desired fee percentage
-                                        $payment_processing_fee =  (($booking->classes->price + 0.3)/0.963) - $booking->classes->price;
-                                        $charge = round($booking->classes->price + $payment_processing_fee, 2);         
-                                    @endphp
                                 <input type="text" autocomplete="on" name="amountShow" value="{{ $charge }}" class="input" required disabled>
-                                <input type="hidden" autocomplete="on" name="amount" value="{{ $charge }}" class="input" required>
+                                <input type="hidden" autocomplete="on" name="amount" value="{{ $charge }}" class="input">
                             </div>
                         </div>
                     </div>
@@ -120,47 +116,16 @@
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
-                                <input id="cardNumber" type="text" autocomplete="off" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" class="input" maxlength="19" required>
+                                <!-- <input id="cardNumber" autocomplete="off" placeholder="XXXX XXXX XXXX XXXX" class="input card-number" maxlength="19" name="cardNumber" type="text"> -->
+                                <div id="card-element" class="input" name="cardNumber"></div>
                             </div>
                             <p class="help">Required. XXXX XXXX XXXX XXXX</p>
                         </div>
                     </div>
                 </div>
-                <div class="field">
-                <label class="label">CVC</label>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input id="cvcNumber" type="text" autocomplete="off" name="cvc" placeholder="ex. 311" class="input" maxlength="3" required>
-                            </div>
-                            <p class="help">Required. ex. 311</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                <label class="label">Expiration Month</label>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" autocomplete="off" name="expMonth" placeholder="MM" class="input" size='2' required>
-                            </div>
-                            <p class="help">Required.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                <label class="label">Expiration Year</label>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" autocomplete="off" name="expYear" placeholder="YYYY" class="input" size='4' required>
-                            </div>
-                            <p class="help">Required.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field error">
-                    <div class="label">Please correct the errors and try again.</div>
+                
+                <div class="field error hidden alert alert-error">
+                    <div class="label alert-danger alert">Please correct the errors and try again.</div>
                 </div>
                 <hr>
                 <div class="field">
@@ -175,106 +140,60 @@
 
     </div>
 </form>
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script type="text/javascript">
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var stripe = Stripe("{{ config('services.stripe.key') }}"); // Your Stripe Publishable Key
+        var elements = stripe.elements();
 
-$(function() {
-   /*------------------------------------------
-    --------------------------------------------
-    Form Format
-    --------------------------------------------
-    --------------------------------------------*/
-    // Handle Card Number update
-    const inputCardNumber = document.getElementById("cardNumber");
-    inputCardNumber.addEventListener("input", (event) => {
-      //   Remove all non-numeric characters from the input
-      const input = event.target.value.replace(/\D/g, "");
-    
-      // Add a space after every 4 digits
-      let formattedInput = "";
-      for (let i = 0; i < input.length; i++) {
-        if (i % 4 === 0 && i > 0) {
-          formattedInput += " ";
-        }
-        formattedInput += input[i];
-      }
-    
-      inputCardNumber.value = formattedInput;
-      imageCardNumber.innerHTML = formattedInput;
-    });
-    
-    // Handle CCV update
-    const inputCCVNumber = document.getElementById("ccvNumber");
-    
-    inputCCVNumber.addEventListener("input", (event) => {
-      // Remove all non-numeric characters from the input
-      const input = event.target.value.replace(/\D/g, "");
-      inputCCVNumber.value = input;
-      imageCCVNumber.innerHTML = input;
-    });
-
-    /*------------------------------------------
-    --------------------------------------------
-    Stripe Payment Code
-    --------------------------------------------
-    --------------------------------------------*/
-
-    var $form = $(".require-validation");
-    $('form.require-validation').bind('submit', function(e) {
-        var $form = $(".require-validation"),
-        inputSelector = ['input[type=email]', 'input[type=password]','input[type=text]', 'input[type=file]','textarea'].join(', '),
-
-        $inputs = $form.find('.required').find(inputSelector),
-        $errorMessage = $form.find('div.error'),
-        valid = true;
-        $errorMessage.addClass('hidden');
-
-        $('.has-error').removeClass('has-error');
-        $inputs.each(function(i, el) {
-            var $input = $(el);
-            if ($input.val() === '') {
-                $input.parent().addClass('has-error');
-                $errorMessage.removeClass('hidden');
-                e.preventDefault();
+        // Create a Card Element
+        var card = elements.create("card", {
+            hidePostalCode: true,
+            style: {
+                base: {
+                    fontSize: "16px",
+                    color: "#32325d",
+                    fontFamily: "Arial, sans-serif",
+                    "::placeholder": { color: "#aab7c4" }
+                },
+                invalid: { color: "#fa755a" }
             }
         });
-     
-        if (!$form.data('cc-on-file')) {
-            e.preventDefault();
-            Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-            Stripe.createToken({
-                number: $('.card-number').val(),
-                cvc: $('.card-cvc').val(),
-                exp_month: $('.card-expiry-month').val(),
-                exp_year: $('.card-expiry-year').val()
-            }, stripeResponseHandler);
-        }
+
+        // Mount the Card Element inside the div
+        card.mount("#card-element");
+
+        var form = document.getElementById("payment-form");
+        var submitButton = form.querySelector("button[type='submit']");
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            submitButton.disabled = true; // Prevent multiple submissions
+
+            const { paymentMethod, error } = await stripe.createPaymentMethod({
+                type: "card",
+                card: card,
+                billing_details: {
+                    name: document.querySelector("input[name='cardholderName']").value,
+                    email: "{{ $user->email }}",
+                }
+            });
+
+            if (error) {
+                alert(error.message);
+                submitButton.disabled = false; // Re-enable button on error
+            } else {
+                // Append payment method ID to the form and submit
+                var hiddenInput = document.createElement("input");
+                hiddenInput.setAttribute("type", "hidden");
+                hiddenInput.setAttribute("name", "payment_method_id");
+                hiddenInput.setAttribute("value", paymentMethod.id);
+                form.appendChild(hiddenInput);
+
+                form.submit();
+            }
+        });
     });
-
-    /*------------------------------------------
-    --------------------------------------------
-    Stripe Response Handler
-    --------------------------------------------
-    --------------------------------------------*/
-    function stripeResponseHandler(status, response) {
-        if (response.error) {
-            $('.error')
-                .removeClass('hidden')
-                .find('.alert')
-                .text(response.error.message);
-        } else {
-            /* token contains id, last4, and card type */
-            var token = response['id'];
-            $form.find('input[type=text]').empty();
-            $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-            $form.get(0).submit();
-        }
-    }
-    
- 
-});
-
-
-
 </script>
+
 @endsection

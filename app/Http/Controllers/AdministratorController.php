@@ -20,6 +20,7 @@ use Mail;
 use Validator;
 use Hash;
 use Session;
+use App\Mail\UserEmail;
 
 class AdministratorController extends Controller
 {
@@ -28,10 +29,20 @@ class AdministratorController extends Controller
      */
     public function dashboard()
     {
-      if(Auth::check()){
-        $user = Auth::user();
-        return view('administrator.dashboard',compact('user'));
-      }
+      try {
+          $user = Auth::user();
+          $bookings = Booking::all();
+          $classes = Classes::all();
+
+          $payments = 0;
+          foreach($bookings as $booking){
+              $payment = Payment::where('booking_id',$booking->_id)->firstOrFail();
+              $payments += $payment->amount;
+          }
+          return view('administrator.dashboard',compact('user','classes','bookings','payments'));
+      } catch(\Exception $exception) {
+          return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+      }  
     }
 
     /**
@@ -39,11 +50,14 @@ class AdministratorController extends Controller
      */
     public function categories()
     {
-      if(Auth::check()){
-        $categories = Category::all();
-        $user = Auth::user();
-        return view('administrator.categories', compact('categories','user')); 
-      
+      if(Auth::check()){ 
+        try {
+          $categories = Category::all();
+          $user = Auth::user();
+          return view('administrator.categories', compact('categories','user'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+        } 
       }
     }
 
@@ -53,9 +67,13 @@ class AdministratorController extends Controller
     public function category(string $id)
     {
       if(Auth::check()){
-        $category = Category::where('id', $id)->first();
-        $user = Auth::user();
-        return view('administrator.category', compact('category','user'));
+        try {
+          $category = Category::where('id', $id)->first();
+          $user = Auth::user();
+          return view('administrator.category', compact('category','user'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+        } 
       }
     }
 
@@ -66,43 +84,48 @@ class AdministratorController extends Controller
     {
       $url = '/administrator/category/'.$request->id;
       if(Auth::check()){
-        $user = Auth::user();
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'description' => 'required',
-            'slug'=>'required'
-          ],
-          [
-          'name.required' => 'Your name is Required', 
-              'description' => 'Your description is Required', 
-              'slug.required' => 'Your slug is Required'
-          ]
-        );
-
-        if ($validator->fails()) {
-          $error = $validator->errors()->all();  
-          return redirect($url)->with('error-details', $error);
-        }
-
-        if($request->task == 'update'){
-          $category = Category::find($request->id);
-          if($category)
-          {
-            $category->name = $request->name;
-            $category->slug = $request->slug;
-            $category->description = $request->description;
-            $category->save();
-            return redirect()->route('administrator.categories')->with('success','Category updated successfully');
+        try {
+          $user = Auth::user();
+          $validator = Validator::make($request->all(), [
+              'name' => 'required',
+              'description' => 'required',
+              'slug'=>'required'
+            ],
+            [
+            'name.required' => 'Your name is Required', 
+                'description' => 'Your description is Required', 
+                'slug.required' => 'Your slug is Required'
+            ]
+          );
+  
+          if ($validator->fails()) {
+            $error = $validator->errors()->all();  
+            return redirect($url)->with('error-details', $error);
           }
-        }else{
-          Category::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'slug' => $request->slug,
-          ]);
-          //Category::create($request->all());
-          return redirect()->route('administrator.categories')->with('success','Category created successfully');
-        }
+  
+          if($request->task == 'update'){
+            $category = Category::find($request->id);
+            if($category)
+            {
+              $category->name = $request->name;
+              $category->slug = $request->slug;
+              $category->description = $request->description;
+              $category->save();
+              return redirect()->route('administrator.categories')->with('success','Category updated successfully');
+            }
+          }else{
+            Category::create([
+              'name' => $request->name,
+              'description' => $request->description,
+              'slug' => $request->slug,
+            ]);
+            //Category::create($request->all());
+            return redirect()->route('administrator.categories')->with('success','Category created successfully');
+          }
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+        } 
+        
       }
     }
 
@@ -112,9 +135,13 @@ class AdministratorController extends Controller
     public function courses()
     {
       if(Auth::check()){
-        $courses = Classes::all();
-        $user = Auth::user();
-        return view('administrator.courses', compact('courses','user')); 
+        try {
+          $courses = Classes::all();
+          $user = Auth::user();
+          return view('administrator.courses', compact('courses','user')); 
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+        } 
       }
     }
 
@@ -124,9 +151,14 @@ class AdministratorController extends Controller
     public function course(string $id)
     {
       if(Auth::check()){
-        $course = Classes::find($id);
-        $user = Auth::user();
-        return view('administrator.course', compact('course','user'));
+        try {
+          $course = Classes::where('_id',$id)->firstOrFail();
+          $user = Auth::user();
+          $classdates = ClassDate::where('class_id',$id)->get(); 
+          return view('administrator.course', compact('course','user','classdates'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+        } 
       }
     }
 
@@ -144,9 +176,13 @@ class AdministratorController extends Controller
     public function payments()
     {
       if(Auth::check()){
-        $payments =  Payment::all();
-        $user = Auth::user();
-        return view('administrator.payments',compact('payments','user'));
+        try {
+          $payments =  Payment::all();
+          $user = Auth::user();
+          return view('administrator.payments',compact('payments','user'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+        } 
       } 
     }
 
@@ -155,7 +191,19 @@ class AdministratorController extends Controller
      */
     public function payment(string $id)
     {
+      if(Auth::check()){
+        try {
+            $payment = Payment::where('_id',$id)->firstOrFail();
+            $booking = Booking::where('_id',$payment->booking_id)->firstOrFail();
+            $course = Classes::where('_id',$booking->class_id)->firstOrFail();
+            $classdates = ClassDate::where('class_id',$booking->class_id)->get();
+            $user = Auth::user();
 
+            return view('administrator.payment', compact('booking','user','course','classdates','payment'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+        } 
+      } 
     }
 
     /**
@@ -173,9 +221,13 @@ class AdministratorController extends Controller
     public function members()
     {
       if(Auth::check()){
-        $members =  User::all();
-        $user = Auth::user();
-        return view('administrator.members',compact('members','user'));
+        try {
+          $members =  User::all();
+          $user = Auth::user();
+          return view('administrator.members',compact('members','user'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+        } 
       } 
     }
 
@@ -185,9 +237,13 @@ class AdministratorController extends Controller
     public function member(string $id)
     {
       if(Auth::check()){
-        $member = User::find($id);
-        $user = Auth::user();
-        return view('administrator.member', compact('member','user'));
+        try {
+          $member = User::find($id);
+          $user = Auth::user();
+          return view('administrator.member', compact('member','user'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+        } 
       } 
     }
 
@@ -235,10 +291,15 @@ class AdministratorController extends Controller
     public function bookings()
     {
       if(Auth::check()){
-          $bookings =  Booking::all();
-          $user = Auth::user();
-          return view('administrator.bookings',compact('bookings','user'));
+          try {
+            $bookings =  Booking::all();
+            $user = Auth::user();
+            return view('administrator.bookings',compact('bookings','user'));
+          } catch(\Exception $exception) {
+              return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+          } 
       } 
+      
     }
 
     /**
@@ -247,10 +308,17 @@ class AdministratorController extends Controller
     public function booking(string $id)
     {
       if(Auth::check()){
-        $booking = Booking::find($id);
-        $user = Auth::user();
-        return view('administrator.booking', compact('booking','user'));
-      }
+        try {
+            $booking = Booking::where('_id',$id)->firstOrFail();
+            $course = Classes::where('_id',$booking->class_id)->firstOrFail();
+            $classdates = ClassDate::where('class_id',$booking->class_id)->get();
+            $user = Auth::user();
+
+            return view('administrator.booking', compact('booking','user','course','classdates'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+        } 
+      }   
     }
     
     /**
@@ -259,9 +327,13 @@ class AdministratorController extends Controller
     public function reviews()
     {
       if(Auth::check()){
+        try {
           $reviews =  Review::all();
           $user = Auth::user();
           return view('administrator.reviews',compact('reviews','user'));
+        } catch(\Exception $exception) {
+            return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+        } 
       } 
     }
 
@@ -271,9 +343,13 @@ class AdministratorController extends Controller
     public function review(string $id)
     {
       if(Auth::check()){
-          $user = Auth::user();
-          $review = Review::find($id);
-          return view('administrator.review', compact('review','user'));
+          try {
+            $user = Auth::user();
+            $review = Review::find($id);
+            return view('administrator.review', compact('review','user'));
+          } catch(\Exception $exception) {
+              return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+          } 
         
       }
     }
@@ -333,8 +409,12 @@ class AdministratorController extends Controller
     public function account()
     {
       if(Auth::check()){
-          $user = Auth::user();
-          return view('administrator.account',compact('user'));
+          try {
+            $user = Auth::user();
+            return view('administrator.account',compact('user'));
+          } catch(\Exception $exception) {
+              return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+          } 
       } 
     }
 
@@ -346,35 +426,46 @@ class AdministratorController extends Controller
       if(Auth::check()){
         $user = Auth::user();
             if($request->task == 'details'){
-                  $validator = Validator::make($request->all(), [
-                    'name' => 'required',
-                    'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
-                    'phone'=>'required'
-                  ],
-                  [
-                    'name.required' => 'Your First Name is Required', 
-                    'email.required' => 'Your Email is Required', 
-                    'phone.required'=> 'Your phone number is Required', 
-                  ]
-                );
-                if ($validator->fails()) {
-                    $error = $validator->errors()->all();
-                    return redirect()->route('administrator.account')->with('error','Unable to validate your data');
-                }
-                $currentUser = User::find($request->id);
-                if($currentUser)
-                {
-                    $currentUser->name = $request->name;
-                    $currentUser->email = $request->email;
-                    $currentUser->phone = $request->phone;
-                    $currentUser->save();
-                    return redirect()->route('administrator.account')->with('success','Account updated successfully');
-                }
+              try {
+                $validator = Validator::make($request->all(), [
+                  'name' => 'required',
+                  'email'  => 'required|string|email|max:255|unique:users,email,' . $request->id,
+                  'phone'=>'required'
+                ],
+                [
+                  'name.required' => 'Your First Name is Required', 
+                  'email.required' => 'Your Email is Required', 
+                  'phone.required'=> 'Your phone number is Required', 
+                ]
+              );
+              if ($validator->fails()) {
+                  $error = $validator->errors()->all();
+                  return redirect()->route('administrator.account')->with('error-account','Unable to validate your data');
+              }
+              $currentUser = User::find($request->id);
+              if($currentUser)
+              {
+                  $currentUser->name = $request->name;
+                  $currentUser->email = $request->email;
+                  $currentUser->phone = $request->phone;
+                  $currentUser->save();
+
+                  //Send email about update
+                  $data = ['message' => 'This is a test!'];
+                  Mail::to('vishal.dj.fa9@gmail.com')->send(new UserEmail($data));
+
+                  return redirect()->route('administrator.account')->with('success-account','Account updated successfully');
+              }
+              } catch(\Exception $exception) {
+                  return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+              } 
+                  
             }elseif($request->task == 'password'){
+              try {
                 $inputs = [
-                    'old_password'          => $request->password_current,
-                    'password'              => $request->password,
-                    'password_confirmation' => $request->password_confirmation,
+                  'old_password'          => $request->password_current,
+                  'password'              => $request->password,
+                  'password_confirmation' => $request->password_confirmation,
                 ];
                 $rules = [
                     'password_current'    => 'required',
@@ -393,13 +484,17 @@ class AdministratorController extends Controller
                 $validator = Validator::make( $inputs, $rules );
                 if ( $validator->fails() ) {
                     $error = $validator->errors()->all();
-                    return redirect()->route('administrator.account')->with('error','Unable to validate your data');
+                    return redirect()->route('administrator.account')->with('error-password','Unable to validate your data');
                 }else{
                     $currentUser = User::find($request->id);
                     $currentUser->password = \Hash::make($password);
                     $currentUser->update(); //or $currentUser->save();
-                    return redirect()->route('administrator.account')->with('success','Account updated successfully');
+                    return redirect()->route('administrator.account')->with('success-password','Account updated successfully');
                 }
+              } catch(\Exception $exception) {
+                  return redirect()->route('administrator.error')->with('error-page',$exception->getMessage());
+              } 
+                
             }
         }
     } 
