@@ -52,6 +52,7 @@
                 $fee = ($booking->payment->amount * 0.0375)+0.30;
                 //10% admin commission
                 $commission = ($booking->payment->amount - $fee)*0.1;
+                $tutorpayment = $booking->payment->amount - $fee - $commission;
                 @endphp
 
                 <div class="field">
@@ -70,6 +71,16 @@
                     <div class="field">
                       <div class="control">
                         <input type="text" autocomplete="on" name="administrativecommission" value="{{ $commission }}" class="input" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Tutor payment</label>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" autocomplete="on" name="tutorpayment" value="{{ $tutorpayment }}" class="input" disabled>
                       </div>
                     </div>
                   </div>
