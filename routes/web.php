@@ -15,7 +15,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('/registration/{type}', [CustomAuthController::class, 'registration'])->name('login.registration');
     Route::post('/registration/custom_registration', [CustomAuthController::class, 'customRegistration'])->name('login.registration.post');
 
-    Route::get('/forget_password', [CustomAuthController::class, 'forgetPassword'])->name('login.forget_password');
+    Route::get('/reset_password/forget_password', [CustomAuthController::class, 'forgetPassword'])->name('login.forget_password');
     Route::post('/forget_password', [CustomAuthController::class, 'forgetPasswordPost'])->name('login.forget_password.update');
     Route::get('/reset_password/{token}/{email}', [CustomAuthController::class, 'resetPassword'])->name('login.reset_password');
     Route::post('/reset_password', [CustomAuthController::class, 'resetPasswordPost'])->name('login.reset_password.post');

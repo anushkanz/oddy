@@ -49,7 +49,7 @@
               <button type="submit" class="button blue">
                 Login
               </button>
-              <a href="/forget_password" class="button green">
+              <a href="{{route('login.forget_password')}}" class="button green">
                 Forget password
               </a>
               <a href="/registration/student" class="button green">
