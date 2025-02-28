@@ -43,7 +43,7 @@
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
-                        <input type="text" autocomplete="on" name="price" value="{{ $booking->payment->amount }}" class="input" disabled>
+                        <input type="text" autocomplete="on" name="price" value="$ {{ $booking->payment->amount }}" class="input" disabled>
                       </div>
                     </div>
                   </div>
@@ -60,7 +60,7 @@
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
-                        <input type="text" autocomplete="on" name="stripefee" value="{{ $fee }}" class="input" disabled>
+                        <input type="text" autocomplete="on" name="stripefee" value="$ {{ $fee }}" class="input" disabled>
                       </div>
                     </div>
                   </div>
@@ -70,7 +70,7 @@
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
-                        <input type="text" autocomplete="on" name="administrativecommission" value="{{ $commission }}" class="input" disabled>
+                        <input type="text" autocomplete="on" name="administrativecommission" value="$ {{ $commission }}" class="input" disabled>
                       </div>
                     </div>
                   </div>
@@ -80,7 +80,7 @@
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
-                        <input type="text" autocomplete="on" name="tutorpayment" value="{{ $tutorpayment }}" class="input" disabled>
+                        <input type="text" autocomplete="on" name="tutorpayment" value="$ {{ $tutorpayment }}" class="input" disabled>
                       </div>
                     </div>
                   </div>
