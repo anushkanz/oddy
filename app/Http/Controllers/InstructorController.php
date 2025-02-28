@@ -873,4 +873,26 @@ class InstructorController extends Controller
     public function error(){
         return view('error.error'); 
     }
+
+    public function generatePDF(String $id){
+        $user = Auth::user();
+        $booking =  Booking::where('_id', $id)->firstOrFail();
+        $payment = '';
+
+        if($booking->status){
+            $payment = Payment::where('booking_id', $id)->firstOrFail();
+            $fee = ($booking->payment->amount * 0.0375)+0.30;
+            //10% admin commission
+            $commission = ($booking->payment->amount - $fee)*0.1;
+            $tutorpayment = $booking->payment->amount - $fee - $commission;
+        }
+
+        
+
+        $data = ['booking' => $booking,'user'=>$user,'payment'=>$payment,'fee'=>$fee,'fee'=>$fee,'commission'=>$commission,'tutorpayment'=>$tutorpayment];
+        $pdf = PDF::loadView('pdf.booking-pdf-Instructor', $data);
+        $file = $booking->_id.'.pdf';
+        return $pdf->download($file);
+
+    }
 }
