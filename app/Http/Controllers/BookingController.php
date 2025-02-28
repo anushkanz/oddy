@@ -203,7 +203,7 @@ class BookingController extends Controller
 
     public function generatePDF(String $id){
         $user = Auth::user();
-        $booking =  Booking::where('_id', $id)->where('user_id', $user->_id)->firstOrFail();
+        $booking =  Booking::where('_id', $id)->firstOrFail();
         $payment = '';
 
         if($booking->status){
